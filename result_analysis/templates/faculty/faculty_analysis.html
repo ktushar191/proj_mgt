@@ -1,0 +1,2245 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block stylesheet %}
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+    <link rel="stylesheet" href="/static/result_analysis/css/faculty_Analysis_table.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/jszip-3.10.1/dt-2.1.4/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/fc-5.0.1/kt-2.12.1/r-3.0.2/sc-2.4.3/sb-1.8.0/sp-2.3.2/sl-2.0.5/sr-1.4.1/datatables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+    .li-none
+    {
+        list-style-type:none
+    }
+ 
+
+    </style>
+
+{% endblock %}
+ 
+{% block content %}
+
+  <section  id="result_tables" class="mt-lg-5 pt-lg-5">
+   
+    
+    <div  class="formbold-steps container  mt-lg-5">
+   
+      <div class="HeadingDiv">
+        <div class="text-section">
+          Student's Result Analysis
+          <h2 class="mt-lg-4">Performance summary and grade distribution</h2>
+      </div>
+      </div>
+      
+    </div>
+    <hr>
+    <form  id="table_filter" name="table_filter" method="post" action="{% url 'faculty_analysis' %}"  enctype="multipart/form-data">
+      {% csrf_token %}
+    
+    <div class="formbold-input-flex">
+      <div>
+				<label class="formbold-form-label">Select Course <span class="text-danger">*</span></label>
+
+				<select id="course-select" name="course-select"  class="formbold-form-input " data-error-target="course-error" >
+					<option selected="" value="">Select Course</option>
+					{% for cinfo in course_details %}
+					<option value="{{cinfo.id}}">{{cinfo.course_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="course-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+				
+
+		  </div>
+      <div>
+				<label class="formbold-form-label">Select Semester <span class="text-danger">*</span></label>
+
+				<select  id="semester-select" name="semester-select" class="formbold-form-input" data-error-target="semester-error" >
+					<option selected="" value="">Select Semester</option>
+					{% for sinfo in semester_details %}
+					<option value="{{sinfo.id}}">{{sinfo.semester_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="semester-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+			</div>
+      <div>
+        <label class="formbold-form-label">Select Academic Year <span class="text-danger">*</span></label>
+
+        <select id="ay-select" name="ay-select" class="formbold-form-input" data-error-target="ay-error">
+          <option selected="" value="">Select Acad. Year</option>
+          {% for ainfo in acedemic_year %}
+          <option value="{{ainfo.id}}">{{ainfo.ayear}}</option>
+          {% endfor %}
+        </select>
+        <div class="error-container" id="ay-error">
+          <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+          <small class="d-none error-message">Error Message</small>
+        </div>
+      </div>
+      <div>
+        <label class="formbold-form-label">Select Pattern <span class="text-danger">*</span></label>
+
+        <select class="formbold-form-input" name="pattern-select" id="pattern-select" data-error-target="pattern-error">
+          <option selected="" value="">Select Pattern</option>
+          {% for pinfo in pattern %}
+          <option value="{{pinfo.pattern}}">{{pinfo.pattern}}</option>
+          {% endfor %}
+
+        </select>
+        <div class="error-container" id="pattern-error">
+          <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+          <small class="d-none error-message">Error Message</small>
+        </div>
+      </div>
+      <div>
+    
+        <button type="submit" id="searchbtn"  class="formbold-btn">
+        Search
+        <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M 9 2 C 5.1458514 2 2 5.1458514 2 9 C 2 12.854149 5.1458514 16 9 16 C 10.747998 16 12.345009 15.348024 13.574219 14.28125 L 14 14.707031 L 14 16 L 20 22 L 22 20 L 16 14 L 14.707031 14 L 14.28125 13.574219 C 15.348024 12.345009 16 10.747998 16 9 C 16 5.1458514 12.854149 2 9 2 z M 9 4 C 11.773268 4 14 6.2267316 14 9 C 14 11.773268 11.773268 14 9 14 C 6.2267316 14 4 11.773268 4 9 C 4 6.2267316 6.2267316 4 9 4 z"></path>
+        </svg>
+        </button>
+      </div>
+      
+    </div>
+  </form>
+    <hr/>
+  
+    
+    <div id="table_container" class="container-xl container2 d-none">
+        
+      <div class="tabset">
+        <!-- Tab 1 -->
+        <input type="radio" name="tabset" id="tab1" aria-controls="Student's_Marks_Details" checked>
+        <label for="tab1">Student's Marks Details</label>
+        <!-- Tab 2 -->
+        <input type="radio" name="tabset" id="tab2" aria-controls="Grade-wise_Student's_Count">
+        <label for="tab2">Grade-wise Student's Count</label>
+        <!-- Tab 3 -->
+        <input type="radio" name="tabset" id="tab3" aria-controls="Subject-wise_Student_Performance_Summary">
+        <label for="tab3">Subject-wise Results Summary</label>
+        <!-- Tab 4 -->
+        <input type="radio" name="tabset" id="tab4" aria-controls="Exam_Summary_Report">
+        <label for="tab4">Exam Summary Report</label>
+        <!-- Tab 5 -->
+        <input type="radio" name="tabset" id="tab5" aria-controls="Top_Scorers">
+        <label for="tab5">Top Scorers</label>
+        <!-- Tab 6 -->
+        <input type="radio" name="tabset" id="tab6" aria-controls="Graphs">
+        <label for="tab6">Graphs</label>
+       
+        <div class="tab-panels">
+        
+            <section id="Student's_Marks_Details" class="tab-panel">
+              <!-- Students Marks Details Table-->
+                  
+              <div class="card rounded-3"> 
+                  
+                <div class="card-body">
+                    <div class="export-dropdown-container1 d-flex align-items-center justify-content-between">
+                      <h2 class="header-title  text-center mx-auto">Student's Marks Details</h2>
+                      
+                      <select id="more-select-dataTable1" name="more-select" class="more-select-input mr-lg-5" data-table-id="dataTable1">
+                        <option value="" disabled selected hidden>Export</option>
+                        <optgroup label="Export Options">
+                          <option value="copy"> 📋 Copy</option>
+                          <option value="csv"> 📑 CSV</option>
+                          <option value="excel">📊 Excel</option>
+                          <option value="pdf"> 📄 PDF</option>
+                          <option value="print"> 🖨️ Print</option>
+                        </optgroup>  
+                      </select>      
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                      <h4 class="text-center">Course- {{filters.course_name}}&nbsp;&nbsp;&nbsp; Semester- {{filters.sem_name}} &nbsp;&nbsp;&nbsp; Academic Year- {{filters.year_name}}&nbsp;&nbsp;&nbsp; Pattern- {{filters.pattern}}</h4>
+                     
+                    </div>
+                    
+                    <div class="data-tables datatable-primary">
+                        <table id="dataTable1" class="text-center nowrap">
+                          <thead>
+                            <tr>
+                                <th colspan="5">Subject Name</th>
+                                {% for subject_id, subject in filtered_subjects.items %}
+                                    {% if subject_id|is_in_list:ID_OC_SoftSkills %}
+                                        <th colspan="3">{{ subject.subject_name }}</th>
+                                    {% else %}
+                                        <th colspan="4">{{ subject.subject_name }}</th>
+                                    {% endif %}
+                                {% endfor %}
+                                <th colspan="4" rowspan="2"></th>
+                            </tr>
+                            <tr>
+                                <th colspan="5">Subject Code</th>
+                                {% for subject_id, subject in filtered_subjects.items %}
+                                    {% if subject_id|is_in_list:ID_OC_SoftSkills %}
+                                        <th colspan="3">{{ subject.subject_code }}</th>
+                                    {% else %}
+                                        <th colspan="4">{{ subject.subject_code }}</th>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Seat No</th>
+                                <th>Roll No</th>
+                                <th>PRN</th>
+                                <th>Name</th>
+                                {% for subject_id, subject in filtered_subjects.items %}
+                                    {% if subject_id|is_in_list:ID_OC_SoftSkills %}
+                                        <th>INT</th>
+                                        <th>TOT</th>
+                                        <th>GR</th>
+                                    {% else %}
+                                        <th>INT</th>
+                                        <th>UEX</th>
+                                        <th>TOT</th>
+                                        <th>GR</th>
+                                    {% endif %}
+                                {% endfor %}
+                                <th>SGPA-Result</th>
+                                <th>PASS</th>
+                                <th>ATKT-Subject Name</th>
+                                <th>Marksheet</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for user in Int_Ext_Marks %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>W0036-{{ user.user_id }}</td>
+                            <td>{{ user.roll_number}}</td>
+                            <td>858475859585{{ user.sem_id }}</td>
+                            <td>{{ user_full_names|get_item:user.user_id }}</td>
+                        
+                            {% for subject_id, subjects in filtered_subjects.items %}
+                              {% with subject=user.subjects|get_item:subject_id %}
+                                {% if subject %}
+                                  {% if subject_id|add:"0" in ID_OC_SoftSkills %}
+                                    <td>{{ subject.int_marks }}</td>
+                                    <td>{{ subject.tot_marks }}</td>
+                                    <td>
+                                      {% if subject.grade_id in grade_dict %}
+                                          {{ grade_dict|get_item:subject.grade_id }}
+                                      {% else %}
+                                      
+                                      {% endif %}
+                                    </td>
+                                  {% else %}
+                                    <td>{{ subject.int_marks }}</td>
+                                    <td>{{ subject.ext_marks }}</td>
+                                    <td>{{ subject.tot_marks }}</td>
+                                    <td>  {% if subject.grade_id in grade_dict %}
+                                            {{ grade_dict|get_item:subject.grade_id }}
+                                          {% else %}
+                                            
+                                          {% endif %}
+                                    </td>
+                                  {% endif %}
+                                
+                                {% endif %}
+                              {% endwith %}
+                            {% endfor %}
+                        
+                            <td>{{ user.sgpa }}</td>
+                            <td>{{user.status}}</td>
+                            <td>
+                                {% if user.failed_subjects == "N/A" %}
+                                    {{ user.failed_subjects }}
+                                {% elif user.failed_subjects == "All" %}
+                                    {{ user.failed_subjects }}
+                                {% else %}
+                                    {{ user.failed_subjects|join:", " }}
+                                {% endif %} 
+                            </td>
+                            <td>
+                              <a href="/{{ user.marksheet_url }}" target="_blank" data-bs-toggle="tooltip" title="View Marksheet">
+                                <button class="custom_pdf_btn">
+                                  <i class="fa-solid fa-file-pdf"></i>
+                                </button>
+                              </a>
+                            
+                            </td>
+                         
+                          </tr>
+                        {% endfor %}
+                        
+                        </tbody>
+                        </table>
+                    </div>
+                    </div>
+              </div>
+            </section>
+            <section id="Grade-wise_Student's_Count" class="tab-panel">
+                <!-- Grade-wise Student's Count Table-->
+                <div class="card rounded-3">       
+                  <div class="card-body">
+                    <div class="export-dropdown-container2 d-flex align-items-center justify-content-between">
+                      <h2 class="header-title  text-center mx-auto">Grade-wise Student's Count</h2>
+                      
+                      <select id="more-select-dataTable2" name="more-select" class="more-select-input mr-lg-5" data-table-id="dataTable2">
+                        <option value="" disabled selected hidden>Export</option>
+                        <optgroup label="Export Options">
+                          <option value="copy"> 📋 Copy</option>
+                          <option value="csv"> 📑 CSV</option>
+                          <option value="excel">📊 Excel</option>
+                          <option value="pdf"> 📄 PDF</option>
+                          <option value="print"> 🖨️ Print</option>
+                        </optgroup>  
+                      </select>       
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                      <h4 class="text-center">Course- {{filters.course_name}}&nbsp;&nbsp;&nbsp; Semester- {{filters.sem_name}} &nbsp;&nbsp;&nbsp; Academic Year- {{filters.year_name}}&nbsp;&nbsp;&nbsp; Pattern- {{filters.pattern}}</h4>
+                     
+                    </div>
+                     
+                      <div class="data-tables datatable-primary">
+                          <table id="dataTable2" class="text-center nowrap">
+
+                              <thead class="text-capitalize">
+                          
+                                <tr>
+                                  <th rowspan="2" class="align-middle">Subject Name</th>
+                                  <th colspan="8">Grade</th>
+                                  <th rowspan="2" class="align-middle">Total Count</th>
+                              </tr>
+                              <tr>
+                                <th>O</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                                <th>Absent</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                {% for subject_id, subjects in filtered_subjects.items %}
+                                  {% with grade=grade_count|get_item:subject_id %}
+                                    {% if grade %}
+                                          <tr>
+                                            <td>{{subjects.subject_name}}</td>
+                                            <td>{{ grade.10 }}</td>
+                                            <td>{{ grade.11 }}</td>
+                                            <td>{{ grade.12 }}</td>
+                                            <td>{{ grade.13 }}</td>
+                                            <td>{{ grade.14 }}</td>
+                                            <td>{{ grade.15 }}</td>
+                                            <td>{{ grade.16 }}</td>
+                                            <td>{{ grade.17 }}</td>
+                                            <td>{{ grade.Total }}</td>
+                                          </tr>
+                                    {% else %}
+                                          <tr>
+                                            <td>{{subjects.subject_name}}</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                          </tr>
+                                    {% endif %}
+                                     
+                                  {% endwith %}
+                                  
+                                {% endfor %}
+                                  
+                                   
+                    </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
+            </section>
+            <section id="Subject-wise_Student_Performance_Summary" class="tab-panel">
+                <!-- Subject-wise Student Performance SummaryTable-->
+                <div class="card rounded-3">       
+                  <div class="card-body">
+                    <div class="export-dropdown-container3 d-flex align-items-center justify-content-between">
+                      <h2 class="header-title  text-center mx-auto">Subject-wise Student Performance Summary</h2>
+                      
+                      <select id="more-select-dataTable3" name="more-select" class="more-select-input mr-lg-5" data-table-id="dataTable3">
+                        <option value="" disabled selected hidden>Export</option>
+                        <optgroup label="Export Options">
+                          <option value="copy"> 📋 Copy</option>
+                          <option value="csv"> 📑 CSV</option>
+                          <option value="excel">📊 Excel</option>
+                          <option value="pdf"> 📄 PDF</option>
+                          <option value="print"> 🖨️ Print</option>
+                        </optgroup>  
+                      </select>       
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                      <h4 class="text-center">Course- {{filters.course_name}}&nbsp;&nbsp;&nbsp; Semester- {{filters.sem_name}} &nbsp;&nbsp;&nbsp; Academic Year- {{filters.year_name}}&nbsp;&nbsp;&nbsp; Pattern- {{filters.pattern}}</h4>
+                     
+                    </div>
+                     
+                      <div class="data-tables datatable-primary">
+                          <table id="dataTable3" class="text-center nowrap"> 
+
+                              <thead class="text-capitalize">
+                          
+                                <tr>
+                                
+                                  <th colspan="5">Subjectwise Analysis</th>
+                                  <th colspan="3"></th>
+                                </tr>
+                              <tr>
+                                <th>Sr.No</th>
+                                <th>Faculty Name</th>
+                                <th>Subject Name</th>
+                                <th>No. of Students Appeared</th>
+                                <th>No. of Students Passed</th>
+                                <th>No. of Students Fail</th>
+                                <th>No of Students Absent</th>
+                                <th>Subject wise Passed Percentage </th>
+                            
+                              </tr>
+                          
+                                
+                              </thead>
+                              <tbody >
+                                {% for subject_id, subject in filtered_subjects.items %}
+                                  {% with performance=subject_performance|get_item:subject_id %}
+                                      {% if performance %}
+
+                                          <tr>
+                                          <td>{{ forloop.counter }}</td>
+                                          <td>{{performance.faculty_name}}</td>
+                                          <td>{{subject.subject_name}}</td>
+                                          <td>{{performance.students_appeared}}</td>
+                                          <td>{{performance.students_passed}}</td>
+                                          <td>{{performance.students_failed}}</td>
+                                          <td>{{performance.students_absent}}</td>
+                                          <td>{{performance.pass_percentage}}%</td>
+                                          </tr >
+                                      {% endif %}
+                                  {% endwith %}
+                                {% endfor %}
+                                  
+                                                         
+                            </tbody>
+                            </table>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <section id="Exam_Summary_Report" class="tab-panel">
+              <!-- Summary of Exam Performance and Attendance Metrics Table-->
+              <div class="card rounded-3">       
+                <div class="card-body">
+                  <div class="export-dropdown-container4 d-flex align-items-center justify-content-between">
+                    <h2 class="header-title  text-center mx-auto">Summary of Exam Performance and Attendance Metrics</h2>
+                    
+                    <select id="more-select-dataTable4" name="more-select" class="more-select-input mr-lg-5" data-table-id="dataTable4">
+                      <option value="" disabled selected hidden>Export</option>
+                      <optgroup label="Export Options">
+                        <option value="copy"> 📋 Copy</option>
+                        <option value="csv"> 📑 CSV</option>
+                        <option value="excel">📊 Excel</option>
+                        <option value="pdf"> 📄 PDF</option>
+                        <option value="print"> 🖨️ Print</option>
+                      </optgroup>  
+                    </select>        
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center">
+                    <h4 class="text-center">Course- {{filters.course_name}}&nbsp;&nbsp;&nbsp; Semester- {{filters.sem_name}} &nbsp;&nbsp;&nbsp; Academic Year- {{filters.year_name}}&nbsp;&nbsp;&nbsp; Pattern- {{filters.pattern}}</h4>
+                   
+                  </div>
+                  
+                    <div class="data-tables datatable-primary">
+                        <table id="dataTable4" class="text-center nowrap">
+
+                            <thead class="text-capitalize">
+                        
+                              <tr>
+                                <th>Exam Performance and Attendance Overview</th>
+                                <th></th>
+                              </tr>                                           
+                            </thead>
+                            <tbody>
+                                        <tr>
+                                            <td> <b>Total No of Student appeared for Exam </b></td>
+                                            <td width="25%">{{exam_performance.total_appeared}}</td>
+                                        </tr>
+                                          <tr>
+                                            <td><b>Total No of Pass Students</b></td>
+                                            <td width="25%">{{exam_performance.total_passed}}</td>
+                                        </tr>
+                                        <tr>
+                                          <td><b>Total No of Fail Students</b></td>
+                                          <td width="25%">{{exam_performance.total_failed}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td><b>Total No. of Absent Students</b></td>
+                                        <td width="25%">{{exam_performance.total_absent}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td><b>Pass With ATKT</b></td>
+                                      <td width="25%">{{exam_performance.total_fail_with_atkt}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Total Passing %</b></td>
+                                    <td width="25%">{{exam_performance.pass_percentage}}%</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Passing with ATKT %</b></td>
+                                  <td width="25%">{{exam_performance.pass_with_atkt_percentage}}%</td>
+                              </tr>
+                                                  
+                 
+                          </tbody>
+                          </table>
+                          </div>
+                      </div>
+                    </div>
+            </section>
+            <section id="Top_Scorers" class="tab-panel">
+            
+                    <h2 class="header-title  text-center">Semester Topper Rankings</h2>
+                    <div class="d-flex align-items-center justify-content-center">
+                      <h4 class="text-center">Course- {{filters.course_name}}&nbsp;&nbsp;&nbsp; Semester- {{filters.sem_name}} &nbsp;&nbsp;&nbsp; Academic Year- {{filters.year_name}}&nbsp;&nbsp;&nbsp; Pattern- {{filters.pattern}}</h4>
+                     
+                    </div>
+                    <div class="js-container container-fire container" style="top:0px !important;">
+                    
+                        <div class="pricing">
+                          <div class="plan">
+                            {% for topranker in top_rankers %}
+                                  {% if topranker.rank == 2 %}
+                                      <img src="{{topranker.image_main_url}}" alt="Admin" class="rounded-circle" height="150" width="150">
+                                  {% endif %}
+                            {% endfor %}
+                            <div class="price">
+                              {% for topranker in top_rankers %}
+                                  {% if topranker.rank == 2 %}
+                                      <h2>{{topranker.full_name}}</h2>
+                                      <h2>{{topranker.course_name}}-{{topranker.semester_name}}</h2>
+                                      <h3>{{topranker.academic_year}}</h3>
+                                      <h2>S.G.P.A- &nbsp;<b>{{topranker.sgpa}}</b></h2>
+                                  {% endif %}
+                              {% endfor %}
+                            </div>
+                            <div class="quiz-medal">
+                              <div class="quiz-medal__circle quiz-medal__circle--silver">
+                                <span>
+                                  2
+                                </span>
+                              </div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div>
+                            </div>
+                            <div class="ribbon-tag"> 2nd Rank
+                              </div>
+                          </div>
+                          <div class="plan popular">
+                            <span id="rankheading">Top Performer</span>
+                            {% for topranker in top_rankers %}
+                                {% if topranker.rank == 1 %}
+                                    <img src="{{topranker.image_main_url}}" alt="Admin" class="rounded-circle" height="150" width="150">
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="price">
+                              {% for topranker in top_rankers %}
+                                  {% if topranker.rank == 1 %}
+                                      <h2>{{topranker.full_name}}</h2>
+                                      <h2>{{topranker.course_name}}-{{topranker.semester_name}}</h2>
+                                      <h3>{{topranker.academic_year}}</h3>
+                                      <h2>S.G.P.A- &nbsp;<b>{{topranker.sgpa}}</b></h2>
+                                  {% endif %}
+                              {% endfor %}
+                             
+                            </div>
+                            <div class="quiz-medal">
+                              <div class="quiz-medal__circle quiz-medal__circle--gold">
+                                <span>
+                                  1
+                                </span>
+                              </div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div>
+                            </div>
+                            <div class="ribbon-tag"> 1st Rank
+                            
+                            </div>
+                          </div>
+                          <div class="plan">
+                            {% for topranker in top_rankers %}
+                                  {% if topranker.rank == 3 %}
+                                      <img src="{{topranker.image_main_url}}" alt="Admin" class="rounded-circle" height="150" width="150">
+                                  {% endif %}
+                            {% endfor %}
+                            <div class="price">
+                              {% for topranker in top_rankers %}
+                                  {% if topranker.rank == 3 %}
+                                      <h2>{{topranker.full_name}}</h2>
+                                      <h2>{{topranker.course_name}}-{{topranker.semester_name}}</h2>
+                                      <h3>{{topranker.academic_year}}</h3>
+                                      <h2>S.G.P.A- &nbsp;<b>{{topranker.sgpa}}</b></h2>
+                                  {% endif %}
+                              {% endfor %}
+                            </div>
+                            <div class="quiz-medal">
+                              <div class="quiz-medal__circle quiz-medal__circle--bronze">
+                                <span>
+                                  3
+                                </span>
+                              </div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--left"></div>
+                              <div class="quiz-medal__ribbon quiz-medal__ribbon--right"></div>
+                          </div>
+                            <div class="ribbon-tag">  3rd Rank 
+                              </div>
+                          </div>
+                        
+                        </div>
+                    
+                    </div>
+
+              
+
+            </section>
+            <section id="Graphs" class="tab-panel">
+              <!-- Graphs-->
+              <h2 class="header-title  text-center">Visual Analysis of Student Academic Results</h2>  
+              <div class="scrollable-div pr-3">       
+                  <div class="card mb-5">
+                    <div class="card-header text-center">
+                        <b>Student's Subjectwise Marks</b>   
+                    </div>
+                    <button id="backButton" style="display: none;" title="Back to Total Marks Chart"><i class="fa-solid fa-circle-arrow-left"></i> Back</button>
+                    <canvas id="subjectwise_marks" height="400"></canvas>
+                    <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                      <button onclick="zoomIn('subjectwise_marks')" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                      <button onclick="zoomOut('subjectwise_marks')" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                      <button onclick="resetZoom('subjectwise_marks')" title="Reset Zoom"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                      <button onclick="downloadChart('subjectwise_marks')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="card  mb-5">
+                    <div class="card-header text-center">
+                        <b>Student's SGPA according to Roll No</b>   
+                    </div>
+                   
+                    <canvas id="sgpa_chart" height="400"></canvas>
+                    <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                      <button onclick="zoomIn('sgpa_chart')" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                      <button onclick="zoomOut('sgpa_chart')" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                      <button onclick="resetZoom('sgpa_chart')" title="Reset Zoom"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                      <button onclick="downloadChart('sgpa_chart')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="card w-50 mb-5 mr-2">
+                      <div class="card-header text-center">
+                          <b>Grade-wise Student's Count</b>   
+                      </div>
+                      
+                      <canvas id="student_count_gradewise"></canvas>
+                      <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                        
+                        <button onclick="downloadChart('student_count_gradewise')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                        
+                      </div>
+                    </div>
+                    <div class="card w-50 mb-5 ml-2">
+                      <div class="card-header text-center">
+                          <b>Subject-wise Passed Percentage</b>   
+                      </div>
+                     
+                      <canvas id="subjectwise_passed_percentage"></canvas>
+                      <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                        
+                        <button onclick="downloadChart('subjectwise_passed_percentage')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="card  mb-5">
+                    <div class="card-header text-center">
+                        <b>Subject-wise Student Performance Summary</b>   
+                    </div>
+                   
+                    <canvas id="subjectwise_student_performance_summary" height="400"></canvas>
+                    <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                      <button onclick="zoomIn('subjectwise_student_performance_summary')" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                      <button onclick="zoomOut('subjectwise_student_performance_summary')" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                      <button onclick="resetZoom('subjectwise_student_performance_summary')" title="Reset Zoom"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                      <button onclick="downloadChart('subjectwise_student_performance_summary')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                      
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="card w-50 mb-5 mr-2">
+                      <div class="card-header text-center">
+                          <b>Summary of Exam Performance and Attendance Metrics</b>   
+                      </div>
+                     
+                      <canvas id="exam_performance_summary"></canvas>
+                      <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                       
+                        <button onclick="downloadChart('exam_performance_summary')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                        
+                      </div>
+                    </div>
+                    <div class="card w-50 card-custom-height mb-5 ml-2">
+                      <div class="card-header text-center">
+                          <b>Semester Topper Rankings</b>   
+                      </div>
+                    
+                      <canvas id="semester_topper_rankings"></canvas>
+                      <div class="canvas_btn mt-lg-2 mb-lg-3 d-flex justify-content-end">
+                        <button onclick="zoomIn('semester_topper_rankings')" title="Zoom In"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                        <button onclick="zoomOut('semester_topper_rankings')" title="Zoom Out"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                        <button onclick="resetZoom('semester_topper_rankings')" title="Reset Zoom"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+                        <button onclick="downloadChart('semester_topper_rankings')" title="Download Chart"><i class="fa-solid fa-file-arrow-down"></i></button>
+                        
+                      </div>
+                    </div>
+                  </div>
+               
+              </div>
+            </section>
+          
+        </div>
+        
+      </div>
+
+   
+
+    </div>
+    <div class="iims_background d-flex justify-content-center align-items-center"> 
+      <div class="search_div">
+        <h2 class="fw-bolder text-center ">Search Student's Result Details</h2>
+        <img src="/static/result_analysis/images/SearchData.svg" alt="Search Image" />
+      </div>
+      <div class="No_data_found_div d-none">
+        <h2 class="fw-bolder text-center ">No Data Found!</h2>
+        <img src="/static/result_analysis/images/No data-cuate.svg" alt="No Data Image" />
+      </div>
+     
+    </div>
+</section>
+
+  
+
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/dashboard1/jquery.min.js"></script>
+    <script src="/static/js/dashboard1/popper.js"></script>
+    <script src="/static/js/dashboard1/bootstrap.min.js"></script>
+    <script src="/static/js/dashboard1/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/jszip-3.10.1/dt-2.1.4/b-3.1.1/b-colvis-3.1.1/b-html5-3.1.1/b-print-3.1.1/fc-5.0.1/kt-2.12.1/r-3.0.2/sc-2.4.3/sb-1.8.0/sp-2.3.2/sl-2.0.5/sr-1.4.1/datatables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@1.2.1"></script> 
+
+    <script type="text/javascript">      
+      $(document).ready(function() {    
+        
+        var subjectDetails = {{ subject_details|safe }};
+        var student_data = {{ student_data|safe }}; 
+        var course_and_ay_id_details = {{ course_and_ay_id_details|safe }};        
+        var courseSelect = document.getElementById("course-select");
+        var semesterSelect = document.getElementById("semester-select");
+        var aySelect = document.getElementById("ay-select");
+        var subSelect = document.getElementById("subject-select");
+        var patternSelect = document.getElementById("pattern-select");
+        var Int_Ext_Marks = {{ Int_Ext_Marks|safe }};
+        var filters = {{ filters|safe }};
+        var filtered_subjects={{filtered_subjects|safe}};
+        var ID_OC_SoftSkills={{ID_OC_SoftSkills|safe}};
+        console.log(Int_Ext_Marks);
+       
+        function validateForm(event) {
+          var isValid = true;
+           // Clear previous errors
+           clearErrors();
+          if ($('#course-select').val() === "" ) {
+            isValid = false;
+             setError(courseSelect,"Course is required.");
+          }
+          if ($('#semester-select').val() === "") {
+            isValid = false;
+            setError(semesterSelect,"Semester is required.");
+          }
+          if ($('#ay-select').val() === "") {
+            isValid = false;
+            setError(aySelect,"Academic Year is required.");
+          }
+        
+          if ($('#pattern-select').val() === "") {
+            isValid = false;
+            setError(patternSelect,"Pattern is required.");
+          }
+           // If the form is not valid, prevent submission
+         if (!isValid) {
+            $('#overlay').hide();
+            event.preventDefault();  // Prevent form submission
+          }
+          $('#overlay').hide(); 
+          return isValid;
+        }
+        function clearErrors() {
+          $('.error-container small').addClass('d-none').text('');
+          $('.error-container i').addClass('d-none');
+         
+      }
+      
+        function setError(input,message){
+          const formControl=input.parentElement;
+          const error_msg=formControl.querySelector('small');
+          const err_icon=formControl.querySelector('i');
+          error_msg.innerText=message;
+          $('.error-container').removeClass('d-none');
+          err_icon.classList.remove("d-none");
+          error_msg.classList.remove("d-none");
+          
+        }
+        $('#course-select, #semester-select,#pattern-select, #ay-select').change(function() {
+          var errorTarget = $(this).data('error-target');
+          $('#' + errorTarget).addClass('d-none');
+        });
+
+       if (Int_Ext_Marks && typeof Int_Ext_Marks === 'object' && Object.keys(Int_Ext_Marks).length === 0){
+              
+          $('.search_div').addClass('d-none').hide();
+          $('.No_data_found_div').removeClass('d-none').show();
+          $('#table_container').addClass('d-none').hide();
+          
+          } else {
+              $('.iims_background').addClass('d-none').hide();
+              $('.search_div').addClass('d-none').hide();
+              $('.No_data_found_div').addClass('d-none').hide();
+              $('#table_container').removeClass('d-none').show();
+            } 
+                  
+       $('#table_filter').on('submit', function(event) {
+        $("#overlay").show();
+        
+        return validateForm(event);
+      }); 
+
+
+      $('#sidebarCollapse').on('click', function () {
+        var $tableContainer = $('#table_container');
+        var $result_tables = $('#result_tables');
+    
+        // Check if the sidebar has the 'active' class (closed state)
+        if ($('#sidebar').hasClass('active')) {
+            // Sidebar is closed, switch to container-fluid
+            $tableContainer.removeClass('container-xl').addClass('container-fluid');
+            $result_tables.addClass('pl-lg-5 pr-lg-5');
+           
+        } else {
+            // Sidebar is open, switch to container-xl
+            $tableContainer.removeClass('container-fluid').addClass('container-xl');
+            $result_tables.removeClass('pl-lg-5 pr-lg-5');
+            
+        }
+        
+       
+    });
+
+      //Tab1 already checked 
+        // Check if DataTable has already been initialized
+        if (!$.fn.DataTable.isDataTable('#dataTable1')) {
+          // Initialize DataTable when tab is shown
+          globalThis.table1 = $('#dataTable1').DataTable({
+            "pagingType": "full_numbers", // Use 'simple' pagination (Previous and Next buttons)
+            //"pageLength": 8,// Display 7 rows per page
+            "lengthChange": true, // Hide the 'entries per page' dropdown
+            "scrollX": true, // Enable horizontal scrolling
+            "scrollCollapse": true, // Collapse the table height when fewer rows are displayed
+            "fixedColumns": {
+                "leftColumns": 5 // Fix the first two columns
+            }, 
+            "language": {
+                "paginate": {
+                  "previous": "Previous",
+                  "next": "Next"
+                        
+                }
+            }, 
+            "autoWidth": true, // Automatically adjust column width based on content
+            buttons: [
+                        {
+                            extend: 'copy',
+                            className: 'buttons-copy',
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'buttons-csv',
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'buttons-excel',
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'buttons-pdf',
+                            orientation: 'landscape', // PDF landscape orientation
+                            pageSize: 'A4',
+                        },
+                        {
+                            extend: 'print',
+                            className: 'buttons-print',
+                        }
+                    ],
+          });
+          // Append the buttons to the DOM
+          table1.buttons().container().appendTo('.export-dropdown-container1');  
+      } else {
+          // Adjust columns after the tab is shown
+          $('#dataTable1').DataTable().columns.adjust().draw();
+      } 
+
+    // Initialize DataTable after the tab is clicked
+    $('input[name="tabset"]').change(function() {
+        //Tab2 is checked
+        if ($('#tab2').is(':checked')) {
+          // Check if DataTable has already been initialized
+          if (!$.fn.DataTable.isDataTable('#dataTable2')) {
+              // Initialize DataTable when tab is shown
+              globalThis.table2 = $('#dataTable2').DataTable({
+                 "pagingType": "full_numbers", // Use 'simple' pagination (Previous and Next buttons)
+                  "lengthChange": true, // Hide the 'entries per page' dropdown
+                  "scrollCollapse": true, // Collapse the table height when fewer rows are displayed
+                  "language": {
+                      "paginate": {
+                        "previous": "Previous",
+                        "next": "Next"
+                              
+                      }
+                  }, 
+                  "autoWidth": true, // Automatically adjust column width based on content
+                  "columnDefs": [
+                      { "orderable": false, "targets": 0 } // Disable sorting for the first column (index 0)
+                  ],
+                  "order": [], // Prevent default ordering
+                    buttons: [
+                        {
+                            extend: 'copy',
+                            className: 'buttons-copy',
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'buttons-csv',
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'buttons-excel',
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'buttons-pdf',
+                            orientation: 'landscape', // PDF landscape orientation
+                            pageSize: 'A4',
+                        },
+                        {
+                            extend: 'print',
+                            className: 'buttons-print',
+                        }
+                    ],
+                });
+
+
+                // Append the buttons to the DOM
+                table2.buttons().container().appendTo('.export-dropdown-container2');
+              
+              // Trigger column adjustment and re-draw after showing the tab
+              setTimeout(function() {
+                  table2.columns.adjust().draw(); 
+              }, 200); // Small delay to allow the tab to fully display
+          } else {
+              // Adjust columns after the tab is shown
+              $('#dataTable2').DataTable().columns.adjust().draw();
+          }
+      }
+      if ($('#tab3').is(':checked')) {
+          // Check if DataTable has already been initialized
+          if (!$.fn.DataTable.isDataTable('#dataTable3')) {
+              // Initialize DataTable when tab is shown
+              globalThis.table3 = $('#dataTable3').DataTable({
+                  "pagingType": "full_numbers",
+                  "lengthChange": true,
+                  "scrollX": true,
+                  "scrollCollapse": true,
+                  "fixedColumns": {
+                      "leftColumns": 3 // Fix the first 3 columns
+                  },
+                  "language": {
+                      "paginate": {
+                          "previous": "Previous",
+                          "next": "Next"
+                      }
+                  },
+                  "autoWidth": true,
+                  buttons: [
+                        {
+                            extend: 'copy',
+                            className: 'buttons-copy',
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'buttons-csv',
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'buttons-excel',
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'buttons-pdf',
+                            orientation: 'landscape', // PDF landscape orientation
+                            pageSize: 'A4',
+                        },
+                        {
+                            extend: 'print',
+                            className: 'buttons-print',
+                        }
+                    ],
+              });
+
+              // Append the buttons to the DOM
+              table3.buttons().container().appendTo('.export-dropdown-container3');
+              
+              // Trigger column adjustment and re-draw after showing the tab
+              setTimeout(function() {
+                  table3.columns.adjust().draw(); 
+              }, 200); // Small delay to allow the tab to fully display
+          } else {
+              // Adjust columns after the tab is shown
+              $('#dataTable3').DataTable().columns.adjust().draw();
+          }
+      }
+            //Tab4 is checked
+        if ($('#tab4').is(':checked')) {
+          // Check if DataTable has already been initialized
+          if (!$.fn.DataTable.isDataTable('#dataTable4')) {
+              // Initialize DataTable when tab is shown
+              globalThis.table4 = $('#dataTable4').DataTable({
+                 "pagingType": "full_numbers", // Use 'simple' pagination (Previous and Next buttons)
+                  "lengthChange": true, // Hide the 'entries per page' dropdown
+                  "scrollCollapse": true, // Collapse the table height when fewer rows are displayed
+                  "language": {
+                      "paginate": {
+                        "previous": "Previous",
+                        "next": "Next"
+                              
+                      }
+                  }, 
+                  "autoWidth": true, // Automatically adjust column width based on content
+                  "columnDefs": [
+                      { "orderable": false, "targets": 0 } // Disable sorting for the first column (index 0)
+                  ],
+                  "order": [], // Prevent default ordering
+                  buttons: [
+                        {
+                            extend: 'copy',
+                            className: 'buttons-copy',
+                        },
+                        {
+                            extend: 'csv',
+                            className: 'buttons-csv',
+                        },
+                        {
+                            extend: 'excel',
+                            className: 'buttons-excel',
+                        },
+                        {
+                            extend: 'pdf',
+                            className: 'buttons-pdf',
+                            orientation: 'landscape', // PDF landscape orientation
+                            pageSize: 'A4',
+                        },
+                        {
+                            extend: 'print',
+                            className: 'buttons-print',
+                        }
+                    ],
+              });
+              // Append the buttons to the DOM
+              table4.buttons().container().appendTo('.export-dropdown-container4');
+              
+              // Trigger column adjustment and re-draw after showing the tab
+              setTimeout(function() {
+                  table4.columns.adjust().draw(); 
+              }, 200); // Small delay to allow the tab to fully display
+          } else {
+              // Adjust columns after the tab is shown
+              $('#dataTable4').DataTable().columns.adjust().draw();
+          }
+      }
+         //Tab5 is checked
+      if ($('#tab5').is(':checked')) {
+         
+        if (!window.confettiful) {
+          const Confettiful = function (el) {
+            this.el = el;
+            this.containerEl = null;
+          
+            this.confettiFrequency = 3;
+            this.confettiColors = ['#EF2964', '#00C09D', '#2D87B0', '#48485E', '#EFFF1D'];
+            this.confettiAnimations = ['slow', 'medium', 'fast'];
+          
+            this._setupElements();
+            this._renderConfetti();
+          };
+          
+          Confettiful.prototype._setupElements = function () {
+            const containerEl = document.createElement('div');
+            const elPosition = this.el.style.position;
+          
+            if (elPosition !== 'relative' || elPosition !== 'absolute') {
+              this.el.style.position = 'relative';
+            }
+          
+            containerEl.classList.add('confetti-container');
+          
+            this.el.appendChild(containerEl);
+          
+            this.containerEl = containerEl;
+          };
+          
+          Confettiful.prototype._renderConfetti = function () {
+            this.confettiInterval = setInterval(() => {
+              const confettiEl = document.createElement('div');
+              const confettiSize = Math.floor(Math.random() * 3) + 7 + 'px';
+              const confettiBackground = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
+              const confettiLeft = Math.floor(Math.random() * this.el.offsetWidth) + 'px';
+              const confettiAnimation = this.confettiAnimations[Math.floor(Math.random() * this.confettiAnimations.length)];
+          
+              confettiEl.classList.add('confetti', 'confetti--animation-' + confettiAnimation);
+              confettiEl.style.left = confettiLeft;
+              confettiEl.style.width = confettiSize;
+              confettiEl.style.height = confettiSize;
+              confettiEl.style.backgroundColor = confettiBackground;
+          
+              confettiEl.removeTimeout = setTimeout(function () {
+                confettiEl.parentNode.removeChild(confettiEl);
+              }, 3000);
+          
+              this.containerEl.appendChild(confettiEl);
+            }, 25);
+          };
+          window.confettiful = new Confettiful(document.querySelector('.js-container'));
+         
+          
+        }
+        
+      }
+
+      function GetTableData(table_id) {
+        let table_data = [];
+      
+        // Select the table by ID
+        let table = document.getElementById(table_id);
+      
+        // Store the header row data as an array
+        let headerRow = [];
+        for (let j = 0; j < table.rows[0].cells.length; j++) {
+          headerRow.push(table.rows[0].cells[j].innerText);
+        }
+        table_data.push(headerRow);  // Add the header row as the first item in the table data
+      
+        // Loop through each data row of the table
+        for (let i = 1; i < table.rows.length; i++) {
+          let row = table.rows[i];
+      
+          // Initialize an array to store this row's data
+          let rowData = [];
+          for (let j = 0; j < row.cells.length; j++) {
+            rowData.push(row.cells[j].innerText);
+          }
+      
+          // Add the row data array to table_data
+          table_data.push(rowData);
+        }
+      
+        return table_data;
+      }
+       
+        //Restructured Table Data  Helper function to generate the desired object structure
+        function restructureData(filtered_subjects, ID_OC_SoftSkills, tableData) {
+          const rollNumberData = {};
+  
+          tableData.forEach((row) => {
+            const rollNo = `${row[2]}`;
+            const subjectMarks = {};
+            
+            let dataIndex = 5; // Start index for marks data
+  
+            // Loop through each filtered subject using subject ID as the key
+            for (const [subjectID, subject] of Object.entries(filtered_subjects)) {
+              const subjectName = subject.subject_name;
+              
+              // Check if subjectID belongs to ID_OC_SoftSkills
+              if (ID_OC_SoftSkills.includes(parseInt(subjectID))) {
+                // Only add Int, Tot, and numeric GR
+                const Int = parseInt(row[dataIndex]) || 0;
+                const Tot = parseInt(row[dataIndex + 1]) || 0;
+                const gradeLetter = (row[dataIndex + 2] || '').trim().toUpperCase();
+                const GR = grade_numeric[gradeLetter] || 0; // Use numeric value from grade_numeric
+                subjectMarks[subjectName] = { Int, Tot, GR };
+                dataIndex += 3; // Move to the next set of data
+              } else {
+                // Add Int, Ext, Tot, and numeric GR
+                const Int = parseInt(row[dataIndex]) || 0;
+                const Ext = parseInt(row[dataIndex + 1]) || 0;
+                const Tot = parseInt(row[dataIndex + 2]) || 0;
+                const gradeLetter = (row[dataIndex + 3] || '').trim().toUpperCase();
+                const GR = grade_numeric[gradeLetter] || 0; // Use numeric value from grade_numeric
+                subjectMarks[subjectName] = { Int, Ext, Tot, GR };
+                dataIndex += 4; // Move to the next set of data
+              }
+            }
+  
+            rollNumberData[rollNo] = subjectMarks;
+          });
+  
+          return rollNumberData;
+        }
+        // Helper function to get grade letter from numeric value
+        function getGradeLetter(numericValue) {
+          // Find grade by comparing numeric value
+          for (const grade in grade_numeric) {
+            if (numericValue >= grade_numeric[grade]) {
+              return grade; // Return the corresponding grade letter
+            }
+          }
+          return 'F'; // Default grade if not found
+        }
+      
+        
+        
+      //Tab6 is checked
+      if ($('#tab6').is(':checked')) {
+                
+            let data_table1 = GetTableData("dataTable1");
+            let subject_name=data_table1[0].slice(1,11);
+            var grade_numeric={
+              'O':50,
+              'A':45,
+              'B':40,
+              'C':35,
+              'D':30,
+              'E':25,
+              'F':0,
+              'AB':0,
+            };
+            let Roll_numbers=[];
+            let marks_data=[];
+            let sgpa_vales=[];
+            data_table1.slice(3).forEach(function(value, index){
+              Roll_numbers.push(value[2]);
+              marks_data.push(value);
+              sgpa_vales.push(parseFloat(value[42])|| 0);
+            });
+
+            let table_data = restructureData(filtered_subjects, ID_OC_SoftSkills, marks_data);
+
+          // Store the chart instance globally or in a higher scope
+      if (!window.chart) {
+          // Subjectwise Marks Chart
+          const ctx = document.getElementById('subjectwise_marks').getContext('2d');
+        
+          // Define roll numbers and subjects
+          const rollNumbers = Roll_numbers;
+          const subjects = subject_name;
+
+          // Data values for each roll number and subject (dynamic data)
+          const rollNumberData = table_data;
+
+          // Color shades for categories (Int, Ext, Tot, GR)
+          const categoryColors = {
+            Int: 'rgba(50, 150, 200, 0.8)', // Int color
+            Ext: 'rgba(100, 150, 200, 0.8)', // Ext color
+            Tot: 'rgba(150, 150, 200, 0.8)', // Tot color
+            GR: 'rgba(200, 150, 200, 0.8)'   // GR color
+          };
+
+          
+          // Create a dataset for each subject with total marks (for the initial view)
+          const datasets = subjects.map((subject, sIndex) => {
+              // Adjust RGB values by lowering them slightly to make the color darker, but avoid going too low.
+              const r = Math.max(50, sIndex * 50 - 30);  // Ensure the red value doesn't go below 50
+              const g = Math.max(50, 99 + sIndex * 20 - 20);  // Ensure the green value doesn't go below 50
+              const b = Math.max(50, 132 + sIndex * 15 - 15);  // Ensure the blue value doesn't go below 50
+              
+
+            return {
+              label: subject,
+              data: rollNumbers.map(roll => {
+                // Check if roll number data exists and return the total marks (Tot) or a default value
+                if (rollNumberData[roll] && rollNumberData[roll][subject]) {
+                  return rollNumberData[roll][subject].Tot;
+                } else {
+                  return 0; // Default value if data is missing
+                }
+              }),
+              backgroundColor: `rgba(${r}, ${g}, ${b}, 0.8)`,  // Set background color using the selected color
+              stack: 'stack1',
+            };
+          });
+
+          // Create the main chart
+          window.chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: rollNumbers,
+              datasets: datasets,
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Subject-wise Total Marks for Each Roll Number',
+                },
+                subtitle: {
+                  display: true,
+                  text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      const subject = context.dataset.label;
+                      const totalMarks = context.raw;
+                      return `${subject}: ${totalMarks} Marks`;
+                    }
+                  }
+                },
+                zoom: {
+                pan: {
+                  enabled: true,
+                  mode: 'x', // Enables horizontal panning only
+                  threshold: 10, // Minimum distance required for panning to trigger
+              
+                },
+                zoom: {
+                  wheel: {
+                    enabled: true,
+                  },
+                  pinch: {
+                    enabled: true
+                  },
+                  drag: {
+                    enabled: true, // Enables drag-to-pan functionality
+                    modifierKey: 'ctrl', // Optional: only allow panning while pressing 'ctrl' key
+                  },
+                  mode: 'x', // Enables horizontal zooming only
+                }
+              }
+              },
+              scales: {
+                x: {
+                  stacked: true,
+                  title: {
+                    display: true,
+                    text: 'Roll Numbers',
+                  },
+                },
+                y: {
+                  beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: 'Total Marks',
+                  },
+                },
+              },
+              // Hover Event to change cursor style
+              onHover: (event, elements) => {
+                if (elements.length) {
+                  event.native.target.style.cursor = 'pointer'; // Change cursor to pointer
+                } else {
+                  event.native.target.style.cursor = 'default'; // Reset cursor
+                }
+              }
+            },
+          });
+        
+
+          // Set up chart click event for drill-down view
+          ctx.canvas.onclick = function (event) {
+            const activePoints = chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, false);
+            if (activePoints.length) {
+              const index = activePoints[0].index;
+              const rollNo = rollNumbers[index]; // Get the selected roll number
+
+              // Check if the roll number exists in the rollNumberData object
+              if (rollNumberData[rollNo]) {
+                // Set up x-axis labels as subjects with roll number appended for the drill-down view
+                chart.data.labels = subjects.map(subject => `${subject}`);
+
+                // Create datasets for each category (Int, Ext, Tot, GR)
+                const detailedData = [
+                  {
+                    label: 'Int',
+                    data: subjects.map(subject => rollNumberData[rollNo][subject].Int),
+                    backgroundColor: categoryColors.Int,
+                    barPercentage: 0.5,  // Adjust to make bars narrower within each group
+                    categoryPercentage: 1.0,
+                  },
+                  {
+                    label: 'Ext',
+                    data: subjects.map(subject => rollNumberData[rollNo][subject].Ext),
+                    backgroundColor: categoryColors.Ext,
+                    barPercentage: 0.5,
+                    categoryPercentage: 1.0,
+                  },
+                  {
+                    label: 'Tot',
+                    data: subjects.map(subject => rollNumberData[rollNo][subject].Tot),
+                    backgroundColor: categoryColors.Tot,
+                    barPercentage: 0.5,
+                    categoryPercentage: 1.0,
+                  },
+                  {
+                    label: 'GR',
+                    data: subjects.map(subject => rollNumberData[rollNo][subject].GR),
+                    backgroundColor: categoryColors.GR,
+                    barPercentage: 0.5,
+                    categoryPercentage: 1.0,
+                  }
+                ];
+
+                // Update chart with new data for drill-down
+                chart.data.datasets = detailedData;
+
+                // Configure the x-axis to display each subject-roll number as a grouped category
+                chart.options.scales.x = {
+                  stacked: false,
+                  title: {
+                    display: true,
+                    text: `Subjects  Roll No: ${rollNo} `
+                  }
+                };
+                chart.options.scales.y = {
+                  title: {
+                    display: true,
+                    text: `Marks`
+                  }
+                };
+
+                // Modify tooltip to show the roll number in drill-down
+                chart.options.plugins.tooltip.callbacks.label = function (context) {
+                  const subject = context.label.split('-')[0]; // Extract subject from the label
+                  const category = context.dataset.label;
+                  const value = context.raw;
+                  // If the category is GR, display the grade letter instead of the numeric value
+                  if (category === 'GR') {
+                    return `${category}: ${getGradeLetter(value)}`; // value is the grade letter (e.g., 'A', 'B')
+                  } else {
+                    return `${category}: ${value} Marks`; // Other categories still show numeric marks
+                  }
+                };
+
+                // Update the chart with new data and layout
+                chart.update();
+
+                // Show the back button
+                document.getElementById('backButton').style.display = 'block';
+              } 
+            }
+          }; 
+
+
+
+          // Back button functionality
+          document.getElementById('backButton').onclick = function () {
+            // Restore the main chart's data
+            chart.data.labels = rollNumbers;
+            chart.data.datasets = datasets;
+
+            // Reset the x-axis options to enable stacked bars in the main chart
+            chart.options.scales.x = {
+              stacked: true,
+              title: {
+                display: true,
+                text: 'Roll Numbers'
+              }
+            };
+            chart.options.scales.y = {
+              title: {
+                display: true,
+                text: `Total Marks`
+              }
+            };
+
+            // Restore tooltip callback for main chart
+            chart.options.plugins.tooltip.callbacks.label = function (context) {
+              const subject = context.dataset.label;
+              const totalMarks = context.raw;
+              return `${subject}: ${totalMarks} Marks`;
+            };
+
+            // Reset any bar width settings (if set in drill-down) for stacked view
+            chart.data.datasets.forEach(dataset => {
+              delete dataset.barPercentage; // Remove drill-down specific width
+              delete dataset.categoryPercentage; // Remove drill-down specific width
+            });
+
+            // Update the chart
+            chart.update();
+
+            // Hide the back button
+            document.getElementById('backButton').style.display = 'none';
+          };
+        }//window.chart if 
+
+        // Store the chart instance globally or in a higher scope
+        if (!window.chart2) {
+          //sgpa Chart  
+          const ctx2 = document.getElementById('sgpa_chart').getContext('2d');
+
+          const labels = Roll_numbers;
+          globalThis.sgpaValues = sgpa_vales;
+
+          // Find the top 3 values and their indices
+          globalThis.sortedIndices = sgpaValues
+            .map((value, index) => ({ value, index }))
+            .sort((a, b) => b.value - a.value)
+            .slice(0, 3)
+            .map((item) => item.index);
+
+          
+
+          const data1 = {
+            labels: labels,
+            datasets: [
+              {
+                label: 'SGPA (Line)',
+                data: sgpaValues,
+                borderColor: 'rgba(208, 184, 168,1)', // Bright blue for the line border
+                backgroundColor: 'rgba(223, 211, 195,0.3)', // Semi-transparent blue fill
+                fill: true, // Fill area below the line
+                type: 'line', // Line chart
+                pointRadius: 5,
+                pointHoverRadius: 7,
+              },
+              {
+                label: 'SGPA (Bar)',
+                data: sgpaValues,
+                borderColor: '#E8BCB9', // Bar border color
+                backgroundColor: (ctx2) => {
+                  // Set custom colors for the top 3 ranked bars
+                  const index = ctx2.dataIndex;
+                  if (index === sortedIndices[0]) return '#674188';    // 1st place
+                  if (index === sortedIndices[1]) return '#C8A1E0';    // 2nd place
+                  if (index === sortedIndices[2]) return '#E2BFD9';    // 3rd place
+                  return '#E8BCB9'; // Light teal for other bars
+                },
+                type: 'bar', // Bar chart
+              }
+            ]
+          };
+
+          const config = {
+            type: 'bar', // Base type is 'bar', but individual dataset types override this
+            data: data1,
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'SGPA Comparison Chart'
+                },
+                subtitle: {
+                    display: true,
+                    text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                },
+                legend: {
+                  display: true
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function (context) {
+                      const index = context.dataIndex;
+                      if (index === sortedIndices[0]) return `1st Rank: SGPA ${sgpaValues[index]}`;
+                      if (index === sortedIndices[1]) return `2nd Rank: SGPA ${sgpaValues[index]}`;
+                      if (index === sortedIndices[2]) return `3rd Rank: SGPA ${sgpaValues[index]}`;
+                      return `SGPA: ${sgpaValues[index]}`;
+                    }
+                  }
+                },
+                zoom: {
+                  pan: {
+                    enabled: true,
+                    mode: 'x', // Enables horizontal panning only
+                    threshold: 10, // Minimum distance required for panning to trigger
+                
+                  },
+                  zoom: {
+                    wheel: {
+                      enabled: true,
+                    },
+                    pinch: {
+                      enabled: true
+                    },
+                    drag: {
+                      enabled: true, // Enables drag-to-pan functionality
+                      modifierKey: 'ctrl', // Optional: only allow panning while pressing 'ctrl' key
+                    },
+                    mode: 'x', // Enables horizontal zooming only
+                  }
+                }
+              },
+              scales: {
+                x: {
+                  stacked: false, // Keep x-axis non-stacked for shared scaling
+                  title: {
+                    display: true,
+                    text: 'Roll Numbers'
+                  }
+                },
+                y: {
+                  stacked: false, // Keep y-axis non-stacked for aligned bar and line data
+                  beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: 'SGPA-Values'
+                  }
+                }
+              }
+            }
+          };
+
+          window.chart2 = new Chart(ctx2, config);
+        }//window.chart2 if
+
+        // Store the chart instance globally or in a higher scope
+        if (!window.chart3) {
+            // Function to generate random colors
+            function generateColor(index) {
+              const colors = [
+                  'rgba(230, 25, 75, 0.2)', 'rgba(60, 180, 75, 0.2)', 'rgba(0, 130, 200, 0.2)',
+                  'rgba(245, 130, 48, 0.2)', 'rgba(145, 30, 180, 0.2)', 'rgba(70, 240, 240, 0.2)',
+                  'rgba(240, 50, 230, 0.2)', 'rgba(210, 245, 60, 0.2)', 'rgba(250, 190, 190, 0.2)',
+                  'rgba(0, 128, 128, 0.2)'
+              ];
+              const borderColor = colors[index % colors.length].replace('0.2', '1'); // Use full opacity for border
+              return { backgroundColor: colors[index % colors.length], borderColor: borderColor };
+            }
+
+            //subjectwise student count chart
+            const ctx3 = document.getElementById('student_count_gradewise').getContext('2d');
+            let data_table2 = GetTableData("dataTable2");
+            let grade_table_data=[];
+            data_table2.slice(2).forEach(function(value, index){
+              grade_table_data.push(value.slice(1));
+            });
+            grade_table_data= grade_table_data.map(row => row.map(value => parseInt(value)));
+
+            // Find the minimum and maximum values from the dataset
+            let minValue = Math.min(...grade_table_data.flat());
+            let maxValue = Math.max(...grade_table_data.flat());
+
+
+            // Create datasets dynamically
+            const datasets1 = subject_name.map((subject, index) => {
+              const color = generateColor(index);
+              return {
+                  label: subject,
+                  data: grade_table_data[index], // Each row in grade_table_data corresponds to each subject
+                  borderColor: color.borderColor,
+                  backgroundColor: color.backgroundColor,
+                  borderWidth: 1
+              };
+            });
+
+
+            const data3 = {
+              labels: ['O', 'A', 'B', 'C', 'D', 'E', 'F', 'Absent', 'Total Count'],  // Grades as labels
+              datasets: datasets1
+            };
+
+            const config2 = {
+              type: 'radar',
+              data: data3,
+              options: {
+                plugins: {
+                  filler: {
+                    propagate: false
+                  },
+                  'samples-filler-analyser': {
+                    target: 'chart-analyser'
+                  },
+                  title: {
+                    display: true,
+                    text: "Grade-wise Student's Count"
+                  },
+                  subtitle: {
+                      display: true,
+                      text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                  },
+                  tooltip: {
+                    callbacks: {
+                      title: function(tooltipItems) {
+                        // Check if the label is 'Total Count' or 'Absent'
+                        if (tooltipItems[0].label === 'Total Count' || tooltipItems[0].label === 'Absent') {
+                          return tooltipItems[0].label;
+                        } else {
+                          return 'Grade: ' + tooltipItems[0].label;
+                        }
+                      }
+                    }
+                  }
+                },
+                interaction: {
+                  intersect: false
+                },
+                scales: {
+                  r: {
+                    min: minValue, // Dynamically set min value
+                    max: maxValue, // Dynamically set max value
+                    ticks: {
+                    stepSize: Math.ceil((maxValue - minValue) / 5), // Adjust step size based on the range
+                    }
+                  }
+                }
+              }
+            };
+
+            window.chart3 = new Chart(ctx3, config2);
+          }//window.chart3 if
+
+
+          // Store the chart instance globally or in a higher scope
+        if (!window.chart4) {
+              // Function to generate random colors
+              function generateRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                  color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+              }
+
+              //Subject-wise Passed Percentage
+              const ctx4 = document.getElementById('subjectwise_passed_percentage').getContext('2d');
+              let data_table3 = GetTableData("dataTable3");
+              globalThis.No_Of_Students_Appeared=[],globalThis.No_Of_Students_passed=[],globalThis.No_Of_Students_Fail=[],globalThis.No_Of_Students_Absent=[];
+              let passed_percentage=[];
+              globalThis.faculty_names=[];
+              data_table3.slice(2).forEach(function(value, index){
+                No_Of_Students_Appeared.push(parseInt(value[3]));
+                No_Of_Students_passed.push(parseInt(value[4]));
+                No_Of_Students_Fail.push(parseInt(value[5]));
+                No_Of_Students_Absent.push(parseInt(value[6]));
+                faculty_names.push(value[1]);
+                passed_percentage.push(parseInt(value[7]));
+              });
+
+              // Generate unique colors for each label
+              const generateColors = (numColors) => {
+                let colors = [];
+                for (let i = 0; i < numColors; i++) {
+                  colors.push(generateRandomColor());
+                }
+                return colors;
+              };
+
+              const data4 = {
+                labels: subject_name,
+                datasets: [
+                  {
+                    label: 'Pass Percentage',
+                    data: passed_percentage,  
+                    backgroundColor: generateColors(subject_name.length), // Dynamically generate unique colors based on the number of labels
+                  }
+                ]
+              };
+
+              const config3 = {
+                type: 'doughnut',
+                data: data4,
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Subject-wise Passed Percentage'
+                    },
+                    subtitle: {
+                        display: true,
+                        text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: function(tooltipItem) {
+                          return 'Pass Percentage: ' + tooltipItem.raw + '%';
+                        }
+                      }
+                    },
+                  }
+                },
+              };
+
+              window.chart4 = new Chart(ctx4, config3);
+            }//window.chart4 if
+
+         // Store the chart instance globally or in a higher scope
+         if (!window.chart5) {
+                //subject-wise_student_performance_summary
+                const ctx5 = document.getElementById('subjectwise_student_performance_summary').getContext('2d');
+
+                // Labels with subject information
+                const labels3 =subject_name;
+
+                // Corresponding faculty names for each subject
+                const facultyNames = faculty_names;
+
+                // Static data for each dataset
+                const data5 = {
+                  labels: labels3,
+                  datasets: [
+                    {
+                      label: 'No. Of Students Appeared',
+                      data: No_Of_Students_Appeared,
+                      borderColor: '#2A3663',  // Dark purple
+                      backgroundColor: '#2A3663', // Solid purple
+                      fill: true
+                    },
+                    {
+                      label: 'No. Of Students Passed',
+                      data: No_Of_Students_passed,
+                      borderColor: '#B59F78', // Medium purple
+                      backgroundColor: '#B59F78', // Solid medium purple
+                      fill: true
+                    },
+                    {
+                      label: 'No. Of Students Fail',
+                      data: No_Of_Students_Fail,
+                      borderColor: '#D8DBBD', // Light purple
+                      backgroundColor: '#D8DBBD', // Solid light purple
+                      fill: true
+                    },
+                    {
+                      label: 'No. Of Students Absent',
+                      data: No_Of_Students_Absent,
+                      borderColor: '#FAF6E3', // Lavender
+                      backgroundColor: '#FAF6E3', // Solid lavender
+                      fill: true
+                    }
+                  ]
+                };
+
+                const config4 = {
+                  type: 'line',
+                  data: data5,
+                  options: {
+                    responsive: true,
+                    plugins: {
+                      title: {
+                        display: true,
+                        text: 'Subject-wise Student Performance Summary'
+                      },
+                      subtitle: {
+                          display: true,
+                          text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                      },
+                      tooltip: {
+                        mode: 'index',
+                        callbacks: {
+                          beforeBody: function(tooltipItems) {
+                            const index = tooltipItems[0].dataIndex;
+                            const faculty = facultyNames[index];
+                            return `Faculty: ${faculty}`;
+                          },
+                          label: function(tooltipItem) {
+                            const datasetLabel = tooltipItem.dataset.label;
+                            const value = tooltipItem.formattedValue;
+                            return `${datasetLabel}: ${value} students`;
+                          }
+                        }
+                      },
+                      zoom: {
+                        pan: {
+                          enabled: true,
+                          mode: 'x', // Enables horizontal panning only
+                          threshold: 10, // Minimum distance required for panning to trigger
+                      
+                        },
+                        zoom: {
+                          wheel: {
+                            enabled: true,
+                          },
+                          pinch: {
+                            enabled: true
+                          },
+                          drag: {
+                            enabled: true, // Enables drag-to-pan functionality
+                            modifierKey: 'ctrl', // Optional: only allow panning while pressing 'ctrl' key
+                          },
+                          mode: 'x', // Enables horizontal zooming only
+                        }
+                      }
+                    },
+                    interaction: {
+                      mode: 'nearest',
+                      axis: 'x',
+                      intersect: false
+                    },
+                    scales: {
+                      x: {
+                        title: {
+                          display: true,
+                          text: 'Subjects'
+                        },
+                        ticks: {
+                          callback: function(value, index, values) {
+                            return this.getLabelForValue(value).split('\n');
+                          }
+                        }
+                      },
+                      y: {
+                        stacked: true,
+                        title: {
+                          display: true,
+                          text: 'Student Count'
+                        },
+                        beginAtZero: true // Ensures the y-axis starts at 0
+                      }
+                    }
+                  }
+                };
+
+
+                window.chart5 = new Chart(ctx5, config4);
+
+            }//window.chart5 if
+
+        // Store the chart instance globally or in a higher scope
+        if (!window.chart6) {
+            //exam_performance_summary
+            const ctx6 = document.getElementById('exam_performance_summary').getContext('2d');
+            let data_table4 = GetTableData("dataTable4");
+            let pie_chart_labels=[],pie_data=[];
+            data_table4.slice(1).forEach(function(value, index){
+              pie_chart_labels.push(value[0]);
+              pie_data.push(parseInt(value[1]));
+            });
+
+            // Static data for the chart
+            const data6 = {
+              labels: pie_chart_labels,
+              datasets: [
+                {
+                  label: 'Student Count:',
+                  data: pie_data, 
+                  backgroundColor: [
+                    '#071952',  // Dark Purple for Appeared
+                    '#088395',  // Medium Purple for Pass
+                    '#37B7C3',  // Light Purple for Fail
+                    '#D4BDAC',  // Lavender for Absent
+                    '#40A578',  // Thistle for Pass with ATKT
+                    '#9DDE8B',  // Purple for Total Passing %
+                    '#E6FF94'   // Dark Violet for Passing with ATKT %
+                  ]
+                }
+              ]
+            };
+
+            const config5 = {
+              type: 'pie',
+              data: data6,
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Exam Performance and Attendance Overview' // Updated title
+                  },
+                  subtitle: {
+                      display: true,
+                      text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: function(tooltipItem) {
+                        const label = tooltipItem.label;
+                        const value = tooltipItem.raw;
+
+                        // Custom logic for percentage values
+                        if (label === 'Total Passing %' || label === 'Passing with ATKT %') {
+                          return `Percentage: ${value}%`; // Show percentage format
+                        } else {
+                          return `Student Count: ${value} Students`; // Show student count format
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            };
+
+            window.chart6 = new Chart(ctx6, config5);
+          }//window.chart6 if
+
+        // Store the chart instance globally or in a higher scope
+        if (!window.chart7) {
+              //semester_topper_rankings
+              const ctx7 = document.getElementById('semester_topper_rankings').getContext('2d');
+
+              // Static data for the top 3 rankers (Roll number, SGPA, and rank)
+              const data7 = {
+                datasets: [
+                  {
+                    label: 'Top Performers',
+                    data: [
+                      { x: sgpaValues[sortedIndices[0]], y: 1, r: 20, color: 'rgba(255, 87, 34, 0.6)' },  // First rank (Roll no 1, SGPA 9.5)
+                      { x: sgpaValues[sortedIndices[1]], y: 2, r: 18, color: 'rgba(33, 150, 243, 0.6)' },  // Second rank (Roll no 2, SGPA 9.2)
+                      { x: sgpaValues[sortedIndices[2]], y: 3, r: 16, color: 'rgba(76, 175, 80, 0.6)' },   // Third rank (Roll no 3, SGPA 9.0)
+                    ],
+                    borderColor: (context) => context.raw.color,  // Set border color dynamically based on student
+                    backgroundColor: (context) => context.raw.color,  // Set background color dynamically based on student
+                  }
+                ]
+              };
+
+              // Bubble chart configuration
+              const config6 = {
+                type: 'bubble',
+                data: data7,
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Semester Topper Rankings'
+                    },
+                    subtitle: {
+                        display: true,
+                        text: `Course-${filters.course_name} Semester-${filters.sem_name}  Academic Year-${filters.year_name}  Pattern-${filters.pattern}`,
+
+                    },
+                    tooltip: {
+                      callbacks: {
+                        // Display SGPA and Rank in the tooltip
+                        label: function(tooltipItem) {
+                          const sgpa = tooltipItem.raw.x;  // SGPA on X-axis
+                          const rank = tooltipItem.raw.y;  // Rank based on Y-axis (Roll number)
+                          return `SGPA: ${sgpa} | Rank: ${rank}`;
+                        }
+                      }
+                    },
+                    zoom: {
+                      pan: {
+                        enabled: true,
+                        mode: 'x', // Enables horizontal panning only
+                        threshold: 10, // Minimum distance required for panning to trigger
+                    
+                      },
+                      zoom: {
+                        wheel: {
+                          enabled: true,
+                        },
+                        pinch: {
+                          enabled: true
+                        },
+                        drag: {
+                          enabled: true, // Enables drag-to-pan functionality
+                          modifierKey: 'ctrl', // Optional: only allow panning while pressing 'ctrl' key
+                        },
+                        mode: 'x', // Enables horizontal zooming only
+                      }
+                    }
+                  },
+                  scales: {
+                    x: {
+                      title: {
+                        display: true,
+                        text: "Student's SGPA"
+                      },
+                      min: 0,
+                      max: 10,
+                      ticks: {
+                        stepSize: 0.5,
+                      }
+                    },
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Roll Number'
+                      },
+                      ticks: {
+                        // Manually setting the Y-axis ticks to only show Roll No 1, 2, and 3
+                        callback: function(value) {
+                          // Return only the roll numbers for the top 3
+                          if (value === 1) return Roll_numbers[sortedIndices[0]];
+                          if (value === 2) return Roll_numbers[sortedIndices[1]];
+                          if (value === 3) return Roll_numbers[sortedIndices[2]];
+                          return '';  // Default behavior for other ticks (won't appear)
+                        }
+                      }
+                    }
+                  }
+                }
+              };
+
+              // Create the chart
+              window.chart7 = new Chart(ctx7, config6);
+            }//window.chart7 if
+
+
+        //Gathering chart instance for mapping ZoomIn() ZoomOut() Reset() DawnloadChart()
+        // Global chart object mapping
+        const charts = {
+          subjectwise_marks: chart,
+          sgpa_chart: chart2,
+          student_count_gradewise: chart3,
+          subjectwise_passed_percentage: chart4,
+          subjectwise_student_performance_summary: chart5,
+          exam_performance_summary: chart6,
+          semester_topper_rankings: chart7,
+        };
+
+        // Zoom in function
+        window.zoomIn = function (chartId) {
+          const graph = charts[chartId];
+          if (graph) {
+              graph.zoom(1.1);
+          }
+        };
+
+        // Zoom out function
+        window.zoomOut = function (chartId) {
+          const graph = charts[chartId];
+          if (graph) {
+              graph.zoom(0.9);
+          }
+        };
+
+        // Reset zoom function
+        window.resetZoom = function (chartId) {
+          const graph = charts[chartId];
+          if (graph) {
+              graph.resetZoom();
+          }
+        };
+
+        // Download chart function
+        window.downloadChart = function (chartId) {
+          const graph = charts[chartId];
+          if (graph) {
+              const link = document.createElement('a');
+              link.href = graph.toBase64Image();
+              link.download = `${chartId}.png`;
+              link.click();
+          }
+        };
+        
+
+        
+      }//tab6
+      
+    });
+
+    //Export Facility
+    
+     // Handle the dropdown change event for export options
+     // Attach event listeners to each select dropdown
+      $('#more-select-dataTable1, #more-select-dataTable2, #more-select-dataTable3, #more-select-dataTable4').on('change', function() {
+        var selectedOption = $(this).val(); // Get the selected option
+        var tableId = $(this).data('table-id'); // Get the associated table ID from data attribute
+        var table_instance;  // Declare table variable
+
+        // Determine which table to target based on the table ID
+        switch(tableId) {
+            case 'dataTable1':
+                table_instance = table1;
+                break;
+            case 'dataTable2':
+                table_instance= table2;
+                break;
+            case 'dataTable3':
+                table_instance = table3;
+                break;
+            case 'dataTable4':
+                table_instance = table4;
+                break;
+            default:
+                return; // Exit if no valid table found
+        }
+
+        // Trigger the appropriate export action based on the dropdown selection
+        switch(selectedOption) {
+            case 'copy':
+                table_instance.button('.buttons-copy').trigger();  // Trigger the 'Copy' action
+                break;
+            case 'csv':
+                table_instance.button('.buttons-csv').trigger();  // Trigger the 'CSV' export
+                break;
+            case 'excel':
+                table_instance.button('.buttons-excel').trigger();  // Trigger the 'Excel' export
+                break;
+            case 'pdf':
+                table_instance.button('.buttons-pdf').trigger();  // Trigger the 'PDF' export
+                break;
+            case 'print':
+                table_instance.button('.buttons-print').trigger();  // Trigger the 'Print' action
+                break;
+            default:
+                break;
+        }
+
+        // Reset the dropdown to its default state
+        $(this).val('');
+      });
+
+     
+     
+      
+   
+    } );//Document.ready
+
+  </script>
+  
+ 
+ 
+
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+    body{
+        font-size: 14px!important;
+    }
+    .blue-grey{
+        background: #8ac4eb!important;
+    }
+    .custom-select {
+        height: 40px;
+        border-radius: 0.50rem;
+        font-size: 18px!important;
+    }
+    input[type="text"]{
+        height: 40px;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+    }
+    .rdo1{
+        padding-left: 10px!important;
+        font-size: 16px;
+        color: darkslategray;
+    }
+    .img-class{
+    
+        height: 50px!important;
+        width: 50px!important;
+        border-radius: 50px!important;
+        margin-left: -200px!important;
+    }
+    custom-select{
+       border:"0 px solid #ced4da";
+    }
+    selectfilter{
+        border: 0px solid #dddd!important;
+    }
+    #course{display:none !Important;}
+    
+    
+    .dt {
+        display: flex!important;
+        line-height: inherit!important;
+        font-weight: 400!important;
+        background: white!important;
+        border-style: solid!important;
+        border-color: #8080804a!important;
+        border-width: 1px!important;
+        font-size: 16px!important;
+        color: #080808a8!important;
+        height: auto!important;
+        padding: 9px 6px!important;
+        text-align: center!important;
+        
+    }
+    .wm-tweet-us{
+        background: azure;
+        color: rgb(25, 25, 49);
+        width: 100px;
+        height: 50px;
+        font-size: 15px;
+        text-align: center;
+        margin: 0px 0px 0px 0px;
+        padding: 5px 20px;
+       }
+    .rdo{
+        margin-top:0;clear:both; margin-left:60px;margin-bottom:20px;
+       }
+    .que{
+        font-size:20px;color:black;margin-bottom:0;
+    }
+    .spanimage{
+        background-image: url('/static/images/feedback/c9.jpg');
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        margin-right: 0.5rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
+    
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form onsubmit="return form_submit(event);" id="create_feedback" name="create_feedback" action="." method="post"
+enctype="multipart/form-data">
+{% csrf_token %}
+<input type="hidden" id="f_set" name="f_set" value="{{f_set}}"/>
+<input type="hidden" id="feedback_id" name="feedback_id" value="{{feedback_id}}"/>
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div style="width:100%;height:100%;border-radius: 10px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);margin-top: 40px;">
+       
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+            <div class="col-md-12 .details-name">
+                <h3 style="margin-top:20px;font-size: xxx-large;text-align:center;">Submit Feedback</h3>
+            </div>
+        </div>
+        <div id="div_questions" name="div_questions" class="col-md-12" style="margin-left:100px;">
+            {% for item in feedback_questions_set%}
+            <span class="col-md-1 que" style="padding-left: 30px;">Q.{{forloop.counter}}</span><span class="col-md-10 que"> {{item.question}}</span>
+            <fieldset  class="rdo" id="{{item.id}}">   
+                {% if item.param1 is not none and item.param1 != '' %} 
+                    <input type="radio" value=1 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param1}}</span>
+                {%endif%}
+                {% if item.param2 is not none and item.param2 != '' %} 
+                    <input type="radio" value=2 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param2}}</span>
+                {%endif%}
+                {% if item.param3 is not none and item.param3 != '' %} 
+                    <input type="radio" value=3 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param3}}</span>
+                {%endif%}
+                {% if item.param4 is not none and item.param4 != '' %} 
+                    <input type="radio" value=4 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param4}}</span>
+                {%endif%}
+                {% if item.param5 is not none and item.param5 != '' %} 
+                    <input type="radio" value=5 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param5}}</span>
+                {%endif%}
+                {% if item.param6 is not none and item.param6 != '' %} 
+                    <input type="radio" value=6 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param6}}</span>
+                {%endif%}
+                {% if item.param7 is not none and item.param7 != '' %} 
+                    <input type="radio" value=7 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param7}}</span>
+                {%endif%}
+                {% if item.param8 is not none and item.param8 != '' %} 
+                    <input type="radio" value=8 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param8}}</span>
+                {%endif%}
+                {% if item.param9 is not none and item.param9 != '' %} 
+                    <input type="radio" value=9 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param9}}</span>
+                {%endif%}
+                {% if item.param10 is not none and item.param10 != '' %} 
+                    <input type="radio" value=10 name="{{item.id}}" style="margin-left: 30px;"><span class="rdo1">{{item.param10}}</span>
+                {%endif%}
+            </fieldset>
+            {%endfor%}
+        </div>  
+      
+        <div class="row" style="float: left;width:100%;margin-bottom:20px;margin-top:30px;margin-left:380px">
+            <div class="wm-plan-button-typo">
+                <button id="btn_create" name="btn_create" style="width: 200px;height:50px;font-size:20px;" type="button" class="wm-tweet-us"  onclick="save_feedback(this.id);">Submit</button>
+              </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+</div>
+</form>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript">
+    var form_valid=false;
+    function form_submit(e)
+    {
+        $("#overlay").show();
+        
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            $("#overlay").hide();
+            e.preventDefault();
+            return false;
+        }
+    }
+    function is_form_valid()
+    {
+        form_valid=true;
+        return form_valid;
+    }
+    function save_feedback(id)
+    {
+        $('#create_feedback').submit();
+    }
+</script>
+
+{%endblock%}

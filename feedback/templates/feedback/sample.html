@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toggle Elements with Dropdown Selection</title>
+<style>
+  .toggle-element {
+    display: none; /* Hide the toggle elements by default */
+  }
+</style>
+</head>
+<body>
+
+<select id="toggleOption" onchange="toggleElements()">
+  <option value="element1">Toggle Element 1</option>
+  <option value="element2">Toggle Element 2</option>
+</select>
+
+<div class="toggle-element" id="element1">This is Element 1</div>
+<div class="toggle-element" id="element2">This is Element 2</div>
+
+<script>
+function toggleElements() {
+  // Get the selected value from the dropdown
+  const selectedValue = document.getElementById('toggleOption').value;
+
+  // Hide all toggle elements
+  const toggleElements = document.querySelectorAll('.toggle-element');
+  toggleElements.forEach(function(element) {
+    element.style.display = 'none';
+  });
+
+  // Show the toggle element corresponding to the selected value
+  const selectedElement = document.getElementById(selectedValue);
+  if (selectedElement) {
+    selectedElement.style.display = 'block';
+  }
+}
+</script>
+
+</body>
+</html>

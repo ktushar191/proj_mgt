@@ -1,0 +1,353 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.rdo1{
+    padding-left: 10px!important;
+    font-size: 16px;
+    color: darkslategray;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+    width: 100px;
+    height: 50px;
+    font-size: 15px;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    padding: 5px 20px;
+   }
+.rdo{
+    margin-top:0;clear:both; margin-left:60px;margin-bottom:20px;
+   }
+.que{
+    font-size:20px;color:black;margin-bottom:0;
+}
+.spanimage{
+    background-image: url('/static/images/feedback/c9.jpg');
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin-right: 0.5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 10px;
+}
+.multiline {
+  white-space: pre-wrap;
+}
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form onsubmit="return form_submit(event);" id="save_questions" name="save_questions" action="." method="post" enctype="multipart/form-data">
+<input type="hidden" id="selected_questions_list" name="selected_questions_list" value="" />
+<input type="hidden" id="mcq_id" name="mcq_id" value="{{mcq_id}}" />
+{% csrf_token %}
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div style="width:100%;height:100%;border-radius: 10px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);margin-top: 40px;">
+       
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+            <div class="col-md-12">
+                {%for item in mcq_details%}
+                <h3 style="margin-top:20px;font-size: xxx-large;text-align:center;">Add Questions for MCQ </h3>
+                {%endfor%}
+            </div>
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;">
+            <div class="col-md-12" style="margin-left:100px">
+                <label>Select Question</label>
+                <select id="mcq_question" name="mcq_question" class="custom-select" style="width:80%;display:flex;font-size:14px" onchange="set_question_change(this);">
+                    <option selected value="">Select MCQ Question</option>
+                    {%for item in mcq_questions %}
+                        <option value="{{item.id}}">"{{item.question|safe}}"</option>
+                    {%endfor%}
+                </select>
+                <span id="error_msg" name="error_msg" class="succMesg" style="color:red;float:left;">This question is already added!</span>
+                
+            </div>
+            <div class="col-md-12" style="margin-left:100px">
+                <button id="btn_add" name="btn_add" type="button" class="wm-tweet-us" style="margin-left:30%;margin-top:20px;width: 150px;height:50px;font-size:20px;" onclick="add_questions();">Add</button>
+            </div>
+           
+        </div>
+        <div class="row" style="float: left;width:80%;margin-bottom:10px;margin-top:10px;">
+            
+            <div id="div_questions" name="div_questions" class="col-md-12" style="margin-left:100px;">
+            </div>    
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;">
+            <div class="col-md-12" style="margin-left:100px">
+                <button id="btn_save_questions" name="btn_save_questions" type="button" class="wm-tweet-us" style="margin-left:30%;margin-top:20px;width: 150px;height:50px;font-size:20px;" onclick="save_questions_form();">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+</div>
+</form>
+{% endblock%}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript">
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+var form_valid=false;
+$(document).ready(function () 
+{
+    console.log("this is working");
+    $('#error_msg').hide();
+    show_hide_save_btn();
+});
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    form_valid=true;
+    return form_valid;
+}
+function save_questions_form(id)
+{
+    $('#save_questions').submit();
+}
+var counter=1;
+
+var selected_questions={};
+function add_questions()
+{
+    var selected_question_id=$('#mcq_question').val();
+    var selected_question=$('#mcq_question').text;
+    if(!Object.keys(selected_questions).includes(selected_question_id))
+    {
+        {% for item in mcq_questions %}
+            if ("{{item.id}}"==selected_question_id)
+            {
+                       
+            console.log("{{item.id}}");
+            var sp1=document.createElement('span');
+            sp1.classList='col-md-1 que';
+            sp1.style='padding-left: 30px;';
+            sp1.innerText="Q."+counter.toString();
+            counter=parseInt(counter)+1;
+            document.getElementById('div_questions').appendChild(sp1);
+
+            var sp2=document.createElement('span');
+            sp2.classList='col-md-10 que';
+            sp2.innerText="{{item.question}}";
+            document.getElementById('div_questions').appendChild(sp2);
+
+            var fld=document.createElement('fieldset');
+            fld.classList='rdo';
+            fld.id="group1";
+            
+            if("{{item.op1}}"!='' && "{{item.op1}}" != "None")
+            {
+                var inp1=document.createElement('input');
+                inp1.type="radio";
+                inp1.value="{{item.op1}}";
+                inp1.name="group1";
+                //inp1.style="margin-left: 30px;";
+                inp1.classList='col-md-10 que';
+                fld.appendChild(inp1);
+
+                var sp2=document.createElement('span');
+                sp2.classList='col-md-10 que';
+                sp2.innerText="{{item.op1}}";
+                fld.appendChild(sp2);
+            }
+            if("{{item.op2}}"!='' && "{{item.op2}}" != "None")
+            {
+                var inp1=document.createElement('input');
+                inp1.type="radio";
+                inp1.value="{{item.op2}}";
+                inp1.name="group1";
+                //inp1.style="margin-left: 30px;";
+                inp1.classList='col-md-10 que';
+                fld.appendChild(inp1);
+
+                var sp2=document.createElement('span');
+                sp2.classList='col-md-10 que';
+                sp2.innerText="{{item.op2}}";
+                fld.appendChild(sp2);
+            }
+            if("{{item.op3}}"!='' && "{{item.op3}}" != "None")
+            {
+                var inp1=document.createElement('input');
+                inp1.type="radio";
+                inp1.value="{{item.op3}}";
+                inp1.name="group1";
+                //inp1.style="margin-left: 30px;";
+                inp1.classList='col-md-10 que';
+                fld.appendChild(inp1);
+
+                var sp2=document.createElement('span');
+                sp2.classList='col-md-10 que';
+                sp2.innerText="{{item.op3}}";
+                fld.appendChild(sp2);
+            }
+            if("{{item.op4}}"!='' && "{{item.op4}}" != "None")
+            {
+                var inp1=document.createElement('input');
+                inp1.type="radio";
+                inp1.value="{{item.op4}}";
+                inp1.name="group1";
+                //inp1.style="margin-left: 30px;";
+                inp1.classList='col-md-10 que';
+                fld.appendChild(inp1);
+
+                var sp2=document.createElement('span');
+                sp2.classList='col-md-10 que';
+                sp2.innerText="{{item.op4}}";
+                fld.appendChild(sp2);
+            }
+            if("{{item.op5}}"!='' && "{{item.op5}}" != "None")
+            {
+                var inp1=document.createElement('input');
+                inp1.type="radio";
+                inp1.value="{{item.op5}}";
+                inp1.name="group1";
+               // inp1.style="margin-left: 30px;";
+                inp1.classList='col-md-10 que';
+                fld.appendChild(inp1);
+
+                var sp2=document.createElement('span');
+                sp2.classList='col-md-10 que';
+                sp2.innerText="{{item.op5}}";
+                fld.appendChild(sp2);
+            }
+           
+            document.getElementById('div_questions').appendChild(fld);
+            selected_questions["{{item.id}}"]=counter-1
+            document.getElementById('selected_questions_list').value=JSON.stringify(selected_questions);
+            show_hide_save_btn();
+        }
+        {% endfor %}
+        $('#error_msg').hide();
+        $('#mcq_question').val("");
+        
+    }
+    else
+    {
+        $('#mcq_question').val("");
+        $('#error_msg').show();
+        setTimeout(function(){$('.succMesg').hide()},3000);
+    }
+
+}
+function show_hide_save_btn()
+{
+    if(Object.keys(selected_questions).length==0)
+    {
+        $('#btn_save_questions').hide();
+    }
+    else{
+        $('#btn_save_questions').show();
+    }
+        
+}
+function remove_question(id)
+{
+    console.log('this question removed');
+}
+function set_question_change(obj)
+{
+    if(obj== '')
+    {
+        $('#mcq_question').val("");
+    }
+}
+
+
+</script>
+
+{% endblock %}

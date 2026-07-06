@@ -1,0 +1,3164 @@
+@media all and (max-width: 1950px) {
+  .page-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .ec-officer {
+    padding: 1rem 0.85rem;
+    height: 975px !important;
+  }
+
+  .photo-gallery {
+    padding: 2.5rem 1.85rem;
+    height: 975px !important;
+  }
+
+  .ec-profile {
+    width: 258px;
+    height: 180px;
+  }
+
+  .pro-title {
+    width: 258px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+
+  .current-box>a {
+    padding: 1rem;
+  }
+
+  .current-box figure img {
+    max-width: 25%;
+  }
+
+  .current-box figure>figcaption {
+    font-size: 0.85rem;
+  }
+
+  .sub-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .sub-title::after {
+    width: 45px;
+  }
+
+  .service-box {
+    width: 98%;
+    padding: 2.5rem;
+  }
+
+  .service-box ul>li>a {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .zoom-area {
+    transform: scale(1.15);
+    -webkit-transform: scale(1.15);
+  }
+
+  .service-section {
+    margin: 7rem auto;
+  }
+
+  .video-frame {
+    width: 385px;
+    height: 500px;
+  }
+
+  .noth img {
+    max-width: 75%;
+  }
+
+  div.video-frame::after,
+  div.video-frame::before {
+    height: 335px;
+  }
+
+  .photo-frame {
+    width: 310px;
+  }
+
+  .frame-hght-01 {
+    height: 485px;
+  }
+
+  .frame-hght-01a {
+    height: 407px;
+  }
+
+  .frame-hght-02 {
+    height: 190px;
+  }
+
+  .photo-frame.frame-hght-03 {
+    width: 228px;
+    height: 158px;
+  }
+
+  .service-box ul>li>a {
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .parllex-banner {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+
+  .map-area figure img {
+    max-width: 82%;
+  }
+
+  .rsult-box h5 {
+    font-size: 1rem;
+  }
+
+  .parllex-banner {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .election-rslts {
+    height: 780px;
+  }
+
+  /*Voter Service CSS Page*/
+  .voter-pic {
+    height: 945px;
+  }
+
+  .voter-pic:hover::before {
+    width: 92%;
+  }
+
+  .list-content span {
+    top: 0.5rem;
+  }
+
+  .list-content p {
+    font-size: 0.85rem;
+  }
+
+  .list-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .download-slip {
+    padding: 5rem 0;
+  }
+
+  .item-content {
+    padding: 0.85rem;
+  }
+
+  .item-content h5 {
+    font-size: 1.35rem;
+  }
+
+  .item-content h5 span {
+    font-size: 1.15rem;
+  }
+
+  .know-content h3 {
+    font-size: 1.45rem;
+  }
+
+  .know-content p {
+    font-size: 0.95rem;
+  }
+
+  .know-content {
+    padding: 1.5rem 2rem;
+  }
+
+  .icon-track .icon-cricle {
+    width: 115px;
+    height: 115px;
+  }
+
+  .circle-icon {
+    width: 85px;
+    height: 85px;
+  }
+
+  .circle-banner img {
+    max-width: 62%;
+  }
+
+  /*Honbale Commission Page CSS*/
+  .comm-pic img {
+    max-width: 50%;
+  }
+
+  /*Political Party Candidate Page CSS*/
+  .pol-item {
+    min-height: 350px;
+  }
+
+  .pol-item .pol-content {
+    padding: 1.5rem 3rem;
+  }
+
+  .report-param a {
+    font-size: 1.25rem;
+  }
+
+  .report-param {
+    bottom: -1.5rem;
+  }
+
+  .cand-inner {
+    width: 88.5%;
+  }
+
+  /*Voter Education Page CSS*/
+  .edu-frame-01 {
+    height: 950px;
+  }
+
+  .edu-frame-02 {
+    height: 460px;
+  }
+
+  .edu-frame-03 {
+    height: 475px;
+  }
+
+  .edu-frame-04 {
+    height: 675px;
+  }
+
+  /*Election Page CSS*/
+  .curnt-area {
+    background-color: #ffffff;
+    padding: 1.85rem 0;
+  }
+
+  .candidate-area.past-election-area {
+    margin-top: 12.5rem;
+  }
+
+  .candidate-area.past-election-area {
+    margin-bottom: 0.85rem;
+  }
+
+  /*ICT APPs Page CSS*/
+  .ict-area {
+    padding: 2.5rem 1.5rem;
+  }
+
+  /*Handbook Page CSS*/
+  .handbook-content {
+    width: 62.5%;
+  }
+
+  .media-fst-item {
+    min-height: 295px;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .img-items {
+    height: 325px;
+  }
+
+  /*Voter Education Page CSS*/
+  .sweep-logo img {
+    max-width: 50%;
+  }
+
+  /*Assembly Elections Page CSS*/
+  .map-section {
+    height: 550px;
+  }
+
+  /* issue-deatils Page CSS */
+  .top-filter ul {
+    width: 43%;
+  }
+
+  .map-area iframe {
+    height: 850px;
+  }
+
+
+
+  .publication-box .publication-imgs img {
+    left: 4rem;
+  }
+
+  .publication-title {
+    left: 4rem;
+  }
+
+  .publication-para {
+    left: 4rem;
+  }
+
+  .result-contents {
+    padding: 0 15rem;
+  }
+
+  .result-contents h4::after {
+    width: 18%;
+  }
+
+  .pocket-books {
+    margin-bottom: 4rem;
+  }
+
+  /* Delimitation Page CSS */
+  .assam-icon img {
+    max-width: 90%;
+  }
+
+
+
+
+
+  .assam-para p {
+    font-size: 1.2rem;
+  }
+
+  .assam-box {
+    min-height: 250px;
+  }
+
+
+
+
+
+  .para-box h4::after {
+    top: 1.8rem;
+    left: 4rem;
+  }
+
+  .para-box p {
+    font-size: 1.1rem;
+  }
+
+  .lightpink-box {
+    min-height: 180px;
+  }
+
+  .lightblue-box h4::after {
+    width: 7%;
+    left: 47%;
+  }
+
+  .ebooks-caption h1 {
+    font-size: 3.5rem;
+  }
+
+
+  .ebooks-img img {
+    max-width: 100%;
+  }
+
+  .ebooks-para .para-title {
+    font-size: 1.15rem;
+  }
+
+  /* .ebooks-date span {
+    font-size: 0.95rem;
+  } */
+  .ebooks-para {
+    bottom: 12%;
+  }
+
+  .subcategories .subcategory h3 {
+    min-height: 185px;
+  }
+
+  .phase-section {
+    padding: 1.5rem 0;
+  }
+
+  figure.phase-box figcaption {
+    top: 0.5rem
+  }
+
+  figure.phase-box figcaption h4 {
+    margin: 1rem auto 1rem;
+    padding: 1rem 0;
+    font-size: 1.15rem;
+  }
+
+  figure.phase-box figcaption h5 {
+    font-size: 1rem;
+  }
+
+  figure.phase-box figcaption p {
+    font-size: 0.85rem;
+  }
+
+  .phase-ribbon .caption {
+    top: 2.85rem;
+    font-size: 1.85rem;
+  }
+
+}
+
+@media all and (max-width: 1800px) {
+
+
+  .result-contents {
+    padding: 0 13rem;
+  }
+
+  /* Delimitation Page CSS */
+  .ebooks-img img {
+    max-width: 90%;
+  }
+
+  figure.phase-box figcaption h4 {
+    margin: 0.85rem auto 0.85rem;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+
+  .modify-tabs .nav-pills .nav-link {
+    width: 245px;
+  }
+
+  figure.phase-box figcaption p {
+    font-size: 0.75rem;
+  }
+
+  .phase-ribbon .caption {
+    top: 2.15rem;
+    font-size: 1.75rem;
+  }
+
+  .evm-special h4 {
+    font-size: 1.35rem;
+  }
+
+  .evvt-box .d-flex>h4 {
+    line-height: normal;
+    font-size: 1.1rem;
+  }
+}
+
+@media all and (max-width: 1700px) {
+  .election-rslts {
+    height: 785px;
+  }
+
+  .photo-frame.frame-hght-03 {
+    width: 228px;
+    height: 155px;
+  }
+
+  .video-frame {
+    width: 334px;
+    height: 450px;
+  }
+
+  /*Political Party Candidate Page CSS*/
+  .rport-area {
+    padding: 5rem;
+  }
+
+  /*Voter Services Page CSS*/
+  .voter-pic {
+    height: 830px;
+  }
+
+  .voter-pic:hover::before {
+    width: 94%;
+  }
+
+  /*Voter Education Page CSS*/
+  .edu-frame-01 {
+    height: 785px;
+  }
+
+  .edu-frame-02 {
+    height: 385px;
+  }
+
+  .edu-frame-03 {
+    height: 385px;
+  }
+
+  .edu-frame-04 {
+    height: 558px;
+  }
+
+  /*Election Page CSS*/
+  .cand-param {
+    padding: 0.5rem;
+    border-top: 1px solid #e9e9e9;
+    margin-top: 0.75rem;
+  }
+
+  .modify-tabs .nav-pills .nav-link {
+    font-size: 1.25rem;
+  }
+
+  /*Handbook Page CSS*/
+  .media-fst-item {
+    min-height: 295px;
+  }
+
+  .media-fst-item h4 {
+    font-size: 1.25rem;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .img-items {
+    height: 265px;
+  }
+
+  /*Advance Search Page CSS*/
+  .advance-search {
+    width: 92%;
+  }
+
+  /*About ECI Page CSS*/
+  .banner-content {
+    padding: 1.5rem 5rem;
+  }
+
+  /*Footer Section CSS*/
+  .first-foot,
+  .Second-foot {
+    padding: 1.5rem 1rem 1.5rem 1rem;
+  }
+
+  .Second-foot ul>li {
+    margin-bottom: 0.25rem;
+  }
+
+  /*Honbale Commission Page CSS*/
+  .comm-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .comm-box h4 {
+    font-size: 1.15rem;
+  }
+
+  .comm-box h5 {
+    font-size: 0.85rem;
+  }
+
+  .comm-box p {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+
+  .comm-pic img {
+    max-width: 72%;
+  }
+
+  /* issue-deatils Page CSS */
+  .top-filter ul {
+    width: 47%;
+  }
+
+  .map-area iframe {
+    height: 760px;
+    width: 92.50%;
+  }
+
+  .result-contents {
+    padding: 0px 12rem;
+  }
+
+
+
+  /* Delimitation Page CSS */
+
+
+  .para-box h4::after {
+    left: 3.5rem;
+  }
+
+
+
+
+  .ebooks-para .para-title {
+    font-size: 1rem;
+  }
+
+  .evvt-box .d-flex>figure {
+    margin-right: 0.5rem;
+  }
+
+  .evvt-box .d-flex>h4 {
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 1600px) {
+  .result-contents {
+    padding: 0px 10rem;
+  }
+
+  /* Delimitation Page CSS */
+
+  figure.phase-box figcaption h4 {
+    margin: 0.5rem auto 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .ticket {
+    padding: 1rem 0.75rem;
+    text-align: center;
+  }
+
+  .track-title>a {
+    font-size: 0.85rem;
+  }
+}
+
+@media all and (max-width: 1500px) {
+  .menu-list ul>li>a {
+    padding: 0.15rem 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  .ec-officer,
+  .photo-gallery {
+    height: 885px !important;
+  }
+
+  .service-section {
+    margin: 5rem auto;
+  }
+
+  .photo-frame {
+    width: 270px;
+  }
+
+  .frame-hght-01 {
+    height: 420px;
+  }
+
+  .frame-hght-01a {
+    height: 354px;
+  }
+
+  .frame-hght-02 {
+    height: 170px;
+  }
+
+  .video-frame {
+    width: 300px;
+    height: 385px;
+  }
+
+  .item-box {
+    width: 100%;
+  }
+
+  .mrg-bottom {
+    margin-bottom: 1.5rem;
+  }
+
+  .service-box ul>li>a {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .parllex-banner {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .ec-profile {
+    width: 280px;
+    height: 150px;
+  }
+
+  .frame-left {
+    width: 100px;
+    height: 120px;
+    left: 4.5rem;
+  }
+
+  .frame-right {
+    right: 4.5rem;
+  }
+
+  .icon-track .icon-cricle {
+    width: 100px;
+    height: 100px;
+    border: 8px solid #f5f5f5;
+  }
+
+  .icon-track::after {
+    height: 8px;
+  }
+
+  .rsult-tiles {
+    margin-bottom: 0.85rem;
+  }
+
+  .rsult-box h5 {
+    font-size: 0.9rem;
+  }
+
+  .rsult-box a {
+    padding: 0.85rem 1.5rem;
+  }
+
+  .election-rslts {
+    padding: 1.5rem 2.5rem;
+  }
+
+  .first-foot p {
+    font-size: 0.7rem;
+  }
+
+  .election-rslts {
+    height: 795px;
+  }
+
+  div.video-frame::after,
+  div.video-frame::before {
+    height: 225px;
+  }
+
+  .Second-foot ul>li {
+    margin-bottom: 0;
+    width: 50%;
+  }
+
+  .social-mail {
+    font-size: 0.75rem;
+  }
+
+  .soc-links ul>li {
+    font-size: 1rem;
+  }
+
+  .content-tab .tab-content {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .custom-btns-align {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .Second-foot ul>li>a {
+    font-size: 0.65rem;
+  }
+
+  .locate i {
+    margin-right: 0.25rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .tabs-wrap {
+    width: 92%;
+  }
+
+  /*Voter Service Page CSS*/
+  .voter-pic img {
+    max-width: 75%;
+  }
+
+  .voter-pic {
+    height: 555px;
+  }
+
+  .voter-pic:hover::before {
+    width: 88%;
+  }
+
+  .list-content a {
+    padding: 1rem 2.25rem;
+  }
+
+  .voter-pic::before {
+    background-color: #c2048a;
+    width: 60%;
+    height: 665px;
+  }
+
+  .pub-pic::before {
+    height: 555px !important;
+  }
+
+  .voter-pic:hover::before {
+    width: 92%;
+  }
+
+  .list-content h3 {
+    font-size: 1.15rem;
+  }
+
+  .list-content p {
+    font-size: 0.85rem;
+  }
+
+  .list-content span {
+    font-size: 1.85rem;
+    width: 60px;
+    height: 60px;
+    line-height: 3.85rem;
+  }
+
+  .circle-banner img {
+    max-width: 62.5%;
+  }
+
+  .know-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .know-content p {
+    font-size: 0.85rem;
+  }
+
+  .know-content {
+    left: 10rem;
+  }
+
+  .know-icon {
+    width: 200px;
+  }
+
+  .know-icon img {
+    max-width: 65%;
+  }
+
+  .know-box {
+    height: 285px;
+  }
+
+  /*Political Party Candidate Page CSS*/
+  .modify-tabs .nav-pills .nav-link {
+    font-size: 1rem;
+    width: 215px;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .pol-item {
+    min-height: 285px;
+  }
+
+  .pol-item .pol-content {
+    padding: 1rem 2.25rem;
+  }
+
+  .pol-item h4 {
+    font-size: 1.15rem;
+  }
+
+  .pol-item p {
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  .rport-area {
+    padding: 5rem 2.5rem;
+  }
+
+  .report-item .report-title {
+    font-size: 1.25rem;
+  }
+
+  .report-param a {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .misc-item h4 {
+    font-size: 1.25rem;
+  }
+
+  .report-param {
+    bottom: 0.5rem;
+  }
+
+  .cand-item {
+    padding: 1rem;
+  }
+
+  .cand-item h4>a {
+    font-size: 1.25rem;
+  }
+
+  .cand-param {
+    padding: 0.5rem;
+  }
+
+  .candidate-area {
+    position: relative;
+    margin-bottom: 24rem;
+  }
+
+  .cand-inner {
+    width: 92.5%;
+  }
+
+  /*Voter Education Page CSS*/
+  .education-area .param {
+    width: 82%;
+  }
+
+  .edu-frame-01 {
+    height: 685px;
+  }
+
+  .edu-frame-02 {
+    height: 345px;
+  }
+
+  .edu-frame-03 {
+    height: 325px;
+  }
+
+  .edu-frame-04 {
+    height: 510px;
+  }
+
+  /*Election Page CSS*/
+  .page-title h2 {
+    font-size: 1.75rem;
+  }
+
+  .newpage-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .cand-item h4 {
+    font-size: 1.35rem;
+  }
+
+  .elct-banner {
+    padding: 8rem;
+  }
+
+  .stats-area {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .list-content.reslt-lst a {
+    margin: 0.85em auto;
+    padding: 1rem 8rem 0 2.5rem;
+  }
+
+  .list-content.reslt-lst h5 {
+    line-height: 1.75rem;
+    font-size: 1.15rem;
+  }
+
+  .cand-param p {
+    min-height: 160px;
+    font-size: 14px;
+  }
+
+  .cand-banner.refer-banner {
+    padding: 8.5rem;
+  }
+
+  /*Handbook Page CSS*/
+  .media-fst-item {
+    padding: 1.5rem 0.85rem;
+  }
+
+  .media-fst-item h4 {
+    font-size: 1.25rem;
+    width: 65%;
+  }
+
+  .media-icon {
+    width: 75px;
+    height: 75px;
+  }
+
+  .handbook-content h2,
+  .evm-content h2 {
+    font-size: 1.55rem;
+  }
+
+  .handbook-content ul>li>a {
+    font-size: 1.05rem;
+  }
+
+  .page-title p,
+  p {
+    font-size: 0.85rem;
+  }
+
+  .search-area.srchWdth {
+    width: 42%;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .img-items {
+    height: 232px;
+  }
+
+  .modal.photoGallery .modal-dialog {
+    max-width: 68% !important;
+  }
+
+  /*About ECI Page CSS*/
+  .banner-content p {
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .banner-content h3 {
+    font-size: 2rem;
+  }
+
+  /*Election Page CSS*/
+  .know-icon {
+    width: 170px;
+    height: 145px;
+  }
+
+  /*Footer Section CSS*/
+
+  .locate {
+    text-align: left;
+    font-size: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .app-link {
+    width: 32.5%;
+  }
+
+  /*Political Party Page CSS*/
+  .slick-caption {
+    font-size: 1.85rem;
+  }
+
+  .page-ul h4 {
+    font-size: 1.15rem;
+  }
+
+  .page-content h2 {
+    font-size: 1.5rem;
+  }
+
+  /*Assembly Elections Page CSS*/
+
+  .child-box-01,
+  .child-box-02 {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .box-list li>a {
+    padding: 0.25rem 0;
+    font-size: 1rem;
+  }
+
+  .child-box-01 .pointer-icon,
+  .child-box-02 .pointer-icon {
+    left: -15px;
+    font-size: 3.5rem;
+  }
+
+  .child-box-02 .pointer-icon {
+    left: auto;
+    right: -15px;
+  }
+
+  .parent-box-01,
+  .parent-box-02 {
+    padding: 1.5rem 2.5rem;
+  }
+
+  .map-section {
+    height: 385px;
+  }
+
+  /*Assembly Innner Pages CSS*/
+  .stip-list a {
+    padding: 1rem;
+  }
+
+  .stip-list h4 {
+    font-size: 1.25rem;
+  }
+
+  /*General Election Page CSS*/
+  .custom-tab-01 .feature-box .feature-box-info h3 {
+    font-size: 1rem;
+    width: 75%;
+  }
+
+  /* issue-deatils Page CSS */
+  .top-filter ul {
+    width: 51%;
+  }
+
+  .result-contents {
+    padding: 0px 9rem;
+  }
+
+
+  .publication-box .publication-imgs img {
+    left: 3.5rem;
+  }
+
+  /* Delimitation Page CSS */
+
+
+  .assam-para p {
+    font-size: 1rem;
+  }
+
+  .para-box h4::after {
+    left: 3rem;
+  }
+
+  .para-box p {
+    font-size: 1rem;
+  }
+
+  .ebooks-para .para-title {
+    font-size: 0.9rem;
+  }
+
+
+
+  .ebooks-para {
+    bottom: 15%;
+  }
+
+  .subcategories .subcategory {
+    width: 33%;
+  }
+
+  .subcategories .subcategory h3 {
+    min-height: 185px;
+    font-size: 0.95rem;
+  }
+
+  figure.phase-box figcaption h5 {
+    font-size: 0.85rem;
+  }
+
+  figure.phase-box figcaption h4 {
+    margin: 0.75rem auto 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .phase-ribbon .caption {
+    top: 2rem;
+    font-size: 1.5rem;
+  }
+
+}
+
+@media all and (max-width: 1400px) {
+  .icon-track .icon-cricle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .photo-frame {
+    width: 258px;
+  }
+
+  .frame-hght-01 {
+    height: 400px;
+  }
+
+  .frame-hght-01a {
+    height: 334px;
+  }
+
+  .frame-hght-02 {
+    height: 160px;
+  }
+
+  .video-frame {
+    width: 285px;
+    height: 375px;
+  }
+
+  div.video-frame::after,
+  div.video-frame::before {
+    width: 195px;
+    height: 285px;
+  }
+
+  /*Voter Education Page CSS*/
+
+  .edu-frame-01 {
+    height: 650px;
+  }
+
+  .edu-frame-02 {
+    height: 315px;
+  }
+
+  .edu-frame-03 {
+    height: 318px;
+  }
+
+  .edu-frame-04 {
+    height: 475px;
+  }
+
+  /*Footer Section CSS*/
+  .locate {
+    font-size: 11px;
+    margin-top: 1rem;
+  }
+
+  .first-foot,
+  .Second-foot {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+  }
+
+  /* issue-deatils Page CSS */
+  .top-filter ul {
+    width: 55%;
+  }
+
+  .map-area iframe {
+    height: 600px;
+  }
+
+
+
+  .result-contents {
+    padding: 0px 6rem;
+  }
+
+  .publication-box .publication-imgs img {
+    left: 3.2rem;
+  }
+
+  /* Delimitation Page CSS */
+
+
+
+
+
+
+
+  .assam-para p {
+    font-size: 0.9rem;
+  }
+
+
+  .para-box h4::after {
+    top: 1.5rem;
+    left: 2.5rem;
+  }
+
+  .para-box p {
+    font-size: 0.8rem;
+  }
+
+
+
+  .ebooks-caption h1 {
+    font-size: 3rem;
+  }
+
+  .ebooks-para .para-title {
+    font-size: 0.75rem;
+  }
+
+  .ebooks-para {
+    bottom: 6%;
+  }
+
+  figure.phase-box figcaption h4 {
+    margin: 0.15rem auto 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  figure.phase-box figcaption p {
+    font-size: 11px;
+  }
+
+  figure.phase-box figcaption h4 {
+    padding: 0.25rem 0rem;
+  }
+
+  .phase-ribbon .caption {
+    top: 1.75rem;
+    font-size: 1.35rem;
+  }
+}
+
+@media all and (max-width: 1300px) {
+  .video-frame {
+    width: 270px;
+    height: 350px;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .img-items {
+    height: 215px;
+  }
+
+  /*Footer Section CSS*/
+  .footer-head h6 {
+    font-size: 0.95rem;
+  }
+
+  .top-filter ul {
+    width: 59%;
+  }
+
+  .result-contents {
+    padding: 0px 5rem;
+  }
+
+
+
+  .pocket {
+    min-height: 415px;
+  }
+
+  .publication-box .publication-imgs img {
+    left: 3rem;
+  }
+
+  /* Delimitation Page CSS */
+
+
+  .assam-para p {
+    font-size: 0.9rem;
+  }
+
+
+
+
+
+
+  .para-box h4::after {
+    top: 1.2rem;
+    left: 2rem;
+  }
+
+  .para-box p {
+    font-size: 0.8rem;
+  }
+
+  .ebooks-caption h1 {
+    font-size: 2.7rem;
+  }
+
+  .ebooks-para .para-title {
+    font-size: 0.8rem;
+  }
+
+  .ebooks-date span {
+    font-size: 0.65rem;
+  }
+
+  .ebooks-para {
+    bottom: 15%;
+  }
+}
+
+@media all and (max-width: 1200px) {
+
+
+  .result-contents {
+    padding: 0px 4rem;
+  }
+
+  .pocket {
+    min-height: 440px;
+  }
+
+  .publication-box .publication-imgs img {
+    left: 2.7rem;
+  }
+
+  .publication-title {
+    left: 3rem;
+  }
+
+  .publication-para {
+    left: 3rem;
+  }
+
+  /* Delimitation Page CSS */
+
+
+
+
+  .assam-para p {
+    font-size: 0.8rem;
+  }
+
+
+
+
+  .para-box h4::after {
+    top: 1.2rem;
+    left: 1.8rem;
+  }
+
+  .para-box p {
+    font-size: 0.7rem;
+  }
+
+  .ebooks-caption h1 {
+    font-size: 2.5rem;
+  }
+
+
+
+  .ebooks-date span {
+    font-size: 0.65rem;
+  }
+
+  .ebooks-para {
+    bottom: 15%;
+  }
+}
+
+@media all and (max-width: 1100px) {
+
+
+  .result-contents {
+    padding: 0px 3rem;
+  }
+
+  .pocket {
+    min-height: 440px;
+  }
+
+  .pocket {
+    min-height: 463px;
+  }
+
+  /* Delimitation Page CSS */
+
+
+
+
+
+
+
+
+  .para-box h4::after {
+    top: 1rem;
+  }
+
+  .para-box p {
+    font-size: 0.6rem;
+  }
+
+
+
+  .ebooks-para .para-title {
+    font-size: 0.75rem;
+  }
+
+  .ebooks-date span {
+    font-size: 0.65rem;
+  }
+
+  .ebooks-para {
+    bottom: 15%;
+  }
+}
+
+@media all and (max-width: 850px) {
+  .menu-btn {
+    padding-left: 0;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .modal.photoGallery .modal-dialog {
+    max-width: 92% !important;
+  }
+
+  /*Political Party Page CSS*/
+  .slick-caption {
+    font-size: 1.25rem;
+  }
+
+  .state-map {
+    height: auto;
+  }
+
+  .state-map img {
+    position: relative;
+  }
+
+  .map-area iframe {
+    height: 785px;
+    width: 100%;
+  }
+
+  .subcategories .subcategory {
+    width: 45.50%;
+  }
+
+  .ge-photo-box {
+    height: auto;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+  }
+
+  .ge-photo-box h5 {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  .evm-special {
+    margin-top: 1.85rem;
+  }
+
+}
+
+@media all and (max-width: 768px) {
+
+
+  .toll-links>span:nth-child(3),
+  .toll-links>span:nth-child(4),
+  .toll-links>span:nth-child(5),
+  .toll-links>div:nth-child(6) {
+    display: none;
+  }
+
+  .wrap-section {
+    margin: 1.5rem auto 0;
+  }
+
+  section.wrap-section+section.photo-video-section {
+    display: none;
+  }
+
+  section.current-section+section.photo-video-section {
+    display: block;
+  }
+
+  .logo-search {
+    padding: 0.25rem 0.85rem;
+  }
+
+  .search-area {
+    display: none !important;
+  }
+
+  .mob-search-btn a {
+    color: #c2048a;
+  }
+
+  .mob-search-btn a:hover,
+  .mob-search-btn a:focus {
+    color: #000000;
+  }
+
+  .main-menu {
+    display: block;
+  }
+
+  .menu-list ul>li>a {
+    font-size: 1rem;
+  }
+
+  .nav-wrap {
+    padding: 2.5rem 0.85rem;
+    width: 65%;
+    top: 0;
+    left: -4500px;
+    height: 100vh;
+    position: fixed;
+    overflow-y: hidden;
+  }
+
+  .nav-wrap::after {
+    top: 0;
+    left: -4500px;
+    width: 100%;
+    transition: all 0.5s linear;
+    -webkit-transition: all 0.5s linear;
+  }
+
+  .nav-wrap.menu-visible {
+    top: 0;
+    left: 0;
+  }
+
+  .nav-wrap.menu-visible::after {
+    left: 65%;
+  }
+
+
+  .nav-wrap.side-down {
+    top: 0;
+    left: 0;
+  }
+
+  .nav-wrap.side-down::after {
+    left: 26.5rem;
+  }
+
+  .scroll-menu {
+    height: 99vh;
+    overflow-y: auto;
+  }
+
+  .menu-list ul {
+    margin-bottom: 0;
+  }
+
+  .menu-list {
+    width: 100%;
+  }
+
+  .cloze-btn {
+    position: fixed;
+    z-index: 9999;
+  }
+
+  .newpage-title {
+    margin-top: 0.85rem;
+    margin-bottom: 0rem;
+  }
+
+  .photo-gallery {
+    border: none;
+    padding: 1.5rem 1.85rem 5rem 1.85rem;
+  }
+
+  .photo-frame.frame-hght-03 {
+    width: 65%;
+    height: auto;
+  }
+
+  .photo-frame.frame-hght-01a {
+    height: auto;
+    width: 45%;
+  }
+
+  .ec-officer {
+    padding: 0.85rem 0 2.5rem 0.85rem;
+  }
+
+  .photo-frame {
+    width: 75%;
+  }
+
+  .frame-hght-01,
+  .frame-hght-02 {
+    height: auto;
+  }
+
+  .video-frame {
+    width: 420px;
+    height: 550px;
+    margin-bottom: 2.5rem;
+  }
+
+  .map-election {
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .map-area figure img {
+    max-width: 100%;
+  }
+
+  .election-rslts {
+    position: relative;
+    top: 0;
+    border-radius: 0;
+    width: 100%;
+    margin: auto;
+  }
+
+  .sub-title {
+    margin-top: 1.5rem;
+  }
+
+  .service-box {
+    margin: 1.5rem auto;
+    width: 88%;
+  }
+
+  .zoom-area {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+
+  .service-section {
+    margin: 1.5rem auto;
+  }
+
+  .content-tab .tab-content {
+    border-radius: 0;
+  }
+
+  .customTabs .nav-tabs {
+    justify-content: space-around;
+  }
+
+  .nav-item {
+    width: 48.5%;
+    margin-bottom: 0.85rem;
+    margin-right: 0.5rem;
+  }
+
+  .customTabs .nav-item .nav-link {
+    width: 100%;
+    border-bottom-color: #004274;
+    border-radius: 0;
+    padding: 0.85rem 0;
+  }
+
+  .footer {
+    padding: 2.5rem 1rem;
+  }
+
+  .first-foot p,
+  .first-foot figure {
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .social-mail {
+    font-size: 0.85rem;
+  }
+
+  .Second-foot ul>li {
+    width: 100%;
+  }
+
+  .soc-links,
+  .locate,
+  .mail-link {
+    text-align: center;
+  }
+
+  .locate {
+    margin: 1rem auto;
+  }
+
+  .footer-head {
+    text-align: center;
+  }
+
+  .footer-head h6::before {
+    right: 0;
+    margin: auto;
+  }
+
+  .frame-left {
+    left: 4.5rem;
+  }
+
+  .frame-right {
+    right: 4.5rem;
+  }
+
+  .photo-gallery {
+    border: none;
+    height: auto !important;
+  }
+
+  .service-box ul>li>a {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .election-rslts {
+    height: auto;
+  }
+
+  .rsult-box h5 {
+    font-size: 1.1rem;
+  }
+
+  .Second-foot ul>li>a {
+    font-size: 0.75rem;
+  }
+
+  .ec-profile {
+    width: 350px;
+    height: 245px;
+  }
+
+  .ec-officer,
+  .photo-gallery {
+    height: auto !important;
+  }
+
+  /*Political Party Candidate Page CSS*/
+
+  .pol-item {
+    justify-content: center;
+  }
+
+  .misc-item {
+    padding: 2.85rem;
+    min-height: auto;
+  }
+
+  .border-rght {
+    border-right: none;
+  }
+
+  .cand-inner {
+    position: relative;
+    width: 92%;
+  }
+
+  .cand-item {
+    padding: 1rem;
+    min-height: auto;
+    margin-bottom: 1rem;
+    box-shadow: none;
+  }
+
+  .cand-banner {
+    padding: 1.5rem 0;
+  }
+
+  .candidate-area {
+    margin-bottom: 0;
+  }
+
+  .cand-inner.cand-inner-top {
+    top: auto;
+  }
+
+  /*Voter Education Page CSS*/
+  .education-area .param {
+    width: 92%;
+  }
+
+  .edu-frame-01,
+  .edu-frame-02,
+  .edu-frame-03,
+  .edu-frame-04 {
+    height: auto;
+  }
+
+  .educ-photo img {
+    position: relative;
+  }
+
+  /*Election Page CSS*/
+  .page-title p {
+    width: 88%;
+  }
+
+  .modify-tabs .nav .nav-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .current-item {
+    margin-bottom: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .past-icon {
+    margin: -5rem auto 0.5rem;
+  }
+
+  .past-title {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cand-banner.past-banner .cand-item {
+    margin-top: 5.5rem;
+  }
+
+  .candidate-area.past-election-area {
+    margin-bottom: 0.85rem;
+    margin-top: 2.85rem;
+  }
+
+  .know-icon {
+    width: 185px;
+    height: 135px;
+  }
+
+  .know-content:hover {
+    top: 4rem;
+  }
+
+  .elct-content p {
+    width: 92.5%;
+  }
+
+  .cand-banner.elct-banner .cand-inner {
+    transform: none;
+  }
+
+  .list-content.reslt-lst a {
+    margin: 0.85em auto;
+    padding: 1.5rem 1.85rem;
+    min-height: auto;
+  }
+
+  .cand-param p {
+    min-height: auto;
+  }
+
+  .list-content.reslt-lst {
+    width: 92%;
+  }
+
+  .list-content.reslt-lst span {
+    top: 15%;
+  }
+
+  .cand-banner.refer-banner {
+    padding: 0rem 1.5rem;
+  }
+
+  .cand-banner.refer-banner.top-pad {
+    padding-top: 1.5rem;
+  }
+
+  .cand-banner.refer-banner.bottom-pad {
+    padding-bottom: 0.5rem;
+  }
+
+  .candidate-area.candidate-mr-btm {
+    margin-bottom: 1.5rem;
+  }
+
+  /*Photo Gallery Page CSS*/
+  .img-items {
+    height: auto;
+  }
+
+  .img-items img {
+    position: relative;
+  }
+
+  .img-items figcaption.image-title {
+    bottom: 0;
+    font-size: 0.85rem;
+  }
+
+  /*About ECI Page CSS*/
+
+  .banner-content {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  /*Advance Serach Page CSS*/
+
+  .search-pg.srch.srch-filter .advance-search {
+    bottom: 0;
+    padding: 2.5rem 0;
+  }
+
+  .search-wrap {
+    padding: 1.5rem 1rem;
+  }
+
+  .search-pg.srch.srch-filter {
+    padding: 20rem 0;
+  }
+
+
+
+  .mob-content-center {
+    justify-content: center;
+  }
+
+  .search-wrap select,
+  .search-wrap input,
+  .search-wrap button {
+    height: 45px;
+    margin-bottom: 0.85rem;
+  }
+
+  .search-title {
+    width: 100%;
+    margin: 0 auto 1.5rem;
+  }
+
+  .search-title h2 {
+    font-size: 1.85rem;
+  }
+
+  .search-pg {
+    height: auto;
+    padding: 20rem 0;
+  }
+
+  .top-filter ul {
+    width: 98%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .top-filter ul>li {
+    width: 48.5%;
+    margin-bottom: 0.5rem;
+  }
+
+  .top-filter ul>li>a {
+    padding: 0.5rem 0.85rem;
+    font-size: 1rem;
+  }
+
+  /*Voter Services Page CSS*/
+  .voter-pic::before,
+  .voter-pic:hover::before {
+    width: 100%;
+    height: 100% !important;
+  }
+
+  .list-content {
+    position: relative;
+    width: 92%;
+    margin: auto;
+  }
+
+  .list-content a {
+    padding: 1rem 3.5rem;
+  }
+
+  .item-content {
+    padding: 1.85rem;
+  }
+
+  .know-box {
+    height: auto;
+    margin-bottom: 2.85rem;
+  }
+
+  .voter-pic {
+    height: auto;
+  }
+
+  .voter-pic img {
+    max-width: 100%;
+    position: relative;
+  }
+
+  /*Candidate Page CSS*/
+  .misc-area {
+    padding: 1rem;
+  }
+
+  .pol-item p {
+    font-size: 1rem;
+  }
+
+  .modify-tabs .nav-pills .nav-link {
+    width: 100%;
+  }
+
+  .custom-breadcrump {
+    display: none;
+  }
+
+  .page-title {
+    margin-top: 1.5rem;
+  }
+
+  /*Media and Publication Page CSS*/
+  .media-fst-item {
+    padding: 1.5rem 0.85rem;
+    min-height: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .handbook-area {
+    margin: auto;
+  }
+
+  .handbook-content {
+    width: 92.5%;
+  }
+
+  .handbook-area::before,
+  .handbook-area::after {
+    background: none;
+  }
+
+  .evm-area {
+    margin-top: 0;
+  }
+
+  /*ECI Official Page CSS*/
+  .eci-officials-area {
+    padding: 1.5rem 0rem;
+  }
+
+  /*EC Profile Page CSS*/
+  .ec-title {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .ec-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .ec-title h6 {
+    font-size: 1rem;
+  }
+
+  .ecProfile .ec-profile {
+    width: 558px;
+    height: 385px;
+  }
+
+  div[class*="padd"] {
+    justify-content: space-evenly;
+  }
+
+  .advance-search {
+    padding: 0;
+  }
+
+  .img-items figcaption.image-title,
+  .img-wrp .image-title {
+    display: none;
+  }
+
+  .voter-services-app-links {
+    position: relative;
+    right: 0;
+    bottom: 0;
+  }
+
+  .voter-services-app-links .d-flex {
+    justify-content: end;
+  }
+
+  .pos-abs {
+    position: relative;
+    bottom: 0;
+    right: 0.5rem;
+  }
+
+  .pos-abs:hover {
+    right: -0.15rem;
+  }
+
+  /*Honble Commission Page CSS*/
+  .comm-box {
+    margin-bottom: 10rem;
+    min-height: auto;
+    margin-top: -0.5rem;
+  }
+
+  /*Election Symbol Page CSS*/
+  .election-symbol .feature-box-violet div.box-content {
+    margin: 1.5rem auto 0;
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .customTabs {
+    padding: 1.5rem 0;
+  }
+
+  .scroll-content .list-lable>a {
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  }
+
+  .item-content a {
+    min-height: auto;
+  }
+
+  .item-content h5 span {
+    font-size: 1.5rem;
+  }
+
+  .know-content {
+    padding: 1rem 1.85rem;
+    top: 2rem;
+  }
+
+  .curnt-area {
+    padding: 0.5rem 0;
+  }
+
+  .sec-details {
+    margin-top: 0;
+  }
+
+  .media-banner {
+    padding: 1.5rem 1.85rem;
+  }
+
+  .media-box {
+    margin: 0 auto 1.5rem;
+  }
+
+  .election-results,
+  .publication,
+  .ebook,
+  .pocket-books {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .result-contents {
+    padding: 0 1rem;
+    text-align: center;
+    margin-top: 0.85rem;
+  }
+
+  .result-contents h4::after {
+    width: 18%;
+    margin: auto;
+    left: 0;
+    right: 0;
+  }
+
+  .pocket {
+    min-height: auto;
+  }
+
+  .pay-btn {
+    display: flex;
+    text-align: center;
+  }
+
+  .btn-blue {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .education-area .param {
+    margin: 0 auto 0.5rem;
+  }
+
+  .stats-area {
+    margin: 0.5rem 1rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  section.stats-area .newpage-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .page-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .img-list img {
+    max-width: 25%;
+  }
+
+  .suvidha-barcode img {
+    max-width: 42%;
+  }
+
+  .barcode-title {
+    margin-top: 1.5rem;
+    margin-left: 0;
+    text-align: center;
+
+  }
+
+  .barcode-title h3 {
+    font-size: 1.5rem;
+  }
+
+  .suvidha-barcode {
+    padding: 0;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .overseas-title {
+    font-size: 1.25rem;
+  }
+
+  .track-tabs .nav {
+    height: auto;
+  }
+
+  .track-tabs .nav li.nav-item {
+    height: 110px;
+  }
+
+  .accordion-body {
+    padding: 1rem 0;
+  }
+
+  .slick-banner {
+    margin-bottom: 0.85rem;
+  }
+
+  .profileContent {
+    width: 92.50%;
+  }
+
+  .param-box h2 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .mcc-links a {
+    display: block;
+    margin-top: 1.5rem;
+  }
+
+  .assam-box {
+    min-height: auto;
+    margin-bottom: 3.85rem;
+  }
+
+  .lightpink-box {
+    min-height: auto;
+  }
+
+  .modify-tabs.navi-tabs ul>li {
+    margin: 0 0.5rem 4.5rem;
+  }
+
+  .subcategories .subcategory {
+    border-right: none;
+  }
+
+  .barcode {
+    padding: 0;
+    margin-left: 0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 1rem;
+  }
+
+  .mb-hide {
+    display: none;
+  }
+
+  .desk-hide {
+    display: block;
+  }
+}
+
+@media all and (max-width: 750px) {
+
+  .map-area {
+    padding: 1.5rem 4.5rem;
+  }
+
+  .map-area iframe {
+    height: 615px;
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .fact-icon a,
+  .press-icon a {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  section.assembly-page {
+    width: 88.50%;
+  }
+
+  .red-assembly {
+    text-align: center;
+  }
+
+  .red-assembly a {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .red-assembly::after {
+    display: none;
+  }
+
+  .yrs-01,
+  .yrs-02 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 1rem;
+  }
+
+  .child-box-01,
+  .child-box-02 {
+    padding: 0.5rem 0.85rem;
+    margin-top: 0;
+  }
+
+  .parent-box-01,
+  .parent-box-02 {
+    border-left: none;
+    border-right: none;
+    padding: 0;
+    margin-left: 0;
+  }
+
+  .parent-box-02::after {
+    display: none;
+  }
+
+  .child-box-01 .pointer-icon {
+    left: 48%;
+    font-size: 3.5rem;
+    top: -2.75rem;
+    margin: auto;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+  }
+
+  .child-box-02 {
+    margin-top: 1rem;
+  }
+
+  .child-box-02 .pointer-icon {
+    left: auto;
+    right: 48%;
+    bottom: -2.75rem;
+    top: auto;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+  }
+
+
+
+  .img-btn,
+  .dirt-icon {
+    display: none;
+  }
+
+  .back-btn a {
+    margin-left: 0;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 1rem;
+  }
+
+}
+
+@media all and (max-width: 645px) {
+
+  .toll-links span>a,
+  .toll-btn {
+    font-size: 0.75rem;
+  }
+
+  .photo-frame.frame-hght-01a {
+    height: auto;
+    width: 100%;
+  }
+
+  .cand-inner {
+    width: 100%;
+  }
+
+  .ict-app-links {
+    cursor: pointer;
+    position: relative;
+    right: 1rem;
+    bottom: 0;
+    right: 0;
+  }
+
+  .map-area iframe {
+    height: 535px;
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .item-pdf-box {
+    margin-top: 1rem;
+  }
+
+  .fact-icon a,
+  .press-icon a {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 1rem;
+  }
+
+}
+
+@media all and (max-width: 550px) {
+  .logo img {
+    max-width: 82%;
+  }
+
+  .nav-wrap {
+    width: 72.50%;
+  }
+
+  .nav-wrap.menu-visible::after {
+    left: 71.50%;
+  }
+
+  /* .nav-wrap.side-down::after {
+    left: 26.5rem;
+  } */
+
+  .toll-links span:nth-child(2),
+  .toll-links span:nth-child(3) {
+    display: none;
+  }
+
+  .icon-track .icon-cricle {
+    width: 85px;
+    height: 85px;
+  }
+
+  .photo-frame {
+    width: 100%;
+  }
+
+  .video-frame {
+    width: 92%;
+    height: 600px;
+  }
+
+  .current-box>a {
+    padding: 1rem 0.25rem;
+  }
+
+  .map-area {
+    padding: 1.5rem 0rem;
+  }
+
+  .map-area iframe {
+    height: 575px;
+  }
+
+  .service-box {
+    width: 100%;
+    padding: 0 0.85rem;
+  }
+
+  .content-tab .tab-content {
+    padding: 1.5rem 0.5rem;
+  }
+
+  .nav-item {
+    width: 48%;
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+
+  .tab-content figure {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .gradient-blue-bg {
+    margin-top: -1.5rem;
+  }
+
+  .sub-title {
+    margin: 0 0 1rem;
+  }
+
+  .btn-blue {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .flex-box {
+    display: block;
+  }
+
+  .Second-foot {
+    text-align: center;
+  }
+
+  .Second-foot ul>li {
+    display: inline-block;
+  }
+
+  .Second-foot ul>li::before {
+    display: none;
+  }
+
+  .Second-foot ul>li>a {
+    font-size: 0.85rem;
+  }
+
+  .social-mail {
+    font-size: 0.75rem;
+  }
+
+  .copyRights {
+    font-size: 0.65rem;
+  }
+
+  .logo-search {
+    padding: 0.25rem 0rem;
+  }
+
+  .menu-list h4 {
+    font-size: 1rem;
+  }
+
+  .menu-list ul>li>a {
+    font-size: 0.85rem;
+  }
+
+  .cloze-btn {
+    right: 0.5rem;
+  }
+
+  .frame-left {
+    left: 4.5rem;
+  }
+
+  .frame-right {
+    right: 4.5rem;
+  }
+
+  .photo-frame.frame-hght-03 {
+    width: 100%;
+    height: auto;
+  }
+
+  .custom-btns-align {
+    justify-content: center;
+  }
+
+  .current-box>a {
+    margin-bottom: 0.25rem;
+  }
+
+  /*Election Page CSS*/
+  .know-box {
+    height: auto;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .know-content {
+    left: auto;
+    position: relative;
+    top: auto;
+    width: 100%;
+    padding: 0.85rem 0.85rem;
+  }
+
+  .know-content:hover {
+    top: auto;
+  }
+
+  .current-item {
+    margin-bottom: 0.5rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .current-icon {
+    width: 65px;
+    height: 65px;
+    font-size: 1.85rem;
+    text-align: center;
+    margin-right: 1rem;
+    color: #c2048a;
+    line-height: 4rem;
+  }
+
+  .list-content.reslt-lst.mob-list {
+    margin-bottom: 2.5rem;
+  }
+
+  .list-content.reslt-lst.mob-list a {
+    padding: 2rem 1rem 1.5rem 1rem;
+  }
+
+  .list-content.reslt-lst.mob-list span {
+    top: -2rem;
+  }
+
+  /*ICT Apps Page CSS*/
+  .ict-item h5 {
+    font-size: 1rem;
+  }
+
+  .customTabs .nav-item .nav-link {
+    border-radius: 0;
+    padding: 0.65rem 0;
+    font-size: 0.9rem;
+  }
+
+  .search-title h2 {
+    font-size: 1.35rem;
+    text-shadow: 1px 1px 1px #ccc;
+  }
+
+  /*Voter Service Page CSS*/
+  .voter-service {
+    margin-bottom: 0;
+  }
+
+  .voter-pic {
+    height: auto;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+  }
+
+  .list-content a {
+    padding: 2.25rem 1rem;
+    text-align: center;
+  }
+
+  .list-content {
+    position: relative;
+    width: 100%;
+    margin: 2.5rem auto;
+  }
+
+  .list-content span {
+    font-size: 1.25rem;
+    width: 50px;
+    height: 50px;
+    line-height: 3.25rem;
+    left: 0;
+    top: -1.5rem;
+    right: 0;
+    margin: auto;
+  }
+
+  /*Candidate Page CSS*/
+  .misc-area {
+    padding: 0;
+  }
+
+  .misc-item {
+    padding: 1.5rem 0rem;
+    min-height: auto;
+  }
+
+  .pol-item {
+    min-height: auto;
+  }
+
+  .pol-item .pol-content {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .cand-item h4>a {
+    font-size: 1.1rem;
+  }
+
+  .pol-item h4 {
+    font-size: 1.1rem;
+  }
+
+  .report-param a {
+    padding: 1rem 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .report-item .report-title {
+    padding: 1.25rem 1.85rem 1.25rem 1.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .rport-area {
+    padding: 1.5rem 1rem;
+  }
+
+  .report-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .modify-tabs .nav-pills .nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .page-title {
+    font-size: 1.35rem;
+  }
+
+  .report-param {
+    margin-left: 0.85rem;
+  }
+
+  .past-icon {
+    width: 95px;
+    height: 95px;
+    font-size: 2.25rem;
+    line-height: 6rem;
+  }
+
+  /*Media & Publication Page CSS*/
+  .page-title h2,
+  .handbook-content h2,
+  .evm-content h2 {
+    font-size: 1.25rem;
+  }
+
+  /*EC Profile Page CSS*/
+
+  .ecProfile .ec-profile {
+    width: 430px;
+    height: 260px;
+  }
+
+  .profileContent .param-box {
+    padding: 0;
+  }
+
+  .footer {
+    padding: 0.5rem 0rem;
+  }
+
+  /*Political Party Page CSS*/
+  .slick-caption {
+    font-size: 1.35rem;
+  }
+
+  .stip-list h4 {
+    font-size: 1.1rem;
+  }
+
+  .phase-list ul>li>a {
+    font-size: 0.85rem;
+  }
+
+  .subcategories .subcategory {
+    width: 100%;
+  }
+
+  .modify-tabs.navi-tabs {
+    width: 99.50%;
+    margin: 5rem auto;
+  }
+
+  .faq-box {
+    padding: 1rem;
+
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .know-icon {
+    width: 100%;
+    height: auto;
+    text-align: center;
+  }
+
+  .candidate-area.past-election-area {
+    margin-top: 0;
+  }
+
+  .newpage-title {
+    margin-top: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .current-wrap {
+    margin: 0.25rem auto;
+  }
+
+  .track-title>a {
+    font-size: 0.85rem;
+  }
+
+  .ict-content {
+    margin: 0.85rem 0 0 0;
+  }
+
+  .ict-item {
+    padding: 0.5rem 1rem;
+    min-height: auto;
+    text-align: center;
+  }
+
+  .ict-area {
+    padding: 1.5rem 0.85rem;
+  }
+
+  .ict-item figure img {
+    max-width: 50%;
+    width: auto;
+  }
+
+  .ict-item.ict-item-anchor a {
+    padding: 0.5rem 0;
+    display: block;
+    text-align: center;
+  }
+
+  .ict-app-links .d-flex {
+    justify-content: center;
+  }
+
+  .old_ae {
+    margin: 1rem 0.5rem;
+  }
+
+  .custom-accordion {
+    margin: auto 0.5rem;
+  }
+
+  .page-ul {
+    padding: 0;
+  }
+
+  .page-ul h4 {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .page-ul li {
+    margin: 0.85rem auto;
+  }
+
+  .page-ul li>a,
+  .stip-list a,
+  .page-ul.expend-ul li {
+    padding: 0.85rem 0.85rem;
+    border-left-width: 8px;
+  }
+
+  .item-pdf-box {
+    margin-top: 1rem;
+  }
+
+  .fact-icon a,
+  .press-icon a {
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  .press-link-icon a {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 0.35rem;
+  }
+
+}
+
+@media all and (max-width: 485px) {
+  .nav-wrap {
+    width: 82%;
+  }
+
+  .nav-wrap.menu-visible::after {
+    left: 81.50%;
+  }
+
+  .handbook-area {
+    padding: 12rem 0;
+  }
+
+
+  .ec-officer {
+    padding: 0 0.85rem 0.5rem 0.85rem;
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .map-area iframe {
+    height: 450px;
+  }
+
+  .customTabs .nav-item .nav-link {
+    font-size: 0.85rem;
+  }
+
+  .newpage-title {
+    padding: 0 0.25rem;
+  }
+
+  .newpage-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .modify-tabs .nav-pills .nav-link {
+    font-size: 0.85rem;
+  }
+
+  .item-pdf-box {
+    margin-top: 1rem;
+  }
+
+  .fact-icon a,
+  .press-icon a {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 1rem;
+  }
+
+}
+
+@media all and (max-width: 415px) {
+  .nav-wrap.side-down::after {
+    left: 18rem;
+  }
+
+  .icon-track .icon-cricle {
+    width: 75px;
+    height: 75px;
+  }
+
+  .top-head {
+    padding: 0.85rem 0;
+  }
+
+  .frame-left {
+    left: 4.5rem;
+  }
+
+  .frame-right {
+    right: 4.5rem;
+  }
+
+  .photo-frame.frame-hght-03 {
+    width: 100%;
+    height: auto;
+  }
+
+  .video-frame {
+    width: 92%;
+    height: 375px;
+    margin-bottom: 5rem;
+  }
+
+  .advance-search {
+    width: 98%;
+  }
+
+  .handbook-area {
+    padding: 15rem 0;
+  }
+
+  /*EC Profile Page CSS*/
+  .ec-title h2 {
+    font-size: 1.15rem;
+  }
+
+  .ecProfile .ec-profile {
+    width: 358px;
+    height: 195px;
+  }
+
+  .map-area iframe {
+    height: 385px;
+  }
+
+  .sachin-img img,
+  .pankaj-img img,
+  .raj-img img {
+    transform: none;
+  }
+
+  .item-content h5 span {
+    font-size: 1rem;
+  }
+
+  .item-content h5 {
+    font-size: 1.1rem;
+  }
+
+  .item-content {
+    padding: 1rem;
+  }
+
+  .item-pdf-box {
+    margin-top: 1rem;
+  }
+
+  .fact-icon a,
+  .press-icon a {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .press-link-icon {
+    display: grid;
+    justify-content: unset;
+  }
+
+  .fact-icon,
+  .press-conf {
+    margin-bottom: 1rem;
+  }
+
+}

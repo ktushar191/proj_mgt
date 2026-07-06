@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<title>Login</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#4e54c8,#8f94fb);
+}
+
+.login-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo-circle{
+    width:90px;
+    height:90px;
+    background:#fff;
+    border-radius:50%;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.logo-circle i{
+    font-size:42px;
+    color:#4e54c8;
+}
+
+.logo h2{
+    color:#fff;
+    margin-top:18px;
+    font-weight:700;
+}
+
+.logo p{
+    color:#eee;
+    margin-top:8px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+.input-group{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    font-size:18px;
+    z-index:2;
+}
+
+.form-control{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:12px;
+    padding-left:45px;
+    padding-right:45px;
+    font-size:16px;
+    outline:none;
+}
+
+.form-control:focus{
+    box-shadow:0 0 10px rgba(255,255,255,.4);
+}
+
+.password-toggle{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.forgot-password{
+    text-align:right;
+    margin-bottom:20px;
+}
+
+.forgot-password a{
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.forgot-password a:hover{
+    text-decoration:underline;
+}
+
+.btn-login{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:12px;
+    background:#fff;
+    color:#4e54c8;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn-login:hover{
+    background:#3949ab;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+.extra-links{
+    margin-top:25px;
+    text-align:center;
+}
+
+.extra-links p{
+    color:#fff;
+}
+
+.extra-links a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.extra-links a:hover{
+    text-decoration:underline;
+}
+
+/* Tablet */
+
+@media (max-width:768px){
+
+.login-card{
+    max-width:400px;
+    padding:30px;
+}
+
+.logo-circle{
+    width:75px;
+    height:75px;
+}
+
+.logo-circle i{
+    font-size:34px;
+}
+
+.logo h2{
+    font-size:26px;
+}
+
+}
+
+/* Mobile */
+
+@media (max-width:480px){
+
+.login-container{
+    padding:15px;
+}
+
+.login-card{
+    padding:25px 20px;
+    border-radius:15px;
+}
+
+.logo-circle{
+    width:65px;
+    height:65px;
+}
+
+.logo-circle i{
+    font-size:28px;
+}
+
+.logo h2{
+    font-size:22px;
+}
+
+.logo p{
+    font-size:14px;
+}
+
+.form-control{
+    height:48px;
+    font-size:15px;
+}
+
+.btn-login{
+    height:48px;
+    font-size:16px;
+}
+
+.forgot-password{
+    text-align:center;
+}
+
+}
+
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="logo">
+
+            <div class="logo-circle">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue</p>
+
+        </div>
+
+        <form method="POST" action=".">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                <div class="input-group">
+
+                    <i class="fa fa-user input-icon"></i>
+
+                    <input
+                        type="text"
+                        name="txtusername"
+                        id="txtusername"
+                        class="form-control"
+                        placeholder="Enter Username"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <div class="input-group">
+
+                    <i class="fa fa-lock input-icon"></i>
+
+                    <input
+                        type="password"
+                        name="txtpassword"
+                        id="password"
+                        class="form-control"
+                        placeholder="Enter Password"
+                        required>
+
+                    <span class="password-toggle" onclick="togglePassword()">
+                        <i id="eye" class="fa fa-eye"></i>
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fa fa-right-to-bracket"></i>
+                Login
+            </button>
+
+            <div class="extra-links">
+
+                <p>
+                    Don't have an account?
+                    <a href="/profiles/registration">Register Here</a>
+                </p>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+
+<script>
+
+function togglePassword(){
+
+    let password=document.getElementById("password");
+    let eye=document.getElementById("eye");
+
+    if(password.type==="password"){
+
+        password.type="text";
+        eye.classList.remove("fa-eye");
+        eye.classList.add("fa-eye-slash");
+
+    }else{
+
+        password.type="password";
+        eye.classList.remove("fa-eye-slash");
+        eye.classList.add("fa-eye");
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>IIMS</title>
+
+    <!-- Css Files -->
+        <link href="/static/css/bootstrap.css" rel="stylesheet">
+        <link href="/static/css/font-awesome.css" rel="stylesheet">
+        <link href="/static/css/flaticon.css" rel="stylesheet">
+        <link href="/static/css/slick-slider.css" rel="stylesheet">
+        <link href="/static/css/prettyphoto.css" rel="stylesheet">
+        <link href="/static/build/mediaelementplayer.css" rel="stylesheet">
+        <link href="/static/style.css" rel="stylesheet">
+        <link href="/static/css/color.css" rel="stylesheet">
+        <link href="/static/css/color-two.css" rel="stylesheet">
+        <link href="/static/css/color-three.css" rel="stylesheet">
+        <link href="/static/css/color-four.css" rel="stylesheet">
+        <link href="/static/css/responsive.css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+        <link rel="stylesheet" href="/static/css/tk.css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+       
+     
+   
+       
+<style>
+    .li-none
+    {
+        list-style-type:none
+    }
+    .heading-bar
+    {
+        width: 100%;
+        height: 80px;
+    }
+      .container {
+        display: flex!important;
+        align-items: right!important;
+        justify-content: right!important;
+      }
+      
+      #baseimage {
+        border-radius:50px!important;
+        float: left!important;
+      }
+      
+      .text {
+        font-size: 20px!important;
+        padding-left: 20px!important;
+        float: left!important;
+      } 
+</style>
+    {% block stylesheet %}{% endblock %}
+</head>
+
+<body>
+    <div class="overlay" id="overlay" style="display: none;">
+        <figure><img id="loading-img" src="/static/images/loader/l13.gif"; alt=""/></figure>
+    </div>
+    <div class="wm-main-wrapper">
+        
+        <div>
+			 <div class="container">
+			    <div class="row">
+				    <div class="col-md-1">
+                        <figure><img src="/static/images/Yashaswi logo.png" width="400px" alt=""> </figure>
+				    </div>
+                    <div class="col-md-10">
+                            <span style="text-align:center"><h4 class="wm-color-three">Yashaswi Education Society’s </h4></span>
+                            <span style="text-align:center"><h2 class="wm-color-three">INTERNATIONAL INSTITUTE OF MANAGEMENT SCIENCE, CHINCHWAD, PUNE </h1> </span>
+                    </div>
+                    <div class="col-md-1">
+                        <figure><img src="/static/images/IIMS Logo.png" width="120px" alt="" > </figure>
+                    </div>
+			    </div>
+			</div>    
+		</div>
+		<header id="wm-header" class="wm-header-one">
+            
+			<div class="wm-topstrip">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                           
+                            <ul class="wm-stripinfo">
+                                <li><i class="wmicon-location"></i> S.No. 169/1/A, Chinchwad, Opposite to Elpro International, Pune, Maharashtra, 411033</li>
+                                <li><i class="wmicon-technology4"></i> 7350014512 / 7350014526</li>
+                                <li><i class="wmicon-clock2"></i>www.iims.ac.in</li>
+                            </ul>
+                            <ul class="wm-adminuser-section" style="display: none;">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#ModalLogin">login</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#" class="wm-search-btn" data-toggle="modal" data-target="#ModalSearch"><i class="wmicon-search"></i></a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+		</header>
+        <div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="p-4 pt-5" >
+                    
+                    <a href="#" class="img logo rounded-circle mb-5 " style="background-image: url(/static/images/iims_logo.png);"></a>
+                    <ul class="list-unstyled components mb-5">
+                        <li class="li-none ">
+                            <a href="">DASHBOARD</a>
+                        </li>
+                       
+                        <li class="li-none {% if 'student/studentslist' in request.path %} active {% endif %}">
+                            <a href="/student/studentslist">STUDENTS LIST</a>
+                        </li>
+                        <li class="li-none {% if 'student/studentslist' in request.path %} active {% endif %}">
+                            <a href="/student/addsubjects">ADD SUBJECTS</a>
+                        </li>
+                        <li class="li-none {% if 'lms' in request.path %} active {% endif %}" >
+                            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">LMS</a>
+                                <ul class="collapse list-unstyled {% if 'lms' in request.path %} in show {% endif %}" id="homeSubmenu">
+                                    <li class="li-none {% if request.path == '/lms/lmsdashboard' %} active {% endif %}">
+                                        <a href="/lms/lmsdashboard">Dashboard</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/lms/content' %} active {% endif %}">
+                                        <a href="/lms/content">Add Content</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/lms/lms_videoLec' %} active {% endif %}">
+                                        <a href="/lms/lms_videoLec">Video Lectures</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/lms/lms_notes' %} active {% endif %}">
+                                        <a href="/lms/lms_notes">Notes</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/lms/lms_other' %} active {% endif %}">
+                                        <a href="/lms/lms_other">Other</a>
+                                    </li>
+                         
+                                </ul>
+                        </li>
+                        <li class="li-none {% if 'mcqexams' in request.path %} active {% endif %}" >
+                            <a href="#mcqsubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">ONLINE MCQ</a>
+                                <ul class="collapse list-unstyled {% if 'mcqexams' in request.path %} in show {% endif %}" id="mcqsubmenu">
+                                    <li class="li-none {% if request.path == '/mcqexams/mcqdashboard' %} active {% endif %}">
+                                        <a href="/mcqexams/mcqdashboard">Dashboard</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/mcqexams/mcqexam' %} active {% endif %}">
+                                        <a href="/mcqexams/mcqexam">MCQ Exam</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/mcqexams/createmcq' %} active {% endif %}">
+                                        <a href="/mcqexams/createmcq">Create MCQ</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/mcqexams/mcqlist' %} active {% endif %}">
+                                        <a href="/mcqexams/mcqlist">MCQ List</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/mcqexams/addmcqquestions' %} active {% endif %}">
+                                        <a href="/mcqexams/addmcqquestions">Add MCQ Questions</a>
+                                    </li>
+            
+                                  
+                         
+                                </ul>
+                        </li>
+                        <li class="li-none {% if 'mcqexams' in request.path %} active {% endif %}" style="display: none;"> 
+                            <a href="/mcqexams">ONLINE MCQ</a>
+                        </li>
+                        <li class="li-none {% if 'feedback' in request.path %} active {% endif %}">
+                            <a href="#feedbackmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">FEEDBACK</a>
+                            <ul class="collapse list-unstyled {% if 'feedback' in request.path %} in show {% endif %}" id="feedbackmenu">
+                                <li class="li-none {% if 'feedbackdashboard' in request.path %} active {% endif %}">
+                                    <a href="/administrator/feedbackdashboard">Dashboard</a>
+                                </li>
+                                <li class="li-none {% if 'create_feedback' in request.path %} active {% endif %}">
+                                    <a href="/feedback/create_feedback">Create Feedback</a>
+                                </li>
+                                <li class="li-none {% if 'feedbacklist' in request.path %} active {% endif %}">
+                                    <a href="/feedback/feedbacklist">Feedback List</a>
+                                </li>
+        
+                               
+                                <li class="li-none {% if 'feedback_result' in request.path %} active {% endif %}">
+                                    <a href="#feedbacksubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Feedback Analysis</a>
+                                    <ul class="collapse list-unstyled {% if 'feedback_result' in request.path %} in show {% endif %}" id="feedbacksubmenu">
+                                        <li class="li-none {% if 'feedback_result' in request.path %} active {% endif %}">
+                                            <a href="/feedback/feedback_result">A.Y 2023-24</a>
+                                        </li>
+                                        <li class="li-none {% if request.path == '/feedback/feedback_result' %} active {% endif %}">
+                                            <a href="">A.Y 2022-23</a>
+                                        </li>
+                                        <li class="li-none {% if request.path == '/feedback/feedback_result' %} active {% endif %}">
+                                            <a>A.Y 2021-22</a>
+                                        </li>
+                                    </ul>
+                                </li>
+        
+                               
+                     
+                            </ul>
+                        </li>
+                        
+                        <li class="li-none {% if 'result_analysis' in request.path %} active {% endif %}" >
+                            <a href="#result_analysis_submenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Result Analysis</a>
+                                <ul class="collapse list-unstyled {% if 'result_analysis' in request.path %} in show {% endif %}" id="result_analysis_submenu">
+                                    <li class="li-none {% if request.path == '/result_analysis/add_marks' %} active {% endif %}">
+                                        <a href="/result_analysis/add_marks">Add Marks</a>
+                                    </li>
+            
+                                    <li class="li-none {% if request.path == '/result_analysis/reports' %} active {% endif %}">
+                                        <a href="/result_analysis/reports">Reports</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/result_analysis/dashboard' %} active {% endif %}">
+                                        <a href="/result_analysis/dashboard">Dashboard</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/result_analysis/faculty_internal_marks' %} active {% endif %}">
+                                        <a href="/result_analysis/faculty_internal_marks">Internal Marks</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/result_analysis/faculty_analysis' %} active {% endif %}">
+                                        <a href="/result_analysis/faculty_analysis">Faculty Analysis</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/result_analysis/faculty_predictions' %} active {% endif %}">
+                                        <a href="/result_analysis/faculty_predictions">Faculty Prediction</a>
+                                    </li>
+                                    <li class="li-none {% if request.path == '/result_analysis/faculty_reports' %} active {% endif %}">
+                                        <a href="/result_analysis/faculty_reports">Faculty Reports</a>
+                                    </li>
+                                </ul>
+                        </li>
+                      
+                        <li class="li-none {% if 'sdc' in request.path %} active {% endif %}">
+                            <a href="#studentmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SOFTWARE DEVELOPMENT CELL</a>
+                                <ul class="collapse list-unstyled {% if 'sdc' in request.path %} in show {% endif %}" id="studentmenu">
+                                <li class="li-none {% if 'sdcdashboard' in request.path %} active {% endif %}" >
+                                    <a href="/coordinator/sdcdashboard">Dashboard</a>
+                                </li>
+                                <li class="li-none {% if request.path == '/sdc/addproject' %} active {% endif %}" >
+                                    <a href="/sdc/addproject">Add Project</a>
+                                </li>
+                                <li class="li-none {% if request.path == '/sdc/projectallocation' %} active {% endif %}">
+                                    <a href="/sdc/projectallocation">Project Allocation</a>
+                                </li>
+                                <li class="li-none {% if request.path == '/sdc/documentupload' %} active {% endif %}">
+                                    <a href="/sdc/documentupload">Upload Document</a>
+                                </li>
+                                <li class="li-none {% if request.path == '/sdc/projectdetails' %} active {% endif %}">
+                                    <a href="/sdc/projectdetails">Project Details</a>
+                                </li>
+                                </ul>
+                        </li>
+                     
+                    </ul>
+
+	        <div class="footer">
+	        	<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						 <!-- <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">IIMS</a> -->
+						  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+	        </div>
+
+	      </div>
+    	</nav>
+        
+        <!-- Page Content  -->
+      
+
+        <div id="content" >
+            <nav class="navbar navbar-expand-lg navbar-light bg-light heading-bar" style="margin-bottom: 0%;">
+
+                <div class="col-md-1">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary" >
+                    <i class="fa fa-bars"></i>
+                    <span class="sr-only">Toggle Menu</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                 </div>
+
+                <div class="col-md-7"> 
+                    <h1 id="page_heading" name="page_heading" style="display: flex;"></h1> 
+                  </div> 
+
+                <div class="col-md-4">
+                    <div class="container">
+                        <div class="baseimage">
+                            <img id="baseimage" src="{{user_profile.0.image_bigthumb_url}}" style="height: 50px;width:50px;" alt="" />
+                        </div>
+                        <div class="text" style="padding-top: 15px;">
+                            <h4>Welcome !!! 
+                                <strong>{{user_profile.0.first_name }} {{user_profile.0.last_name}}
+                                        <image src="/static/images/down.jpg" 
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
+                                            aria-expanded="false" style="height: 10px;width: 10px;margin-left: 10px;"></image>
+                                           
+                                        <div class="dropdown-menu dropdown-menu-right"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="#">Profile</a>
+                                            <a class="dropdown-item" href="#">Settings</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/accounts/Logout" name="Logout" id="Logout">Logout</a>
+                                        </div>
+                                </strong>
+                            </h4>
+                        </div>
+                    </div>
+                     
+                </div>
+           
+            </nav>
+            {% block content %}
+            {% endblock %}
+        </div>
+         
+     
+        </div>
+    </div>
+  <!-- from herre -->
+ 
+    <!-- till here -->
+</body>
+    <!-- jQuery (necessary for JavaScript plugins) -->
+	<script type="text/javascript" src="/static/script/jquery.js"></script>
+	<script type="text/javascript" src="/static/script/modernizr.js"></script>
+    <script type="text/javascript" src="/static/script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.prettyphoto.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.countdown.min.js"></script>
+    <script type="text/javascript" src="/static/script/fitvideo.js"></script>
+    <script type="text/javascript" src="/static/script/skills.js"></script>
+    <script type="text/javascript" src="/static/script/slick.slider.min.js"></script>
+    <script type="text/javascript" src="/static/script/waypoints-min.js"></script>
+    <script type="text/javascript" src="/static/build/mediaelement-and-player.min.js"></script>
+    <script type="text/javascript" src="/static/script/isotope.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/static/https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="/static/script/functions.js"></script>
+    <script src="/static/js/dashboard1/jquery.min.js"></script>
+    <script src="/static/js/dashboard1/popper.js"></script>
+
+
+   
+    <script src="/static/js/dashboard1/main.js"></script>
+    <script type="text/javascript" src="/static/js/tk/tk.js"></script>
+    <script type="text/javascript" src="/static/js/tk/validations.js"></script>
+    <script type="text/javascript" src="/static/js/tk/check_validations.js"></script>
+
+    {% block javascript %}
+    
+    <script type="text/javascript">
+
+    function redirect_page(pagename)
+    {
+        $('#pagename').show();
+    }
+   
+    </script>
+    {% endblock %}
+    
+
+
+</html>

@@ -1,0 +1,418 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block stylesheet %}
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+   
+    <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+
+    <link rel="stylesheet" href="{% static "result_analysis/css/faculty_stud_marks.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"  />
+
+{% endblock %}
+ 
+{% block content %}
+
+ <div class="form_container">
+ 
+  <form class="steps col-xxl-12" id="subject_allocation_list" name="subject_allocation_list" method="post" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="formbold-steps">
+     
+        <input type="hidden" id="prev_search" name="prev_search" value="{{search}}" />
+        <input type="hidden" id="prev_course" name="prev_course" value="{{course}}" />
+        <input type="hidden" id="prev_pattern" name="prev_pattern" value="{{pattern}}" />
+        <input type="hidden" id="prev_semester" name="prev_semester" value="{{semester}}" />
+        <input type="hidden" id="currentpage" name="currentpage" value="{{ data.currentpage }}" />
+        <input type="hidden" id="sort_col" name="sort_col" value="{{ data.sort_col }}" />
+        <input type="hidden" id="sort_dir" name="sort_dir" value="{{ data.sort_dir }}" />
+        
+        <div class="selectfilter">
+            <table width="100%" >
+                <tr>
+                    <td style="width:100px;border: 0px solid #dddd; padding-left:10px;">
+                        <input id="search" name="search" type="text" class="formbold-form-input" placeholder="Search by Subject name" value="{{ search }}">
+                    </td>
+                    <td style="width:50px;border: 0px solid #dddd; padding-left:10px;">
+                        <select id="course" name="course" class="formbold-form-input" onchange= "$('#overlay').show();this.form.submit();">
+                          <option value="">Select Course</option>
+                          {%for item in course_data%}
+                            <option value="{{item.id}}" {% if item.id|floatformat:0 == course|floatformat:0 %} selected {%  endif %}>{{item.course_name}}</option>
+                          {%endfor%}
+                        </select> 
+                    </td>
+                    
+                    <td style="width:50px;border: 0px solid #dddd; padding-left:10px;">
+                        <select class="formbold-form-input" id="pattern" name="pattern" onchange="$('#overlay').show();this.form.submit();">
+                          <option value="">Select Pattern</option>
+                          {% for item1 in pattern_data %}
+                        
+                          <option value="{{item1.id}}" {% if item1.id|floatformat:0 == pattern|floatformat:0 %} selected {%endif%}>{{item1.pattern}}</option>
+                          {%endfor%}
+                        </select>
+                    </td>
+                    <td style="width:50px;border: 0px solid #dddd; padding-left:10px;">
+                        <select class="formbold-form-input" id="semester" name="semester" onchange="$('#overlay').show();this.form.submit();">
+                          <option value="">Select Semester</option>
+                          {% for item1 in semester_data %}
+                        
+                          <option value="{{item1.id}}" {% if item1.id|floatformat:0 == semester|floatformat:0 %} selected {%endif%}>{{item1.semester_name}}</option>
+                          {%endfor%}
+                        </select>
+                    </td>
+                    <td style="width:50px;border: 0px solid #dddd; padding-left:10px;display:none;">
+                        <select class="browser-default custom-select" id="subject" name="subject" onchange="fill_subjects();$('#overlay').show();this.form.submit();">
+      
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class=" HeadingDiv text-white"> Subject Allocation List <img src="{% static "result_analysis/images/checklist.png" %}" width="28" height="28" alt=""></div>
+    </div>
+
+
+   
+    {% if data.totalcount > 0 %}
+      <div class="formbold-input-flex">      
+        <fieldset style="margin: 0 !important;">
+          
+        <div class="row customPagi" style="padding-top: 5px;padding-bottom: 0px;">
+        <div class="col-sm-4 pad-zero">
+            <p class="pagipadd">Showing {% if data.totalcount > 1 %} {{data.startitem }} - {{data.enditem}} of {{data.totalcount}} {% else %} 1 {% endif%}</p>
+        </div>
+        {% if data.pagescount > 1 %}
+        <div class="col-sm-8 ">
+            <ul class="pagination pagination-square mb-0" style="float:right; padding-right: 10px">
+                {% if data.currentpage == 1  %}
+                <li><span class="disabled page-item active" >First</span></li>
+                {% else %}
+                <li class="page-item clearfix d-none d-md-block" onclick="jumpfirst()">
+                    <a href="#" onclick="return false;" class="page-link">First</a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == 1  %}
+                <li class="disabled page-item lastArrow"><span><i class="fa fa-angle-left"></i></span></li>
+                {% else %}
+                <li class="page-item" onclick="jumpprev()">
+                <a class="page-link" href="#" onclick="return false;" >
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                </li>
+                {% endif %}
+                {% if data.rangestart > 1 %}
+                <li class="page-item" onclick="jumptopage({{ data.rangestart}} - 1 )">
+                    <a class="page-link" href="#" onclick="return false;">...</a>
+                </li>
+                {% endif %}
+                {% for i in data.pagerange %}
+                    {% if data.currentpage == i %}
+                <li class="page-item active">{{ i }}</li>
+                    {% else %}
+                <li class="page-item" onclick="jumptopage('{{ i }}')">
+                    <a class="page-link" href="#" onclick="return false;">{{ i }}</a>
+                </li>
+                    {% endif %}
+                {% endfor %}
+                {% if data.rangeend <= data.pagescount %}
+                <li class="page-item" onclick="jumptopage('{{ data.rangeend  }}')">
+                    <a class="page-link" href="#" onclick="return false;">...</a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == data.pagescount  %}
+                <li class="disabled page-item "><span><i class="fa fa-angle-right"></i></span></li>
+                {% else %}
+                <li class="page-item" onclick="jumpnext()">
+                <a class="page-link" href="#" onclick="return false;" >
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == data.pagescount  %}
+                <li  id="btnlast" name="btnlast"><span class="disabled page-item active">Last</span></li>
+                {% else %}
+                <li  id="btnlast" name="btnlast" class="page-item clearfix d-none d-md-block" onclick="jumplast()">
+                    <a href="#" onclick="return false;" class="page-link">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        </div>
+
+            <div class="formbold-form-btn-wrapper" style="margin-top: 0%;margin-bottom: 0%;">
+            </div>
+            <div class="table-wrapper" style="max-height: 100%;">
+          <table class="content-table" id="assignmentTable">
+            <thead>
+              <tr id="tableHeader">
+                <th class="col-md-1">Sr. No.</th>
+                <th class="col-md-1">A.Y</th>
+                <th class="col-md-1">Course</th>
+                <th class="col-md-1">Pattern</th>
+                <th class="col-md-1">Semester</th>
+                <th class="col-md-4">Subject</th>
+                <th class="col-md-3">Faculty</th>
+                                
+                <!-- <th>Action</th> -->
+              </tr>
+              {% for item in data.records %}
+                <tr style ="background-color:#f8f9fa">
+                  <td>{{ forloop.counter0|add:data.startitem }}</td>
+                  <td>{{item.ayear}}</td>
+                  <td>{{item.course_name}}</td>
+                  <td>{{item.pattern}}</td>
+                  <td>{{item.semester_name}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.faculty_name}}</td>
+                </tr>
+              {% endfor %}
+            </thead>
+           
+          </table>
+            </div>
+
+        <div class="row customPagi" style="padding-top: 5px;padding-bottom: 0px;">
+        <div class="col-sm-4 pad-zero">
+            <p class="pagipadd">Showing {% if data.totalcount > 1 %} {{data.startitem }} - {{data.enditem}} of {{data.totalcount}} {% else %} 1 {% endif%}</p>
+        </div>
+        {% if data.pagescount > 1 %}
+        <div class="col-sm-8 ">
+            <ul class="pagination pagination-square mb-0" style="float:right; padding-right: 10px">
+                {% if data.currentpage == 1  %}
+                <li><span class="disabled page-item active">First</span></li>
+                {% else %}
+                <li   class="page-item clearfix d-none d-md-block" onclick="jumpfirst()">
+                    <a href="#" onclick="return false;" class="page-link">First</a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == 1  %}
+                <li class="disabled page-item lastArrow"><span><i class="fa fa-angle-left"></i></span></li>
+                {% else %}
+                <li class="page-item" onclick="jumpprev()">
+                <a class="page-link" href="#" onclick="return false;" >
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                </li>
+                {% endif %}
+                {% if data.rangestart > 1 %}
+                <li class="page-item" onclick="jumptopage({{ data.rangestart}} - 1 )">
+                    <a class="page-link" href="#" onclick="return false;">...</a>
+                </li>
+                {% endif %}
+                {% for i in data.pagerange %}
+                    {% if data.currentpage == i %}
+                <li class="page-item active">{{ i }}</li>
+                    {% else %}
+                <li class="page-item" onclick="jumptopage('{{ i }}')">
+                    <a class="page-link" href="#" onclick="return false;">{{ i }}</a>
+                </li>
+                    {% endif %}
+                {% endfor %}
+                {% if data.rangeend <= data.pagescount %}
+                <li class="page-item" onclick="jumptopage('{{ data.rangeend  }}')">
+                    <a class="page-link" href="#" onclick="return false;">...</a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == data.pagescount  %}
+                <li class="disabled page-item "><span><i class="fa fa-angle-right"></i></span></li>
+                {% else %}
+                <li class="page-item" onclick="jumpnext()">
+                <a class="page-link" href="#" onclick="return false;" >
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                </li>
+                {% endif %}
+                {% if data.currentpage == data.pagescount  %}
+                <li  id="btnlast" name="btnlast" ><span class="disabled page-item active">Last</span></li>
+                {% else %}
+                <li  id="btnlast" name="btnlast" class="page-item clearfix d-none d-md-block" onclick="jumplast()">
+                    <a href="#" onclick="return false;" class="page-link">Last</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+        </div>
+        
+        </fieldset>
+      </div>
+      {%else%}
+      No Record Found
+    {% endif%}
+    
+  
+</form>
+  
+</div>
+
+{% endblock %}
+{% block javascript %}
+   
+<script>
+var currentpage={{data.currentpage}};
+var pagecount= {{ data.pagescount }};
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+function jumpnext()
+{
+    currentpage = currentpage + 1;
+    console.log(currentpage);
+    document.getElementById('currentpage').value=currentpage;
+    $("#subject_allocation_list").submit();
+}
+
+function jumplast()
+{
+    currentpage={{ data.pagescount }};
+    document.getElementById('currentpage').value=currentpage;
+    $("#subject_allocation_list").submit();
+}
+function jumpfirst()
+{
+    currentpage=1;
+    document.getElementById('currentpage').value=currentpage;
+    $("#subject_allocation_list").submit();
+}
+function jumpprev()
+{
+    currentpage=currentpage - 1;
+    document.getElementById('currentpage').value=currentpage;
+    $("#subject_allocation_list").submit();
+}
+function jumptopage(i)
+{
+    currentpage=i;
+    document.getElementById('currentpage').value=currentpage;
+    $("#subject_allocation_list").submit();
+}
+function sortrecords(new_sort_col)
+{
+    var old_sort_col = document.getElementById('sort_col').value;
+    document.getElementById('sort_col').value=new_sort_col;
+
+    if(old_sort_col!=new_sort_col)
+    {
+        document.getElementById('sort_dir').value= 'DESC';
+    }
+    else
+    {
+        // var old_sort_dir=document.getElementById('sort_dir').value;
+        var new_sort_dir=document.getElementById('sort_dir').value;
+        if(new_sort_dir==='ASC')
+            new_sort_dir='DESC';
+        else
+            new_sort_dir='ASC';
+        document.getElementById('sort_dir').value=new_sort_dir
+    }
+    $("#subject_allocation_list").submit();
+}
+
+
+var form_valid=true;
+function form_submit(e)
+{
+    form_valid=true;
+    $("#overlay").show();
+    
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function fill_subjects()
+{
+$.ajax({
+        
+        url: "/mcqexams/get_all_subjects_by_course_sem_pattern/",
+        method: 'POST',
+        data :{ 
+            'course_id': $('#course').val(),
+            'pattern': $('#pattern').val(),
+            'sem_id': $('#semester').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#subject').html('<option value="">Select Subject</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.subject_name + '</option>';
+            }).join('');
+            $('#subject').html(html);
+            }
+            else
+            {
+                $('#subject').html('<option value="">Select Subject</option>')
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+}
+function reset_subject()
+{
+    $('#subject').val('');
+}
+function reset_semester()
+{
+    $('#semester').val('');
+}
+function reset_pattern()
+{
+    $('#pattern').val('');
+}
+
+function course_changed()
+{
+    reset_pattern();
+    reset_semester();
+    reset_subject();
+    reset_chapter();
+}
+function pattern_changed()
+{
+    reset_semester();
+    reset_subject();
+    reset_chapter();
+}
+function semester_changed()
+{    
+    reset_subject();
+    reset_chapter();
+    
+}
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+document.getElementById('page_heading').innerText="Subject Allocation List";
+});
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'userbase.html' %}
+{%block stylesheet%}
+<style>
+ .wm-tweet-us{
+  background: azure;
+  color: rgb(25, 25, 49);
+ }
+
+canvas{
+ border-radius: 10px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+ margin-bottom: 20px;
+ /* height: 245px!important;
+ width: 550px!important; */
+ margin-left: 20px;
+ margin-right: 30px;
+ padding-right: 20px;
+ margin-top: 20px;
+ height: 100%;
+ width: 30%;
+}
+.row{
+  margin-right: 10px;
+}
+</style>
+
+{%endblock%}
+ 
+{% block content %}
+<form onsubmit="return form_submit(event);" name="registration" id="registration" action="." method="post" enctype="application/x-www-form-urlencoded">
+  {% csrf_token %}
+    <div id="download_div" style="margin-left: 5%;margin-top:7%">
+    <span class="float-end pt-2">
+        <button type="button" id='gg' onclick="generatePDF()" class="btn-sm btn-danger pull-right" >Export to PDF</button>
+      </span>
+  </div>
+  <div id="result_div" style="margin-top:7%">
+  </div>
+  <div id="result_div_export" style="margin-top:7%;display:none;" >
+  </div>    
+
+</form>
+
+
+{% endblock%}
+
+{% block javascript %}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> 
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      var data1={{data.student | safe }};
+          
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        for (let key in data1)
+        {
+        var data = new google.visualization.DataTable();      
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+       
+        data.addRows(data1[key]['c_data']);
+
+        var options = {'title':data1[key]['chartLabel'],
+                        titleTextStyle: {
+                          color: "#000",
+                          fontName: "sans-serif",
+                          fontSize: 18,
+                          bold: true,
+                          italic: false,
+                          
+                      },
+                       is3D: true,
+                       width:900,
+                       height:400,
+                       legend: { position: 'bottom', alignment: 'start' },
+                       fontSize:15,
+                       
+                       };
+        
+        var ele=document.createElement('div');
+        ele.id='div_'+key.toString();
+        ele.style.cssText="border-radius: 40px;width: 56%;padding-bottom: 0px;box-shadow: rgba(86, 7, 151, 0.25) 5px 5px 30px 7px, rgba(0, 0, 0, 0.22) -5px -5px 30px 7px;margin: 2% 15% 2% 25%;";
+        
+        document.getElementById('result_div').appendChild(ele);
+        var chart = new google.visualization.PieChart(ele);
+        chart.draw(data, options);
+        //styleChart(chart,ele.id);
+
+
+        //chart for export
+        var options = {'title':data1[key]['chartLabel'],
+                        titleTextStyle: {
+                          color: "#000",
+                          fontName: "sans-serif",
+                          fontSize: 18,
+                          bold: true,
+                          italic: false,
+                          
+                          
+                      },
+                       is3D: true,
+                       width:800,
+                       height:320,
+                       legend: { position: 'right', alignment: 'start' },
+                       fontSize:12,
+                       chartArea:{
+                            left:5,
+                                                     
+                          }
+                                                
+                       };
+        var ele1=document.createElement('div');
+        ele1.id='div_'+key.toString();
+        ele1.style.cssText="margin-bottom:15px;margin-left:10px" 
+        
+        document.getElementById('result_div_export').appendChild(ele1);
+        var chart = new google.visualization.PieChart(ele1);
+        chart.draw(data, options);
+
+      }
+      }
+     // Function to style the chart
+      function styleChart(chart,div_id) {
+        // Get the chart's SVG element
+        var svg = document.getElementById('div_id').getElementsByTagName('svg')[0];
+        
+        // Example of styling specific elements:
+        // Style the lines
+        var lines = svg.getElementsByTagName('path'); // <path> is used for the line chart
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].setAttribute('stroke', '#FF5733');  // Change line color
+          lines[i].setAttribute('stroke-width', '2');  // Change line width
+        }
+
+        // Style the points (circles) on the chart
+        var circles = svg.getElementsByTagName('circle');
+        for (var i = 0; i < circles.length; i++) {
+          circles[i].setAttribute('fill', '#3498db');  // Change circle color
+          circles[i].setAttribute('stroke', '#2980b9'); // Circle stroke color
+        }
+
+        // Style the title text (if any)
+        var title = svg.querySelector('text');
+        if (title) {
+          title.setAttribute('font-size', '15');
+          title.setAttribute('fill', '#2c3e50');
+        }
+      }
+      function generatePDF() {
+            
+            // Choose the element id which you want to export.
+            var element = document.getElementById('result_div_export');
+            var clonedElement = element.cloneNode(true);
+            $(clonedElement).css("display", "block");
+            clonedElement.style.width = '100%';
+            clonedElement.style.height = '100%';
+            var opt = {
+                margin:       0.5,
+                filename:     'feedback_report.pdf',
+                image:        { type: 'jpeg', quality: 1 },
+                html2canvas:  { scale: 1 },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait',precision: '25' }
+              };
+            
+            // choose the element and pass it to html2pdf() function and call the save() on it to save as pdf.
+            html2pdf().set(opt).from(clonedElement).save();
+            clonedElement.remove();
+          }
+    </script>
+<script> 
+
+
+
+</script>
+{% endblock %}

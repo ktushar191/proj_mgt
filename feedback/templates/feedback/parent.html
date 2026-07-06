@@ -1,0 +1,235 @@
+{% extends 'userbase.html' %}
+{% load static %}
+<!DOCTYPE html> 
+    {% block stylesheet %}
+    
+    
+ 
+ <!-- Css Files -->
+ <link href="/static/css/bootstrap.css" rel="stylesheet">
+ <link href="/static/css/font-awesome.css" rel="stylesheet">
+ <link href="/static/css/flaticon.css" rel="stylesheet">
+ <link href="/static/css/slick-slider.css" rel="stylesheet">
+ <link href="/static/css/prettyphoto.css" rel="stylesheet">
+ <link href="/static/build/mediaelementplayer.css" rel="stylesheet">
+ <link href="/static/style.css" rel="stylesheet">
+ <link href="/static/css/color.css" rel="stylesheet">
+ <link href="/static/css/color-two.css" rel="stylesheet">
+ <link href="/static/css/color-three.css" rel="stylesheet">
+ <link href="/static/css/color-four.css" rel="stylesheet">
+ <link href="/static/css/responsive.css" rel="stylesheet">
+ <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+ <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+ <link rel="stylesheet" href="/static/css/tk.css">
+
+
+
+
+ <script>
+    .form-check-input{
+        margin : 0px 10px 0px 10px;
+        padding :10px;
+        }
+
+ </script>
+    {% endblock %}
+    
+
+
+  <!-- from herre -->
+   {% block content %}
+
+
+   <main class="primary-background banner-background "
+   style="padding-bottom: 120px;">
+<div class="container" style="padding:40px;">
+
+   <div class="col-md-6 offset-md-3 bg-dark "style="padding:10px;">
+
+       <div class="card ">
+
+           <div class="card-header text-center bg-dark text-white">
+               <span class="fa fa-3x fa-user-circle"></span> <br> Parent FeedBack
+           </div>
+
+           <div class="card-body">
+               <form id="reg-form" action="RegisterServlet" method="post">
+
+                   <div class="form-group">
+                       <label for="user_name">Full Name</label> <input name="user_name"
+                           type="text" class="form-control" id="user_name"
+                           aria-describedby="emailHelp" placeholder="Enter name">
+
+                   </div>
+                   <div class="form-group">
+                       <label for="roll_no">Roll No</label> <input name="roll_no"
+                           type="text" class="form-control" id="roll_no"
+                           aria-describedby="rollno" placeholder="Ente Rolll No">
+
+                   </div>
+
+                   <div class="form-check">
+
+                       <strong>1 .Academic Quality and Support:</strong>
+                           <br>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Excellent
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Good
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Average
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Poor
+                       </label> 
+                     </div>
+                      
+                     <div class="form-check">
+                       <strong>2 .Campus Environment and Safety:</strong>
+                           <br>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           &nbsp;  Excellent
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Good
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Average
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Poor
+                       </label> 
+                     </div>
+
+
+                     <div class="form-check">
+                       
+                       <strong>3 .Career Preparation and Opportunities:</strong>
+                           <br>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Excellent
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Good
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Average
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Poor
+                       </label> 
+                     </div>
+
+                     <div class="form-check">
+                       
+                       <strong>4 .Continuous Improvement:</strong>
+                           <br>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Excellent
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Good
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Average
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Poor
+                       </label> 
+                     </div>
+
+                     <div class="form-check">
+                       
+                       <strong>5 .Overall Satisfaction:</strong>
+                           <br>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Excellent
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Good
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Average
+                       </label>
+                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+                       <label class="form-check-label" for="flexRadioDefault1">
+                           Poor
+                       </label> 
+                     </div>
+
+               
+                   <button id="submit-btn" type="submit" class="btn btn-primary">Submit</button>
+
+               </form>
+
+
+
+               {% comment %}  {% endcomment %}
+           </div>
+
+       </div>
+
+   </div>
+
+</div>
+
+</main>
+
+
+
+
+
+
+
+
+   {% endblock %}
+    <!-- till here --> 
+    {% block javascript %}
+    
+		
+    <!-- jQuery (necessary for JavaScript plugins) -->
+	<script type="text/javascript" src="/static/script/jquery.js"></script>
+	<script type="text/javascript" src="/static/script/modernizr.js"></script>
+    <script type="text/javascript" src="/static/script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.prettyphoto.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.countdown.min.js"></script>
+    <script type="text/javascript" src="/static/script/fitvideo.js"></script>
+    <script type="text/javascript" src="/static/script/skills.js"></script>
+    <script type="text/javascript" src="/static/script/slick.slider.min.js"></script>
+    <script type="text/javascript" src="/static/script/waypoints-min.js"></script>
+    <script type="text/javascript" src="/static/build/mediaelement-and-player.min.js"></script>
+    <script type="text/javascript" src="/static/script/isotope.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/static/https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="/static/script/functions.js"></script>
+    <script type="text/javascript" src="/static/js/tk/tk.js"></script>
+    <script type="text/javascript" src="/static/js/tk/validations.js"></script>
+    
+    
+    {% endblock %}
+    
+
+ 

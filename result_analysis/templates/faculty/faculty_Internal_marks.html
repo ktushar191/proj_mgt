@@ -1,0 +1,1130 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block stylesheet %}
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+   
+    <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+
+    <link rel="stylesheet" href="{% static "result_analysis/css/faculty_stud_marks.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"  />
+
+{% endblock %}
+ 
+{% block content %}
+
+
+  
+<div class="form_container">
+ 
+  <form class="steps col-xxl-12" id="internal_marks_details" name="internal_marks_details" method="post" action="." enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="formbold-steps">
+
+      <div class=" HeadingDiv text-white"> Student's Internal Marks Details <img src="{% static "result_analysis/images/checklist.png" %}" width="28" height="28" alt=""></div>
+      
+    </div>
+    <div class="formbold-input-flex">
+      
+      <div>
+				<label class="formbold-form-label">Select Course <span class="text-danger">*</span></label>
+
+				<select id="course-select" class="formbold-form-input " data-error-target="course-error" >
+					<option selected="" value="">Select Course</option>
+					{% for cinfo in course_details %}
+					<option value="{{cinfo.id}}">{{cinfo.course_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="course-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+				
+
+		  </div>
+      <div>
+				<label class="formbold-form-label">Select Semester <span class="text-danger">*</span></label>
+
+				<select  id="semester-select" class="formbold-form-input" data-error-target="semester-error" >
+					<option selected="" value="">Select Semester</option>
+					{% for sinfo in semester_details %}
+					<option value="{{sinfo.id}}">{{sinfo.semester_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="semester-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+			</div>
+      <div>
+        <label class="formbold-form-label">Select Academic Year <span class="text-danger">*</span></label>
+
+        <select id="ay-select" class="formbold-form-input" data-error-target="ay-error">
+          <option selected="" value="">Select Acad. Year</option>
+          {% for ainfo in acedemic_year %}
+          <option value="{{ainfo.id}}">{{ainfo.ayear}}</option>
+          {% endfor %}
+        </select>
+        <div class="error-container" id="ay-error">
+          <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+          <small class="d-none error-message">Error Message</small>
+        </div>
+      </div>
+      <div>
+        <label class="formbold-form-label">Select Pattern <span class="text-danger">*</span></label>
+
+        <select class="formbold-form-input" id="pattern-select" data-error-target="pattern-error">
+          <option selected="" value="">Select Pattern</option>
+          {% for pinfo in pattern %}
+          <option value="{{pinfo.pattern}}">{{pinfo.pattern}}</option>
+          {% endfor %}
+
+        </select>
+        <div class="error-container" id="pattern-error">
+          <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+          <small class="d-none error-message">Error Message</small>
+        </div>
+      </div>
+      <div>
+        <label class="formbold-form-label">Select Subject <span class="text-danger">*</span></label>
+
+        <select class="formbold-form-input" id="subject-select" data-error-target="subject-error">
+          <option selected="" value="">Select Subject</option>
+        </select>
+        <div class="error-container" id="subject-error">
+          <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+          <small class="d-none error-message">Error Message</small>
+        </div>
+      </div>
+     
+     
+    </div>
+    <section id="sub_marks">
+      <ul id="progressbar">
+          <li class="active">Assignment</li>
+          <li>MCQ Test</li>
+          <li>Mid Term Exam</li>
+          <li>End Term Exam</li>
+          <li>Subject Viva</li>
+      </ul>
+
+          <!-- Assignment Details --> 
+        <fieldset>
+            <h2 class="fs-title">Assignment Details</h2>
+            <h3 class="fs-subtitle">Student's Assignment Score Submission</h3>
+            <div class="formbold-form-btn-wrapper">
+              
+              <button type="button" id="addbtn" class="formbold-btn" title="Add a new assignment" data-toggle="tooltip">
+                <i class="fa-solid fa-circle-plus" style="color: #ffffff;"></i>
+                Add Assignment
+              </button>
+              <button type="button" id="deletebtn" class="formbold-btn2" title="Delete assignment" data-toggle="tooltip">
+                <i class="fa-solid fa-trash" style="color: #ffffff;" ></i>
+                Delete
+              </button>
+            </div>
+            <div class="table-wrapper">
+            <table class="content-table" id="assignmentTable">
+              <thead>
+                <tr id="tableHeader">
+                  <th>Roll No</th>
+                  <th id="assign1">Assign-No 1</th>
+                  <th id="assign2">Assign-No 2</th>
+                  <th id="assign3">Assign-No 3</th>
+                  <th id="assign4">Assign-No 4</th>
+                  <th id="assign5">Assign-No 5</th>
+                </tr>
+              </thead>
+              <tbody  id="assignmentTableBody">
+                    <!-- Rows will be added dynamically -->
+              </tbody>
+            </table>
+            </div>
+          
+            <input type="button" data-page="1" name="next" class="next action-button" value="Next" />
+            
+        </fieldset>
+        
+          <!-- MCQ Test Details -->  
+        <fieldset>
+            <h2 class="fs-title">MCQ Test Details</h2>
+            <h3 class="fs-subtitle">Student's MCQ Test Score Submission</h3>
+            
+              
+            <div class="table-wrapper1">
+              <table class="content-table" id="mcqTable">
+                <thead>
+                  <th>Roll No</th>
+                  <th id="mcqmarks">MCQ Test Mark's </th>
+                </thead>
+                <tbody  id="mcqTableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+
+            <input type="button" data-page="2" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" data-page="2" name="next" class="next action-button" value="Next" />
+            
+        </fieldset>
+        
+          <!-- Mid Term Exam Details -->  
+        <fieldset>
+            <h2 class="fs-title">Mid Term Exam Details</h2>
+            <h3 class="fs-subtitle">Student's Mid Term Exam Internal Mark's Submission</h3>
+            <div class="table-wrapper1">
+              <table class="content-table" id="mid_term_Table">
+                <thead>
+                  <th>Roll No</th>
+                  <th id="mid_term_marks">Mid Term Exam Mark's </th>
+                </thead>
+                <tbody  id="mid_term_TableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <input type="button" data-page="3" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" data-page="3" name="next" class="next action-button" value="Next" />
+            
+        </fieldset>
+        
+          <!-- End Term Exam Details --> 
+        <fieldset>
+            <h2 class="fs-title">End Term Exam Details</h2>
+            <h3 class="fs-subtitle">Student's End Term Exam Internal Mark's Submission</h3>
+            <div class="table-wrapper1">
+              <table class="content-table" id="end_term_Table">
+                <thead>
+                  <th>Roll No</th>
+                  <th id="end_term_marks">End Term Exam Mark's </th>
+                </thead>
+                <tbody  id="endterm_TableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <input type="button" data-page="4" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" data-page="4" name="next" class="next action-button" value="Next" />
+            
+        </fieldset>
+        
+          <!-- Subject Viva Details -->  
+        <fieldset>
+            <h2 class="fs-title">Subject Viva Details</h2>
+            <h3 class="fs-subtitle">Student's Subject Viva Score Submission</h3>
+            <div class="table-wrapper1">
+              <table class="content-table" id="viva_Table">
+                <thead>
+                  <th>Roll No</th>
+                  <th id="viva_marks">Subject Viva Mark's </th>
+                </thead>
+                <tbody  id="vivaTableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <input type="button" data-page="5" name="previous" class="previous action-button" value="Previous" />
+      
+            <button name="submit" class="hs-button primary large action-button submit" type="submit" id="sub-marks-btn" >Submit</button>
+        </fieldset>
+
+        
+      
+    </section>
+
+    <section id="open_course" style="display: none;">
+   
+        <!-- Open Course Details -->  
+        <fieldset>
+          <h2 class="fs-title">Open Course Details</h2>
+          <h3 class="fs-subtitle">Student's Open Course Score Submission</h3>
+          <div class="table-wrapper1">
+            <table class="content-table" id="open_course_Table">
+              <thead>
+                <tr>
+                  <th>Roll No</th>
+                  <th id="open_course_marks">Open Course Mark's</th>
+                </tr>
+              </thead>
+              <tbody  id="open_courseTableBody">
+                    <!-- Rows will be added dynamically -->
+              </tbody>
+            </table>
+          </div>
+          
+          <button name="submit" class="hs-button primary large action-button submit" type="submit" id="btn_open_course_submit" value="btn_open_course_submit">Submit</button>
+        
+      </fieldset>
+    </section>
+
+    <section id="practical" style="display: none;">
+        
+          <!-- practical Details -->  
+          <fieldset>
+            <h2 class="fs-title">Practical Mark's Details</h2>
+            <h3 class="fs-subtitle">Student's Practical Mark's Submission</h3>
+            <div class="table-wrapper1">
+              <table class="content-table" id="practical_Marks_Table">
+                <thead>
+                  <tr>
+                    <th>Roll No</th>
+                    <th id="practical_int_marks">Practical Internal Mark's</th>
+                    <th id="practical_ext_marks">Practical External Mark's</th>
+                  </tr>
+                </thead>
+                <tbody  id="practical_marksTableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <button name="submit" class="hs-button primary large action-button submit" type="submit" id="btn_practical_marks_submit" value="btn_practical_marks_submit">Submit</button>
+          
+        </fieldset>
+    </section>
+
+    <section id="mini_project" style="display: none;">
+      
+          <!-- mini_project Details -->  
+          <fieldset>
+            <h2 class="fs-title">Mini Project Details</h2>
+            <h3 class="fs-subtitle">Student's Mini Project Score Submission</h3>
+            <div class="table-wrapper1">
+              <table class="content-table" id="mini_project_Table">
+                <thead>
+                  <tr>
+                    <th>Roll No</th>
+                    <th id="mini_project_int_marks">Mini Project Internal Mark's</th>
+                    <th id="mini_project_ext_marks">Mini Project External Mark's</th>
+                  </tr>
+                </thead>
+                <tbody  id="mini_projectTableBody">
+                      <!-- Rows will be added dynamically -->
+                </tbody>
+              </table>
+            </div>
+            <button name="submit" class="hs-button primary large action-button submit" type="submit" id="btn_mini_project_marks_submit" value="btn_mini_project_marks_submit">Submit</button>
+          
+        </fieldset>
+    </section>
+
+    <section id="major_project" style="display: none;">
+
+        <!-- major_project Details -->  
+        <fieldset>
+          <h2 class="fs-title">Major Project Details</h2>
+          <h3 class="fs-subtitle">Student's Major Project Score Submission</h3>
+          <div class="table-wrapper1">
+            <table class="content-table" id="major_project_Table">
+              <thead>
+                <tr>
+                  <th>Roll No</th>
+                  <th id="major_project_int_marks">Major Project Internal Mark's</th>
+                  <th id="major_project_ext_marks">Major Project External Mark's</th>
+                </tr>
+              </thead>
+              <tbody  id="major_projectTableBody">
+                    <!-- Rows will be added dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <button name="submit" class="hs-button primary large action-button submit" type="submit" id="btn_major_project_marks_submit" value="btn_major_project_marks_submit">Submit</button>
+        
+      </fieldset>
+    </section>
+
+    <section id="soft_skills" style="display: none;">
+    
+        <!-- soft_skills Details -->  
+        <fieldset>
+          <h2 class="fs-title">Soft Skills Details</h2>
+          <h3 class="fs-subtitle">Student's Soft Skills Score Submission</h3>
+          <div class="table-wrapper1">
+            <table class="content-table" id="soft_skills_Table">
+              <thead>
+                <tr>
+                  <th>Roll No</th>
+                  <th id="soft_skills_marks">Soft Skills Mark's</th>
+                </tr>
+              </thead>
+              <tbody  id="soft_skills_TableBody">
+                    <!-- Rows will be added dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <button name="submit" class="hs-button primary large action-button submit" type="submit" id="btn_soft_skills_marks_submit" value="btn_soft_skills_marks_submit">Submit</button>
+        
+      </fieldset>
+    </section>
+  </form>
+ 
+</div>
+
+{% endblock %}
+{% block javascript %}
+    <script src="/static/js/dashboard1/jquery.min.js"></script>
+    <script src="/static/js/dashboard1/popper.js"></script>
+    <script src="/static/js/dashboard1/bootstrap.min.js"></script>
+    <script src="/static/js/dashboard1/main.js"></script>
+
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+    <script src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js'></script>
+    <script  src="{% static "result_analysis/js/faculty_stud_marks.js" %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+ 
+    var subjectDetails = {{ subject_details|safe }};
+    var student_data = {{ student_data|safe }}; 
+    var course_and_ay_id_details = {{ course_and_ay_id_details|safe }};        
+    var courseSelect = document.getElementById("course-select");
+    var semesterSelect = document.getElementById("semester-select");
+    var aySelect = document.getElementById("ay-select");
+    var subSelect = document.getElementById("subject-select");
+    var patternSelect = document.getElementById("pattern-select");
+ 
+    function filterSubjects() {
+			var selectedCourse = $('#course-select').val();
+			var selectedSemester = $('#semester-select').val();
+			var selectedPattern = $('#pattern-select').val();
+		
+			// Reset the subjects dropdown
+			$('#subject-select').empty();
+		
+			// Default option
+			$('#subject-select').append('<option selected="" value="">Select Subject</option>');
+		
+			// Flag to check if any subject is found
+			var subjectFound = false;
+		
+			// Case 1: No selection, show all subjects
+			if (!selectedCourse && !selectedSemester && !selectedPattern) {
+				for (var i = 0; i < subjectDetails.length; i++) {
+					var subject = subjectDetails[i];
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+				}
+				return;
+			}
+		
+			for (var i = 0; i < subjectDetails.length; i++) {
+				var subject = subjectDetails[i];
+				var matchCourse = !selectedCourse || selectedCourse == subject.course_id;
+				var matchSemester = !selectedSemester || selectedSemester == subject.sem_id;
+				var matchPattern = !selectedPattern || selectedPattern == subject.subject_pattern;
+		
+				// Case 2: Course selected, but no semester or pattern selected
+				if (selectedCourse && !selectedSemester && !selectedPattern) {
+					var selectSemesterOption = '<option class="text-danger" value="">Please select an appropriate semester</option>';
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectSemesterOption);
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 3: Course and pattern selected, but no semester selected
+				if (selectedCourse && selectedPattern && !selectedSemester && matchCourse && matchPattern) {
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+					subjectFound = true;
+				}
+		
+				// Case 4: Course and semester selected, but no pattern selected
+				if (selectedCourse && selectedSemester && !selectedPattern) {
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 5: Course, semester, and pattern selected
+				if (selectedCourse && selectedSemester && selectedPattern && matchCourse && matchSemester && matchPattern) {
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+					subjectFound = true;
+				}
+		
+				// Case 6: Semester selected, but no course or pattern selected
+				if (selectedSemester && !selectedCourse && !selectedPattern) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectCourseOption);
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 7: Semester and pattern selected, but no course selected
+				if (selectedSemester && selectedPattern && !selectedCourse) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					$('#subject-select').append(selectCourseOption);
+					return;
+				}
+		
+				// Case 8: Only pattern selected
+				if (selectedPattern && !selectedCourse && !selectedSemester) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectCourseOption);
+					return;
+				}
+			}
+		
+			// Case: No subjects found for the selected combination
+			if (!subjectFound && (selectedCourse && selectedSemester && selectedPattern || selectedCourse && selectedPattern)) {
+				var noSubjectOption = '<option class="text-danger" value="">No subjects found</option>';
+				$('#subject-select').append(noSubjectOption);
+			}
+		
+			// Reset the subject select
+			$('#subject-select').val("");
+		}
+
+
+    $('#course-select, #semester-select, #pattern-select').change(function () {
+        filterSubjects();
+    });
+
+
+    filterSubjects(); // Initial call to filter subjects on page load
+   
+
+    //Assignment table unique id
+    function generateUniqueId(user_id, assignmentIndex) {
+      return `input-${user_id}-${assignmentIndex}`;
+      }
+
+ // Common validation function that can be used for both individual inputs and on form submission
+function validateInput(inputElement) {
+  const $input = $(inputElement);
+  const value = $input.val(); // Get the value of the input
+  const inputId = $input.attr('id'); // Get the ID of the input
+  const errorSpan = $(`#${inputId}-error`); // Find the associated error span using the ID
+  const errorMessage = $input.attr('data-msg-required'); // Get the custom error message
+  const $parentCell = $input.closest('td'); // Get the parent cell
+  const columnIndex = $parentCell.index(); // Get the column index of the input
+  let valid = true;
+
+  if (value < 0) {
+      errorSpan.html(`<i class="error-log fa fa-exclamation-triangle"></i> ${errorMessage}`); // Set error message with icon
+      errorSpan.show(); // Show error
+
+      // Apply the correct class based on the column index
+      if (columnIndex > assignmentCount - 2) {
+          errorSpan.removeClass('normal').addClass('inverted');
+      } else {
+          errorSpan.removeClass('inverted').addClass('normal');
+      }
+      valid = false;
+  } else {
+      errorSpan.hide(); // Hide error
+      valid = true;
+  }
+  return valid;
+}
+// Initial number of assignment columns
+  let assignmentCount = 5;
+  const initialAssignmentCount = 5;
+  const maxAssignments = 10; 
+
+    function addAssignment() {
+      if (assignmentCount >= maxAssignments) return; // Prevent adding more than maxAssignments
+      assignmentCount++;
+      const newHeader = `<th id="assign${assignmentCount}">Assign-No ${assignmentCount}</th>`;
+      $('#tableHeader').append(newHeader);
+  
+      $('#assignmentTable tbody tr').each(function (index) {
+          const inputId = generateUniqueId(index, assignmentCount);
+          const newCell = `<td style="position: relative;">
+                              <input id="${inputId}" class="form-text hs-input" name="assignments[${assignmentCount - 1}]" type="number" data-msg-required="Please enter a valid number" tabindex="0">
+                              <span id="${inputId}-error" class="error1" style="display: none;">
+                                  <i class="error-log fa fa-exclamation-triangle"></i>
+                              </span>
+                          </td>`;
+          $(this).append(newCell);
+      });
+  
+      // Attach the validateInput function to the new inputs
+      $('tbody input[type="number"]').on('input', function() {
+        validateInput(this);
+      });
+        // Reattach tab functionality
+        attachTabFunctionality();
+    }
+  
+    function deleteAssignment() {
+      if (assignmentCount <= initialAssignmentCount) return; // Prevent deletion if only initialAssignmentCount columns remain
+      $('#tableHeader th:last-child').remove();
+      $('#assignmentTable tbody tr').each(function() {
+        $(this).children('td:last-child').remove();
+      });
+  
+      assignmentCount--;
+    }
+    $('#addbtn').click(addAssignment);
+    $('#deletebtn').click(deleteAssignment);
+
+  
+ //Assignment table add data row
+  function addTblRow(rollno,user_id){
+    let row = `<tr><td class="roll-no-cell" id="${user_id}">${rollno}</td>`;
+    for (let i = 0; i < assignmentCount; i++) {
+        const inputId = generateUniqueId(user_id, i);
+        row += `<td style="position: relative;">
+                    <input id="${inputId}" class="form-text hs-input" name="assignments[${i}]" type="number" data-msg-required="Please enter a valid number" tabindex="0">
+                    <span id="${inputId}-error" class="error1" style="display: none;">
+                        <i class="error-log fa fa-exclamation-triangle"></i>
+                    </span>
+                </td>`;
+    }
+    row += `</tr>`;
+    $('#assignmentTableBody').append(row);
+
+     // Attach the validateInput function to the new inputs
+     $('tbody input[type="number"]').on('input', function() {
+      validateInput(this);
+    });
+
+     // Reattach tab functionality
+     attachTabFunctionality();
+  }
+
+  //Assignment table no data row
+  function addNoDataRow() {
+    var noDataRow = `
+    <tr>
+        <td colspan="${assignmentCount + 1}" style="text-align: center;">
+            <h4 style="padding-top:2%;padding-bottom:2%;">
+               No matching records found
+            </h4>
+        </td>
+    </tr>
+    `;
+    $('#assignmentTableBody').append(noDataRow);
+}
+
+//MCQ,Mid Term,End Term, Viva table unique id
+function inputUniqueId(user_id, markType) {
+  return `${markType}-input-${user_id}`;
+}
+//Open Course , Soft Skills
+function addTheadRow(tableId,th_id,th_name){
+  let thead_row=`<tr><th>Roll No</th>
+                  <th id="${th_id}">${th_name} Mark's</th>
+                  </tr>`;
+  $(`#${tableId} thead`).append(thead_row);
+}
+
+//MCQ,Mid Term,End Term, Viva,Open Course,Practical, Mini-Project,Major-Project,Soft-Skills table row add
+function addRowToTable(tableId,user_id, rollno, markType) {
+  let row = `<tr><td class="roll-no-cell" id="${user_id}">${rollno}</td>`;
+  
+  const inputId = generateUniqueId(user_id, markType);
+  row += `<td style="position: relative;">
+              <input id="${inputId}" class="form-text hs-input" name="${markType}" type="number" data-msg-required="Please enter a valid number" tabindex="0">
+              <span id="${inputId}-error" class="error2" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+          </td>`;
+        if(tableId=="practical_Marks_Table" || tableId=="mini_project_Table" || tableId=="major_project_Table"){
+          const inputId =inputUniqueId(user_id, markType);
+          row += `<td style="position: relative;">
+                  <input id="${inputId}" class="form-text hs-input" name="${markType}" type="number" data-msg-required="Please enter a valid number" tabindex="0">
+                  <span id="${inputId}-error" class="error2" style="display: none;">
+                      <i class="error-log fa fa-exclamation-triangle"></i>
+                  </span>
+                  </td>`;
+        }
+  row += `</tr>`;
+
+  
+  
+  $(`#${tableId} tbody`).append(row);
+
+   // Attach the validateInput function to the new inputs
+   $('tbody input[type="number"]').on('input', function() {
+    validateInput(this);
+  });
+     // Reattach tab functionality
+     attachTabFunctionality();
+}
+//MCQ,Mid Term,End Term, Viva, Open Course,Practical, Mini-Project,Major-Project,Soft-Skills table no data row
+function addNoDataRowToTable(tableId, colCount) {
+  const noDataRow = `
+  <tr>
+      <td colspan="${colCount}" style="text-align: center;">
+          <h4 style="padding-top:2%;padding-bottom:2%;">
+             No matching records found
+          </h4>
+      </td>
+  </tr>`;
+  $(`#${tableId} tbody`).append(noDataRow);
+}
+//Tab functionality 
+
+function attachTabFunctionality() {
+  $('input[type="number"]').off('keydown').on('keydown', function(event) {
+      if (event.key === 'Tab') {
+          event.preventDefault(); // Prevent the default tab behavior
+          const inputs = $('input[type="number"]');
+          const currentIndex = inputs.index(this);
+          const nextInput = inputs[currentIndex + 1];
+          if (nextInput) {
+              nextInput.focus(); // Focus the next input field
+          } else if (currentIndex + 1 === inputs.length) {
+              // Optionally, add logic to focus the first input in the next row if it exists
+              const nextRow = $(this).closest('tr').next('tr');
+              if (nextRow.length) {
+                  nextRow.find('input[type="number"]').first().focus();
+              }
+          }
+      }
+  });
+}
+
+// Initial call to attach tab functionality
+attachTabFunctionality();
+
+  //Filter All Table
+    function filterTable() {
+      var selectedCourse = $('#course-select').val();
+      var selectedSemester = $('#semester-select').val();
+      var selectedA_Year = $('#ay-select').val();
+      var selectedPattern = $('#pattern-select').val();
+    
+          $('#assignmentTableBody').empty();
+          $('#mcqTableBody').empty();
+          $('#mid_term_TableBody').empty();
+          $('#endterm_TableBody').empty();
+          $('#vivaTableBody').empty();
+          $('#open_courseTableBody').empty();
+          $('#practical_marksTableBody').empty();
+          $('#mini_projectTableBody').empty();
+          $('#major_projectTableBody').empty();
+          $('#soft_skills_TableBody').empty();
+
+          // Track if any rows are added
+         var rowsAdded = false;
+         // Loop through course_and_ay_id_details and filter based on the selected criteria
+         course_and_ay_id_details.forEach(function(student) {
+          var match = true;
+
+          if (selectedCourse && selectedCourse != student.course_id) {
+              match = false;
+          }
+
+          if (selectedSemester && selectedSemester != student.current_semester_id) {
+              match = false;
+          }
+
+          if (selectedA_Year && selectedA_Year != student.ay_year_id) {
+              match = false;
+          }
+
+         /* if (selectedPattern && selectedPattern != student.subject_pattern) {
+              match = false;
+          }*/
+
+          // If all conditions are met, add the row
+          if (match) {
+            // Check if student.roll_no is not null
+            if (student.roll_no !== null) {
+              addTblRow(student.roll_no,student.user_id);
+              addRowToTable('mcqTable',student.user_id, student.roll_no, 'mcq');
+              addRowToTable('mid_term_Table',student.user_id, student.roll_no, 'midterm');
+              addRowToTable('end_term_Table',student.user_id, student.roll_no, 'endterm');
+              addRowToTable('viva_Table', student.user_id,student.roll_no, 'viva');
+              addRowToTable('open_course_Table', student.user_id,student.roll_no, 'oc');
+              addRowToTable('practical_Marks_Table', student.user_id,student.roll_no, 'Practical');
+              addRowToTable('mini_project_Table', student.user_id,student.roll_no, 'Mini-Proj');
+              addRowToTable('major_project_Table', student.user_id,student.roll_no, 'Major-Proj');
+              addRowToTable('soft_skills_Table', student.user_id,student.roll_no, 'Soft-Skills');
+              rowsAdded = true;
+              
+            }
+            else {
+              // If roll_no is null, skip to the next iteration
+              return; // This will skip this student and continue with the next iteration
+            }
+          }
+      }); 
+      
+     // If no rows were added, show a "no data" row
+     if (!rowsAdded) {
+      addNoDataRow();
+      addNoDataRowToTable('mcqTable',2);
+      addNoDataRowToTable('mid_term_Table',2);
+      addNoDataRowToTable('end_term_Table',2);
+      addNoDataRowToTable('viva_Table',2);
+      addNoDataRowToTable('open_course_Table',2);
+      addNoDataRowToTable('practical_Marks_Table',3);
+      addNoDataRowToTable('mini_project_Table',3);
+      addNoDataRowToTable('major_project_Table',3);
+      addNoDataRowToTable('soft_skills_Table',2);
+
+      $('#addbtn').prop('disabled', true); // Disable the Add Assignment button
+      $('#deletebtn').prop('disabled', true);
+      } else {
+        $('#addbtn').prop('disabled', false); // Enable the Add Assignment button
+        $('#deletebtn').prop('disabled', false);
+      }  
+
+}
+
+
+  $('#course-select, #semester-select,#subject-select,#ay-select, #pattern-select').change(function () {
+        var subjectMap = {
+          open_course: [6, 7, 16, 17, 26, 27],
+          practical: [8, 18, 28],
+          mini_project: [9, 19, 29],
+          major_project: [33],
+          soft_skills: [10, 20, 30]
+      };
+
+      var selectedSubject = parseInt($('#subject-select').val());
+      var sectionToShow = 'sub_marks'; // default section
+      // Get the text (name) of the selected subject
+      var selectedSubjectName = $('#subject-select option:selected').text();
+      // Loop through the subject map to find the matching section
+      $.each(subjectMap, function(section, subjects) {
+          if (subjects.includes(selectedSubject)) {
+              sectionToShow = section;
+            
+          }
+      });
+
+      // Hide all sections
+      $('#sub_marks, #open_course, #practical, #mini_project, #major_project, #soft_skills').hide();
+
+      // Show the relevant section
+      $('#' + sectionToShow).show();
+
+              // Define a mapping of sections to table IDs and thids
+        var tableMap = {
+          open_course: { tableId: 'open_course_Table', markType: 'open_course_marks' },
+          soft_skills: { tableId: 'soft_skills_Table', markType: 'soft_skills_marks' }
+        };
+
+        // Check if the section to show exists in the tableMap
+        if (tableMap.hasOwnProperty(sectionToShow)) {
+          // Get the corresponding tableId and markType
+          var tableId = tableMap[sectionToShow].tableId;
+          var markType = tableMap[sectionToShow].markType;
+
+          // Clear the table header and body
+          $('#' + tableId + ' thead').empty();  // Empty the table header
+          $('#' + tableId + ' tbody').empty();  // Empty the table body
+
+          // Add the new header row
+          addTheadRow(tableId, markType, selectedSubjectName);
+        }
+      // To show the overlay with a fade-in effect
+      $('#overlay').fadeIn();
+      filterTable();
+      sortTableByRollNo();
+      // To hide the overlay with a fade-out effect
+      $('#overlay').fadeOut();
+      // Hide the error message if it exists
+      var errorTarget = $(this).data('error-target');
+      $('#' + errorTarget).addClass('d-none');
+      
+  });
+
+
+  filterTable(); // Initial call to filter table on page load
+
+  
+
+   // Attach the validateInput function to the new inputs
+   $('tbody input[type="number"]').on('input', function() {
+    validateInput(this);
+  });
+
+
+ // Helper function to gather data from each table
+ function gatherDataFromTable(tableId) {
+  let tableData = {};
+  const rows = $(`#${tableId} tbody tr`);
+  rows.each(function () {
+    const rollNo = $(this).find('td:first').text(); // Get Roll No
+    const user_id = $(this).find('td:first').attr('id'); // Get the id of the first td element in the row
+    let assignments = [];
+
+    $(this).find('td').not(':first').each(function (index) {
+      const assignmentName = $(`#${tableId} thead th`).eq(index + 1).text(); // Get Assignment Name
+      const value = $(this).find('input').val(); // Get Input Value
+      assignments.push({ [assignmentName]: value });
+    });
+    tableData[user_id] = assignments;
+    
+  });
+
+  return tableData;
+}
+
+//Get All Table data
+  function gatherTableData() {
+    let allData = {};
+    // Gather data for each table
+    allData['assignmentTable'] = gatherDataFromTable('assignmentTable');
+    allData['mcqTable'] = gatherDataFromTable('mcqTable');
+    allData['midTermTable'] = gatherDataFromTable('mid_term_Table');
+    allData['endTermTable'] = gatherDataFromTable('end_term_Table');
+    allData['vivaTable'] = gatherDataFromTable('viva_Table');
+    Object.assign(allData, {"courseSelect":courseSelect.value,
+    "semesterSelect":semesterSelect.value,
+    "aySelect":aySelect.value,
+    "subSelect":subSelect.value,
+    "patternSelect":patternSelect.value,
+    });
+    return allData;
+  }
+
+
+  function validateForm() {
+    var isValid = true;
+     // Clear previous errors
+     clearErrors();
+    if ($('#course-select').val() === "" ) {
+      isValid = false;
+       setError(courseSelect,"Course is required.");
+    }
+    if ($('#semester-select').val() === "") {
+      isValid = false;
+      setError(semesterSelect,"Semester is required.");
+    }
+    if ($('#ay-select').val() === "") {
+      isValid = false;
+      setError(aySelect,"Academic Year is required.");
+    }
+    if ($('#subject-select').val() === "") {
+      isValid = false;
+      setError(subSelect,"Subject is required.");
+    }
+    if ($('#pattern-select').val() === "") {
+      isValid = false;
+      setError(patternSelect,"Pattern is required.");
+    }
+    
+    return isValid;
+  }
+  function clearErrors() {
+    $('.error-container small').addClass('d-none').text('');
+    $('.error-container i').addClass('d-none');
+   
+}
+
+  function setError(input,message){
+    const formControl=input.parentElement;
+    const error_msg=formControl.querySelector('small');
+    const err_icon=formControl.querySelector('i');
+    error_msg.innerText=message;
+    $('.error-container').removeClass('d-none');
+    err_icon.classList.remove("d-none");
+    error_msg.classList.remove("d-none");
+    
+  }
+  // Function to validate all inputs in the form table
+function validateAllInputs() {
+  let formIsValid = true;
+  
+  // Loop through all input elements in the form table
+  $('tbody input[type="number"]').each(function() {
+      const inputIsValid = validateInput(this);
+      if (!inputIsValid) {
+          formIsValid = false;
+      }
+  });
+
+  return formIsValid;
+}
+
+// Capture the submit button clicked
+let clickedButton = null;
+
+// Attach click event listener to all submit buttons
+$('button[type="submit"]').on('click', function() {
+    clickedButton = $(this).attr('id'); // Store the ID of the clicked button
+});
+
+  //Form Submit Through AJAX
+  function internal_marks_form_sub(event) {
+    // Prevent the default form submission
+    event.preventDefault();
+    const allinputIsvalid=validateAllInputs();
+    const formValid=validateForm();
+    if (!formValid || !allinputIsvalid) {
+        return false; // Return false to stop the submission process
+    } 
+      // Mapping between button IDs and corresponding table IDs
+          const buttonTableMapping = {
+            'btn_open_course_submit': 'open_course_Table',
+            'btn_practical_marks_submit': 'practical_Marks_Table',
+            'btn_mini_project_marks_submit': 'mini_project_Table',
+            'btn_major_project_marks_submit': 'major_project_Table',
+            'btn_soft_skills_marks_submit': 'soft_skills_Table'
+          };
+
+         let studentData = gatherTableData(); // Get all table data
+
+            // Modify studentData based on the clicked button
+            if (clickedButton && buttonTableMapping[clickedButton]) {
+                const tableId = buttonTableMapping[clickedButton];
+                studentData = gatherDataFromTable(tableId);
+
+                // Add common data to studentData
+                Object.assign(studentData, {
+                    "courseSelect": courseSelect.value,
+                    "semesterSelect": semesterSelect.value,
+                    "aySelect": aySelect.value,
+                    "subSelect": subSelect.value,
+                    "patternSelect": patternSelect.value,
+                    "table_id":tableId
+                });
+            }
+        // If the form is valid, submit it using AJAX
+        var formData = new FormData(document.getElementById('internal_marks_details'));
+        formData.append('studentData', JSON.stringify(studentData)); // Add table_data to the form data
+        // Pass the clicked button ID to the form data
+        formData.append('clickedButton', clickedButton);
+        $("#overlay").show();
+        $.ajax({
+            url: ".", // Adjust the URL if necessary
+            type: "POST",
+            data:formData ,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}' // Ensure this is correct
+            },
+            success: function(response) {
+               
+                  // You can also handle the response data here if needed
+                  if(response.status === 'success') {
+                  $('#overlay').hide();
+                  swal({
+                    title: "Success!",
+                    //text: `${response.message}`,
+                    icon: "success",
+                    button: "Ok",
+                    content: {
+                      element: "div",
+                      attributes: {
+                        innerHTML: `<p style="text-align: center;">${response.message}</p>`,
+                      },
+                    },
+                  });
+                    
+                  } else {
+                    $('#overlay').hide();
+                    swal({
+                    title: "Error!",
+                   // text: `${response.message}`,
+                    icon: "error",
+                    button: "Ok",
+                    content: {
+                      element: "div",
+                      attributes: {
+                        innerHTML: `<p style="text-align: center;">${response.message}</p>`,
+                      },
+                    },
+                  });
+                  }
+  
+            },
+            error: function(xhr, status, error) {
+                $('#overlay').hide();
+                swal({
+                 title: "Error!",
+                // text: "Error submitting the form.Please try again or contact support.",
+                 icon: "error",
+                 button: "Ok",
+                 content: {
+                      element: "div",
+                      attributes: {
+                        innerHTML: `<p style="text-align: center;">Error submitting the form.Please try again or contact support.</p>`,
+                      },
+                    },
+               });
+            }
+        });
+    
+
+       return false; // Return false to prevent the form from submitting normally 
+    
+}
+$('#internal_marks_details').on('submit', internal_marks_form_sub);
+
+    //Sorting table
+    // Default sorting by Roll No (ascending) for all tables on page load
+    // Declare the function globally using globalThis
+    globalThis.sortTableByRollNo = function() {
+      $('table').each(function () {
+          var table = $(this);
+          var index = 0; // Default to sorting the first column (Roll No)
+          var rows = [];
+
+          // Gather all the rows of the current table
+          table.find('tbody tr').each(function () {
+              rows.push($(this).detach());
+          });
+
+          // Sort the rows based on the Roll No (ascending)
+          rows.sort(function (a, b) {
+              var aValue = $(a).find('td').eq(index).text(),
+                  bValue = $(b).find('td').eq(index).text();
+
+              return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+          });
+
+          // Reattach the sorted rows to the table
+          $.each(rows, function (index, row) {
+              table.find('tbody').append(row);
+          });
+
+          // Mark the first column header as sorted in ascending order
+          table.find('th').removeClass('asc desc');
+          table.find('th').eq(index).addClass('asc'); // Default to ascending
+      });
+    }
+
+    sortTableByRollNo(); // Apply default sorting on page load
+
+    // Sorting on click for other tables
+    $('table').on('click', 'th', function () {
+      var table = $(this).closest('table'); // Get the closest table
+      var index = $(this).index();
+      var rows = [];
+      var thClass = $(this).hasClass('asc') ? 'desc' : 'asc';
+
+      // Reset all tables' th classes
+      table.find('th').removeClass('asc desc');
+      $(this).addClass(thClass);
+
+      // Gather all the rows of the current table
+      table.find('tbody tr').each(function () {
+          rows.push($(this).detach());
+      });
+
+      // Sort the rows based on the clicked column
+      rows.sort(function (a, b) {
+          var aValue = $(a).find('td').eq(index).text(),
+              bValue = $(b).find('td').eq(index).text();
+
+          return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+      });
+
+      // If 'desc' class is added, reverse the sorted rows
+      if ($(this).hasClass('desc')) {
+          rows.reverse();
+      }
+
+      // Reattach the sorted rows to the table
+      $.each(rows, function (index, row) {
+          table.find('tbody').append(row);
+      });
+    });
+
+});//Document.Ready
+</script>
+  
+
+{% endblock %}

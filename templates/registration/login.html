@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/tk.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content%} 
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 id="heading">Sign Up Your User Account</h2>
+                <!-- <p>Fill all form field to go to next step</p> -->
+                <form onsubmit="return form_submit(event);" name="registration" id="registration" action="." method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                   
+                    <fieldset id="step1" >
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Account Information:</h2>
+                                </div>
+                                <!-- <div class="col-5">
+                                    <h2 class="steps">Step 1 - 4</h2>
+                                </div> -->
+                            </div> 
+                            
+                            <label class="fieldlabels">Email: *</label> <input type="email" class="input_info" name="email" id="email" placeholder="Email Id" onkeyup="is_Valid(this);" /> 
+                            <label class="fieldlabels">Username: *</label> <input type="text" class="input_info" name="username" id="username" placeholder="UserName" onkeyup="is_Valid(this);"/> 
+                            <label class="fieldlabels">Password: *</label> <input type="password" class="input_info" name="password" id="password" placeholder="Password" onkeyup="is_Valid(this);"/> 
+                            <label class="fieldlabels">Confirm Password: *</label> <input type="password" class="input_info" name="cpassword" id="cpassword"  placeholder="Confirm Password" onkeyup="is_Valid(this);"/>
+                            
+                         
+                            <select id="sel_rol" name="sel_rol">
+                                <option value='' >All</option>
+                                <option value=1>Administration</option>
+                                <option value=1>Faculty</option>
+                                <option value=1>Student</option>
+                            </select>
+
+                            
+                        </div> 
+                            <input type="submit" name="save" id="save" class=" action-button" value="Save" onclick="form_submit();" />
+                    </fieldset>
+                 
+                    <fieldset id="step4" style="display:none">
+                        <div class="form-card">
+                           
+                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                    <h5 class="purple-text text-center"><a href="/login/">Click here </a>to Log In</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block javascript%}
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+      
+        <script src="/static/js/progress.js"></script>
+        <script type="text/javascript" src="/static/js/tk/validation.js"></script>
+
+<script type="text/javascript">
+
+var global_validation=false;
+var selected_role="";
+$(document).ready(function () {
+       form_load();     
+       
+});
+function form_load()
+{
+    if("{{flag}}"=="1")
+    {
+        $('#step1').show();
+        $('#step4').hide();
+    }
+    else if("{{flag}}"=="2")
+    {
+        $('#step4').show();
+        $('#step1').hide();
+    }
+
+}
+function is_Valid(obj)
+{
+    ele_id=obj.id;
+    ele_value=obj.value;
+    if (ele_id=="email")
+    {
+        var flag=validate_email(ele_value);
+        if(flag==true)
+        {
+           document.getElementById(ele_id).classList='input_success';
+           global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            global_validation=false;
+        }
+    }
+    else if(ele_id=="username" || ele_id=="password" || ele_id=="cpassword")
+    {
+        if(ele_value !='')
+        {
+            document.getElementById(ele_id).classList='input_success';
+            global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            global_validation=false;
+        }
+    }
+
+}
+function is_form_valid() {
+    var form_valid = false;
+    if($('#email').val().trim()==''||$('#username').val().trim()==''||$('#password').val().trim()==''||$('#cpassword').val().trim()=='')
+    {
+        if($('#email').val().trim() =='')
+        {
+            document.getElementById('email').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#username').val().trim() =='')
+        {
+            document.getElementById('username').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#password').val().trim() =='')
+        {
+            document.getElementById('password').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#cpassword').val().trim() =='')
+        {
+            document.getElementById('cpassword').classList='input_error';
+            global_validation=false;
+        }
+       
+    }
+    if($('#password').val().trim()!=$('#cpassword').val().trim())
+    {
+        document.getElementById('password').classList='input_error';
+        document.getElementById('cpassword').classList='input_error';
+        global_validation=false;
+    }
+    
+    if(global_validation)
+    {
+        form_valid=true;   
+    }
+    
+    return form_valid;
+}
+function form_submit()
+{
+    if (is_form_valid()==true)
+    {
+        $('#registration').submit();
+    }
+}
+function form_submit(e)
+    {
+        $("#overlay").show();
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            e.preventDefault();
+            $("#overlay").hide();
+            return false;
+        }
+    }
+
+
+var user_ro='{{user_roles}}'
+$('#sel_ro').add(id)
+</script>
+   
+{% endblock %}
+

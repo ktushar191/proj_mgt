@@ -1,0 +1,677 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+custom-button{
+    padding:20px 25px !important;
+}
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    border: 1px solid #fafafa !important;
+    line-height: 5.5;
+    padding-left: 3px;
+    text-align: center;
+    vertical-align: top;
+}
+.rdo1{
+        padding-left: 10px!important;
+        font-size: 22px;
+        color: #6c8391;
+        font-family: normal;
+    }
+    .que{
+        font-size:20px;color:black;margin-bottom:20px;
+    }
+    .rdo{
+        margin-top:30px;
+        clear:both;
+        /* margin-left:60px; */
+        margin-bottom:20px;
+       }
+    .right-num{
+        width: 100%;
+        height: 704px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgb(191 215 223);
+        padding-right: 5px;
+        /* margin-right: -35px; */
+        /* margin-right: -82px; */
+        margin: -11px;
+        margin-top: 20px;
+    }
+    li{
+        list-style: none;
+        /* margin: 31px -1px 18px 0px; */
+        /* display: flex; */
+        justify-content: center;
+    }
+    /* Timer CSS */
+
+    p {
+        text-align: center;
+        font-size: 60px;
+        margin-top: 0px;
+        color: #00afef;
+        width: 50%;
+        font-size: 30px;
+    }
+    .que-line{
+        display: flex;
+        width: 100%;
+        margin: 10px;
+        float: right;
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    .wm-all-events {
+    border: 2px solid #3498db;
+    border-radius: 25px;
+    color: #3498db;
+    float: left;
+    font-size: 10px;
+    font-weight: 600;
+    margin: 0px 0px 10px 0px;
+    padding: 0px 20px;
+    }
+    .heading-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 140px;
+    width: 100%;
+    background: #23a2dd;
+    color: #FFFFFF;
+    border-radius: 2px;
+    padding: 10px 50px;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    }
+.form-bold-steps{
+        padding-bottom: 18px;
+        margin-bottom: 35px;
+        border-bottom: 1px solid #DDE3EC;
+    }
+
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #eee;
+}
+
+.content {
+  width: 800px;
+  margin: 3em auto;
+  text-align: center;
+}
+
+.round-container {
+  margin: 1em 0.5em;
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  @include border-radius(100px);
+  @include background(linear-gradient(top, #bbb, #eee));
+  @include box-shadow(
+    inset 0 -1px 10px #999,
+    0 -1px 1px #aaa,
+    0 2px 1px #fff
+  );
+}
+
+.round-content {
+  display: block;
+  cursor: pointer;
+  @include backface-visibility(hidden);
+  @include transition(transform 200ms ease-in);
+  @include background(linear-gradient(top, #fff, #ddd));
+  &:hover {
+    background-color: #eee;
+    color: green;
+    @include transform(rotate(-10deg) scale(0.9));
+  }
+  background-color: #fff;
+  @include box-shadow(0 2px 7px #555);
+  @include text-shadow(0 -1px 1px #111);
+  position: absolute;
+  text-align: center;
+  color: #990000;
+  font-size: 100px;
+  line-height: 160px;
+  margin: 20px;
+  width: 160px;
+  height: 160px;
+  @include border-radius(80px);
+}
+.wm-get-started-button-skip:hover {
+    border: 1px solid;
+    color: #a7be22;
+    background-color: #990000;
+}
+.wm-get-started-button-skip {
+    border: 1px solid #097b84;
+    color: #c412bb;
+    background-color: #3498db;
+    float: left;
+    font-size: 15px;
+    font-weight: 500;
+    margin:-8px 5px 0px 20px;
+    padding: 12px 35px 15px;
+    -webkit-transition: all 0.4s ease-in-out;
+       -moz-transition: all 0.4s ease-in-out;
+        -ms-transition: all 0.4s ease-in-out;
+         -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+}
+.fa { 
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  height: 40px; 
+  width: 40px;
+  line-height: 40px;
+  margin-right: 10px;
+  text-align: center;
+}
+ .gradient__btn {
+        border-radius: 50px;
+        box-shadow: 5px 5px 2px -2px #a5a5a5;
+        color: #FFF;
+        display: inline-block;
+        height: 50px;
+        line-height: 55px;
+        margin: 10px;
+        padding-left: 15px;
+        width: 180px;
+      }
+    .gradient__btn-10 {
+  background: linear-gradient(to top, #4292ff, #388cff, #2e86ff, #2380ff, #177aff);
+}
+.gradient__btn-14 {
+  background: linear-gradient(to right, #403b4a, #bbbbb4);
+}
+.gradient__btn-6 {
+  background: linear-gradient(to top, #d83f91, #d0409b, #c743a5, #bb47af, #ae4bb8);
+}
+.gradient__btn-13 {
+  background: linear-gradient(to right, #348f50, #56b4d3);
+}
+.gradient__btn-21 {
+   background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+  
+  &:after {
+    background: linear-gradient(to right, #8a2387, #e94057, #f27121);
+  }
+}
+.formbold-form-wrapper-1 {
+    margin-left: 10px;
+    margin-top:10px;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.08);
+    height: 550px;
+}
+
+.formbold-main-wrapper-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    font-family: "Inter", sans-serif;
+   
+}
+
+.que_nos {
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  font-size: 1em;
+  border-radius: 50%;
+  background-color: rgb(6, 69, 124);
+  color: white;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  
+  z-index: 1;
+  bottom: 10%;
+  right: 4%;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+}
+</style>
+
+{%endblock%}
+
+
+{% block content %}
+
+<form onsubmit="return form_submit(event);" id="mcq_exam" name="mcq_exam" action="." method="post"
+enctype="multipart/form-data">
+<input type="hidden" id="mcq_id" name="mcq_id" value="{{mcq_id}}">
+<input type="hidden" id="mcq_transaction_list" name="mcq_transaction_list" value="">
+
+{% csrf_token %}
+       
+  <div class=" heading-div text-white">
+      <h5  style="font-size: 15px;margin-left:10px;color:#FFFFFF;">Total Questions : {{mcq_details.0.no_of_questions}}</h5>
+      <h5 style="font-size: 15px;margin-left:10px;color:#FFFFFF;">Total Marks : {{mcq_details.0.total_marks}}</h5>
+      
+      <h5  style="font-size: 15px;margin-left:10px;color:#FFFFFF;"><span id="lbl_not_attempted">{{mcq_details.0.no_of_questions}}</span> Not Attempted</h5>
+      <h5 style="font-size: 15px;margin-left:10px;color:#FFFFFF;"> <span id="lbl_marked_as_review">0</span> Mark as Review</h5>
+      <h5  style="font-size: 15px;margin-left:10px;color:#FFFFFF;"><span id="lbl_attempted">0</span> Attempted</h5>
+  </div>
+  
+  <div class="formbold-main-wrapper-1">
+    <div class="formbold-form-wrapper-1 col-md-9" >
+         <div id="div_questions" name="div_questions" style="padding: 5%;">
+         </div>
+         <span id="option_error" style="color:red;font-size: 18px;margin-left: 10%;display: none;">Please select any option or skip the question!!!</span>
+          <div style="margin-top: 10%;">
+              <div id="btn_skip" class="gradient__btn gradient__btn-14" style="margin-left: 10%;" onclick="changequestion(current_question_no,this.id);">
+                <i class="fa fa-forward"></i>
+                  <span>SKIP</span>
+              </div>
+              <div id="btn_mark_as_review" class="gradient__btn gradient__btn-6" style="margin-left: 10%;" onclick="changequestion(current_question_no,this.id);">
+                <i class="fa fa-reply"></i>
+                  <span>Mark as Review</span>
+              </div>
+              <div id="btn_save_and_next" class="gradient__btn gradient__btn-13" style="margin-left: 10%;" onclick="changequestion(current_question_no,this.id);">
+                <i class="fa fa-check"></i>
+                  <span>Save & Next</span>
+              </div>
+          </div> 
+    </div>
+    <div class="formbold-form-wrapper-1 col-md-3">
+            <div class="wm-plan-typo" style="padding:5%;">
+                <div style="display: flex;">
+                  <table id="question_nos">
+                  </table>
+                </div>                
+            </div>
+            <div id="btn_final_submit" class="gradient__btn gradient__btn-21" style="margin-top: 280px;margin-left:30%" data-toggle="modal" data-target="#mcqModalConfirm" > <i class="fa fa-support"></i>Final Submit</div>
+    </div>
+     
+  </div>
+   
+</form>
+<div class="modal fade" id="mcqModalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to submit?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn no" data-dismiss="modal">No</button>
+                <button type="button" onclick="save_mcqexam();" class="btn yes" data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript" src="/static/js/tk/bootstrap.js"></script>
+
+<script type="text/javascript">
+
+    var quelist="{{mcq_questions_set|safe}}";
+    var arr = quelist.replace(/'/g, '"');
+    arr=JSON.parse(arr);
+
+    var current_list=[]
+    var current_question_no;
+    
+
+    for(var i=0; i<arr.length ; i++){
+        var current_dict={}
+        current_dict["id"]=arr[i]["id"]
+        current_dict["status"]=0
+        current_dict["correct_answer"]=arr[i]["answer"]
+        current_dict["selected_answer"]=""
+        current_dict["answer_status"]=0
+        current_list.push(current_dict)
+    }
+
+    var form_valid=false;
+    function form_submit(e)
+    {
+        $("#overlay").show();
+        
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            $("#overlay").hide();
+            e.preventDefault();
+            return false;
+        }
+    }
+    function is_form_valid()
+    {
+        form_valid=true;
+        return form_valid;
+    }
+    function save_feedback(id)
+    {
+        $('#create_feedback').submit();
+    }
+    $(document).ready(function () {
+
+// $('#page_heading').val('MCQ Exam');
+document.getElementById('page_heading').innerText='{{mcq_details.0.subject_name}}';
+set_question_nos();
+display_question(arr[0]["id"]);
+current_question_no=arr[0]["id"]
+});
+
+// Timer 
+// Set the date we're counting down to
+var countDownDate = new Date().getTime();
+countDownDate=countDownDate+(parseInt({{mcq_details.0.duration_in_min}})*60*1000)
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+
+document.getElementById("page_heading").innerHTML ='<H1><span style="float:left">{{mcq_details.0.subject_name}}<span style="margin-left:350px;font-size:30px" >'+ "00" +":"+ minutes + ":" + seconds+'</span></H1>' ;
+  
+
+  
+  // If the count down is over, write some text 
+if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("page_heading").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+function set_question_nos()
+{
+    var l={{total_questions|safe}};
+    console.log(l);
+    //l=10;
+    total_no_of_rows=0;
+    rows_to_be_added=0;
+    remainder=0;
+    if(l<=5)
+    {
+        total_no_of_rows=1;
+    }
+    else
+    {
+        total_no_of_rows=l/5;
+        remainder=l%5
+    } 
+    if(remainder>0 && remainder<=5)
+    {
+        total_no_of_rows=Math.trunc(total_no_of_rows+1);
+    }
+    
+   console.log(total_no_of_rows);
+   start_col=1;
+   end_col=5;
+
+
+   for(var i=1;i<=total_no_of_rows;i++)
+   {
+        var row ='<tr id=row_'+i+'>';
+       
+        var col=''
+        for(var j=start_col;j<=end_col;j++)
+        {
+            if(j>l)
+            {
+                break;
+            }
+            else
+            {
+                var no='00'
+                if(j<10)
+                {
+                    no='0'+j;
+                }
+                else
+                {
+                  no=j;
+                }
+                col='<td id=col_'+j+'><a id=que_no_btn_'+arr[j-1].id+' name='+arr[j-1].id+' class="wm-all-events que_nos" onclick=display_question(this.name); href="#">'+no+'</a></td><br>';
+                row=row+col;
+                if(j==end_col)
+                {
+                    start_col=end_col+1;
+                    end_col=end_col+5;
+                    break;
+                }
+            }
+
+        }
+        row=row+'</tr>';
+        $('#question_nos').append(row);
+        
+   }
+}
+
+function display_question(q_id)
+{   
+    $('#hques').remove();
+    $('#fldoption').remove();
+    var quelist="{{mcq_questions_set|safe}}";
+    var arr = quelist.replace(/'/g, '"');
+    arr=JSON.parse(arr);
+    
+    for(var i=0; i<arr.length ; i++){
+    //selected_option=
+    if(arr[i].id === parseInt(q_id)){
+        console.log(current_list[i]["selected_answer"]);
+
+
+        var que_html='<h4 id="hques" style="font-size: 20px; margin: 10px;"><span style="margin-right: 10px;">Q.'+(i+1)+'</span><span id="'+q_id+'"> '+arr[i].question+'</span></h4>'+
+                '<fieldset id="fldoption" class="rdo" id="{{item.id}}">'+
+                  '<input type="radio" id=1 name="fldoption" value=1 style="margin-left: 30px;margin-bottom: 15px;height:20px; width:20px;vertical-align: middle;" onclick=update_answer(this.id);>  '+arr[i].op1+'<br>'+
+                    '<input type="radio" id=2 name="fldoption" value=2 style="margin-left: 30px;margin-bottom: 15px;height:20px; width:20px;vertical-align: middle;" onclick=update_answer(this.id);>  '+arr[i].op2+'<br>'+
+                    '<input type="radio" id=3 name="fldoption" value=3 style="margin-left: 30px;margin-bottom: 15px;height:20px; width:20px;vertical-align: middle;" onclick=update_answer(this.id);>  '+arr[i].op3+'<br>'+
+                    '<input type="radio" id=4 name="fldoption" value=4 style="margin-left: 30px;margin-bottom: 15px;height:20px; width:20px;vertical-align: middle;" onclick=update_answer(this.id);>  '+arr[i].op4+'<br>'+
+                '</fieldset>'
+       $('#div_questions').append(que_html);
+    
+    }
+
+}
+current_question_no=q_id;
+for (var j=0;j<current_list.length;j++)
+{
+  console.log(current_list[j]["id"]);
+  if(current_list[j]["id"]==q_id)
+  {
+     $('input:radio[id='+current_list[j]['selected_answer']+']').attr('checked', 'checked'); 
+  }
+}
+
+}
+function update_answer(id)
+{
+    var selected_option=id;
+    for(var i=0; i<current_list.length ; i++){
+        
+        if(current_list[i].id === parseInt(current_question_no))
+        {
+            current_list[i]["selected_answer"]=id;
+            if(id==current_list[i]["correct_answer"])
+            {
+                current_list[i]["answer_status"]=1;
+            }
+            else
+            {
+                current_list[i]["answer_status"]=0;
+            }
+        }
+    }
+    $('#option_error').hide();
+
+}
+function changequestion(current_question_no,btn_id)
+{
+  console.log(current_question_no,btn_id);
+  var status=0;
+  var new_question_no=current_question_no;
+  var current_class='wm-all-events que_nos ';
+
+  var flag;
+  $('.rdo').each(function(){
+        flag = false;
+      var groupName = $(this).find("input[type='radio']:first").attr('name');
+      var answer = $("input[name="+ groupName +"]:checked").val();
+      if(typeof answer != "undefined" && answer != "undefined"){
+        flag = true;
+      }
+      else
+      {
+        flag = false;
+        return false;
+      }
+    }); 
+
+
+  if(btn_id == 'btn_skip')
+  {
+    status=0;
+    current_class="gradient__btn-14";
+    document.getElementById('que_no_btn_'+current_question_no).classList.remove("gradient__btn-14","gradient__btn-6","gradient__btn-13");
+    document.getElementById('que_no_btn_'+current_question_no).classList.add(current_class);
+    $('#option_error').hide();
+  }
+
+  
+  if(btn_id == 'btn_mark_as_review')
+  {
+    if(flag==true)
+    {
+      status=1;
+      current_class="gradient__btn-6";
+      document.getElementById('que_no_btn_'+current_question_no).classList.remove("gradient__btn-14","gradient__btn-6","gradient__btn-13");
+      document.getElementById('que_no_btn_'+current_question_no).classList.add(current_class);
+      $('#option_error').hide();
+    }
+    else{
+        $('#option_error').show();
+         return false;
+    }
+  }
+  else if(btn_id == 'btn_save_and_next')
+  {
+    if(flag==true)
+    {
+    status=2;
+    current_class="gradient__btn-13";
+    document.getElementById('que_no_btn_'+current_question_no).classList.remove("gradient__btn-14","gradient__btn-6","gradient__btn-13");
+    document.getElementById('que_no_btn_'+current_question_no).classList.add(current_class);
+    $('#option_error').hide();
+    }
+    else{
+        $('#option_error').show();
+        return false;
+    }
+   
+  }
+  
+
+  for(var i=0; i<current_list.length ; i++){
+        
+        if(current_list[i].id === parseInt(current_question_no))
+        {
+            current_list[i]["status"]=status;
+            if(i==current_list.length-1)
+            {
+              new_question_no=current_list[0]["id"];
+            }
+            else
+            {
+              new_question_no=current_list[i+1]["id"];
+            }
+           
+            break;
+        }
+  }
+  update_lable_count();
+  display_question(new_question_no);
+  
+
+}
+function update_lable_count()
+{
+  var not_attempted=0;
+  var attempted=0;
+  var mark_as_review=0;
+   for(var i=0; i<current_list.length ; i++){
+
+    if(current_list[i]["status"]==0)
+    {
+      not_attempted+=1;
+    }
+    else if(current_list[i]["status"]==1)
+    {
+       mark_as_review+=1;
+    }
+    else if(current_list[i]["status"]==2)
+    {
+       attempted+=1;
+    }
+    
+   }
+    document.getElementById('lbl_not_attempted').innerText=not_attempted;
+    document.getElementById('lbl_marked_as_review').innerText=mark_as_review;
+    document.getElementById('lbl_attempted').innerText=attempted;
+
+
+
+}
+
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    form_valid=true;
+    return form_valid;
+}
+function save_mcqexam()
+{
+    $('#mcq_transaction_list').val(JSON.stringify(current_list));
+    $('#mcq_exam').submit();
+}
+
+</script>
+
+{%endblock%}

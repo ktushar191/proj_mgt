@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/tk.css">
+
+
+    <style>
+
+        {% comment %} .select2{
+           margin-left:48px;
+           background-color: #ECEFF1;
+           border:1px solid black;
+           font-size: 14px;
+           font-weight: bold;
+        } 
+        
+        .select1{
+            background-color: #ECEFF1;
+            border:1px solid black;
+            font-size: 14px;
+            font-weight: bold;
+         } 
+        
+         .cls1{
+            background-color: #ECEFF1;
+            border:1px solid black;
+            font-size: 14px;
+            font-weight: bold;
+         }
+         .action-button{
+            background-color: Bule;
+            border:1px solid black;
+            font-size: 12px;
+            font-weight: bold;
+            color: blue;
+         }
+         .topic{
+            background-color: #ECEFF1;
+            border:1px solid black;
+            font-size: 14px;
+            font-weight: bold;
+         }
+        .form-card{
+            text-align: left;
+         }
+         label{
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+         }
+         .form-card input, .form-card textarea {
+            padding: 10px 8px 5px 8px;
+            
+         }  {% endcomment %}
+        </style>
+        
+
+
+
+
+{% endblock %}
+
+{% block content%} 
+
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 id="heading">UPLOAD FILES</h2>
+                <!-- <p>Fill all form field to go to next step</p> -->
+                <form onsubmit="return form_submit(event);" name="upload" id="upload" action="." method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                   
+                    <fieldset id="step1" >
+                        <div class="form-card">
+                            <div class="row">
+                                
+                            </div> 
+                            
+                            
+                            <select class="select1" id="course" name="course" onchange="$('#overlay').show();" >
+                                <option value='' > Select Course: *</option>
+                                {% for item in course_data%}
+                                <option value="{{item.id}}">"{{item.course_name}}"</option>
+                                {% endfor %}
+                           </select> <br><br>
+
+                            <select class="select1" id="academic_year" name="academic_year" onchange="$('#overlay').show();" style="width:45%;" >
+                                <option value='' > Select Acadamic Year: *</option>
+                                {% for item in ay_data%}
+                                <option value="{{item.id}}">"{{item.ayear}}"</option>
+                                {% endfor %}
+                           </select> 
+
+                           <select class="select2" id="Semester" name="Semester" onchange="$('#overlay').show();" style="width:45%;"  >
+                            <option value='' > Select Semester: *</option>
+                            {% for item in semester_data%}
+                            <option value="{{item.id}}">"{{item.semester_name}}"</option>
+                            {% endfor %}
+                       </select> <br><br>
+
+                       <select class="select1" id="subject" name="subject" onchange="$('#overlay').show();" >
+                        <option value='' > Select Subject: *</option>
+                        {% for item in subject_data%}
+                        <option value="{{item.id}}">"{{item.short_name}}"</option>
+                        {% endfor %}
+                   </select> <br><br>
+
+                   <select class="select1" id="subject" name="subject" onchange="$('#overlay').show();" >
+                        <option value='' > Select Subject: *</option>
+                        {% for item in subject_data%}
+                        <option value="{{item.id}}">"{{item.short_name}}"</option>
+                        {% endfor %}
+                   </select> <br><br>
+
+                
+                       <label  for="chapter">Chapter: *</label>
+                       <input type="text" class="cls1" id="chapter" name="chapter" placeholder="Chapter" onkeyup="is_Valid(this);"><br>
+                       <label for="topic">Topic: *</label>
+                       <input type="text" class="topic" id="topic" name="topic" placeholder="Topic" onkeyup="is_Valid(this);"><br>
+                       <label for="res">Select File:</label>
+                       <input id="res" type="file" name="content" placeholder="File" onkeyup="is_Valid(this);"><br>
+                       <label for="link">Link: *</label>
+                       <input type="text" class="input_info" id="link" name="link" placeholder="Link" onkeyup="is_Valid(this);"><br>
+
+                       <input type="text" class="cls1" id="chapter" name="chapter" placeholder="Chapter" onkeyup="is_Valid(this);"><br>
+
+                   
+                        </div> 
+                            <input type="submit" name="save" id="save" class=" action-button" value="Save" onclick="form_submit();" />
+                    </fieldset>
+                 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block javascript%}
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+      
+        <script src="/static/js/progress.js"></script>
+        <script type="text/javascript" src="/static/js/tk/validation.js"></script>
+
+<script type="text/javascript">
+
+var global_validation=false;
+var selected_role="";
+$(document).ready(function () {
+       form_load();     
+       
+});
+function form_load()
+{
+    if("{{flag}}"=="1")
+    {
+        $('#step1').show();
+        $('#step4').hide();
+    }
+    else if("{{flag}}"=="2")
+    {
+        $('#step4').show();
+        $('#step1').hide();
+    }
+
+}
+function is_Valid(obj)
+{
+    ele_id=obj.id;
+    ele_value=obj.value;
+    if (ele_id=="email")
+    {
+        var flag=validate_email(ele_value);
+        if(flag==true)
+        {
+           document.getElementById(ele_id).classList='input_success';
+           global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            global_validation=false;
+        }
+    }
+    else if(ele_id=="username" || ele_id=="password" || ele_id=="cpassword")
+    {
+        if(ele_value !='')
+        {
+            document.getElementById(ele_id).classList='input_success';
+            global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            global_validation=false;
+        }
+    }
+
+}
+function is_form_valid() {
+    var form_valid = false;
+    if($('#email').val().trim()==''||$('#username').val().trim()==''||$('#password').val().trim()==''||$('#cpassword').val().trim()=='')
+    {
+        if($('#email').val().trim() =='')
+        {
+            document.getElementById('email').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#username').val().trim() =='')
+        {
+            document.getElementById('username').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#password').val().trim() =='')
+        {
+            document.getElementById('password').classList='input_error';
+            global_validation=false;
+        }
+        if ($('#cpassword').val().trim() =='')
+        {
+            document.getElementById('cpassword').classList='input_error';
+            global_validation=false;
+        }
+       
+    }
+    if($('#password').val().trim()!=$('#cpassword').val().trim())
+    {
+        document.getElementById('password').classList='input_error';
+        document.getElementById('cpassword').classList='input_error';
+        global_validation=false;
+    }
+    
+    if(global_validation)
+    {
+        form_valid=true;   
+    }
+    
+    return form_valid;
+}
+function form_submit()
+{
+    if (is_form_valid()==true)
+    {
+        $('#registration').submit();
+    }
+}
+function form_submit(e)
+    {
+        $("#overlay").show();
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            e.preventDefault();
+            $("#overlay").hide();
+            return false;
+        }
+    }
+
+
+
+</script>
+   
+{% endblock %}

@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap 5 CSS (highly recommended for modern grid and utility features) -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{% static 'css/registration.css' %}">
+
+<style>
+    body {
+        background:#ffffff;
+        min-height:100vh;
+    }
+  .registration-card{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+    padding:40px;
+
+}
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+    .btn-submit {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+        color: #fff;
+        padding: 10px 24px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .btn-submit:hover {
+        background-color: #59359a;
+        border-color: #59359a;
+        color: #fff;
+    }
+    .purple-text {
+        color: #6f42c1;
+    }
+    .form-control.is-valid,
+.form-select.is-valid{
+
+    border:2px solid #0B6E4F !important;
+
+    background-image:none;
+
+}
+
+.form-control.is-valid:focus,
+.form-select.is-valid:focus{
+
+    border-color:#0B6E4F;
+
+    box-shadow:0 0 0 .2rem rgba(11,110,79,.20);
+
+}
+
+.valid-feedback{
+
+    color:#0B6E4F;
+
+}
+@media(max-width:992px){
+
+.registration-card{
+
+    padding:30px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.registration-card{
+
+    padding:25px;
+
+}
+
+h2{
+
+    font-size:28px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.container-fluid{
+
+    padding-left:12px!important;
+    padding-right:12px!important;
+
+}
+
+.registration-card{
+
+    padding:20px;
+
+    border-radius:12px;
+
+}
+
+.form-control,
+.form-select{
+
+    height:48px;
+
+    font-size:15px;
+
+}
+
+.btn-submit{
+
+    height:48px;
+
+    font-size:16px;
+    
+
+}
+.btn-submit{
+
+    height:52px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    border-radius:10px;
+
+    background:#4f46e5;
+
+    border:none;
+
+    transition:.3s;
+
+}
+
+.btn-submit:hover{
+
+    background:#3730a3;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 20px rgba(79,70,229,.25);
+
+}
+
+}
+</style>
+{% endblock %}
+
+{% block content %} 
+<div class="container-fluid py-4 px-lg-5 px-md-4 px-3">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-xl-10 col-lg-11 col-md-12">
+            <div class="card registration-card p-4 p-sm-5">
+                
+                <!-- STEP 1: Registration Form -->
+                <div id="step1">
+      <h2 class="text-center fw-bold mb-2 purple-text">
+    Create Your Account
+</h2>
+
+<p class="text-center text-muted mb-5">
+    Fill in the details below to register your account.
+</p>
+                    
+                    <form id="registrationForm" action="." method="post" enctype="application/x-www-form-urlencoded">
+                        {% csrf_token %}
+                        
+                        <h5 class="purple-text fw-semibold mb-3">Account Information:</h5>
+                        
+                        <div class="row g-4">
+                            <div class="col-sm-6">
+                                <label for="firstname" class="form-label">First Name *</label>
+                                <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" onkeyup="restrictFirstSpace(this); allowAtoZandSpace(this); is_Valid(this);">
+                                <div class="invalid-feedback">First name is required.</div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <label for="lastname" class="form-label">Last Name *</label>
+                                <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" onkeyup="restrictFirstSpace(this); allowAtoZandSpace(this); is_Valid(this);">
+                                <div class="invalid-feedback">Last name is required.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="mobile" class="form-label">Mobile No *</label>
+                                <input type="text" class="form-control" name="mobile" id="mobile" maxlength="10" placeholder="Mobile Number" onkeyup="allowContactNumber(this); is_Valid(this);">
+                                <div class="invalid-feedback" id="mobile-feedback">Mobile number is required.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email Id" onkeyup="is_Valid(this);">
+                                <div class="invalid-feedback" id="email-feedback">Email is required.</div>
+                            </div> 
+
+                            <div class="col-12">
+                                <label for="user_type" class="form-label">User Type</label>
+                                <select id="user_type" name="user_type" class="form-select">
+                                    <option selected value="">Select User Type</option>
+                                    {% for u in user_role %}
+                                    <option value="{{ u.role_code }}">{{ u.role_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="username" class="form-label">Username *</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" onkeyup="is_Valid(this);">
+                                <div class="invalid-feedback" id="username-feedback">Username is required.</div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="password" class="form-label">Password *</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" onkeyup="is_Valid(this);">
+                                <div class="invalid-feedback" id="password-feedback">Password is required.</div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <label for="cpassword" class="form-label">Confirm Password *</label>
+                                <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" onkeyup="is_Valid(this);">
+                                <div class="invalid-feedback" id="cpassword-feedback">Confirm Password is required.</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <button type="button" onclick="handleFormSubmission();" id="save" class="btn btn-submit w-100">Save Account</button>
+                        </div>
+                    </form>
+                </div>
+                 
+                <!-- STEP 4: Success View -->
+                <div id="step4" style="display:none;" class="text-center py-4">
+                    <h2 class="purple-text fw-bold mb-3">SUCCESS !</h2>
+                    <div class="mb-4">
+                        <img src="https://i.imgur.com/GwStPmg.png" class="img-fluid" alt="Success Check" style="max-width: 120px;">
+                    </div>
+                    <h5 class="purple-text mb-2 fw-semibold">You Have Successfully Signed Up</h5>
+                    <h5><a href="/accounts" class="text-decoration-none fw-bold purple-text">Click here</a> to Log In</h5>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    form_load();     
+});
+
+// CSRF Handling setup for AJAX requests
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+function csrfSafeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+function form_load() {
+    if("{{flag}}" == "1") {
+        $('#step1').show();
+        $('#step4').hide();
+    } else if("{{flag}}" == "2") {
+        $('#step4').show();
+        $('#step1').hide();
+    }
+}
+
+// Regex Helpers
+function validate_email(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validate_mobile(mobile) {
+    const re = /^[2-9]{1}[0-9]{9}$/;
+    return re.test(mobile);
+}
+
+// Real-time Validations 
+function is_Valid(obj) {
+    var ele_id = obj.id;
+    var ele_value = obj.value.trim();
+    var $el = $('#' + ele_id);
+
+    if (ele_id == "email") {
+        if (validate_email(ele_value)) {
+            $.ajax({
+                url: "/student/check_email_availability/",
+                method: 'POST',
+                data : { 'email': ele_value },
+                dataType: 'json',
+                success : function(response) {
+                    if(response.success) {
+                        $el.removeClass('is-valid').addClass('is-invalid');
+                        $('#email-feedback').text("Email already exists");
+                    } else {
+                        $el.removeClass('is-invalid').addClass('is-valid');
+                    }
+                }
+            });
+        } else {
+            $el.removeClass('is-valid').addClass('is-invalid');
+            $('#email-feedback').text("Invalid format");
+        }
+    }
+
+    if (ele_id == "mobile") {
+        if (validate_mobile(ele_value)) {
+            $.ajax({
+                url: "/student/check_mobile_availability/",
+                method: 'POST',
+                data : { 'mobile': ele_value },
+                dataType: 'json',
+                success : function(response) {
+                    if(response.success) {
+                        $el.removeClass('is-valid').addClass('is-invalid');
+                        $('#mobile-feedback').text("Mobile number already exists");
+                    } else {
+                        $el.removeClass('is-invalid').addClass('is-valid');
+                    }
+                }
+            });
+        } else {
+            $el.removeClass('is-valid').addClass('is-invalid');
+            $('#mobile-feedback').text("Invalid format (Must be 10 digits starting with 2-9)");
+        }
+    }
+
+    if (ele_id == 'username') {
+        if(ele_value !== '') {
+            $.ajax({
+                url: "/student/check_username_availability/",
+                method: 'POST',
+                data : { 'username': ele_value },
+                dataType: 'json',
+                success : function(response) {
+                    if(response.success) {
+                        $el.removeClass('is-valid').addClass('is-invalid');
+                        $('#username-feedback').text("Username already exists");
+                    } else {
+                        $el.removeClass('is-invalid').addClass('is-valid');
+                    }
+                }
+            });
+        } else {
+            $el.removeClass('is-valid').addClass('is-invalid');
+            $('#username-feedback').text("Username is required");
+        }
+    }
+
+    // Generic tracking for standard fields
+    if($.inArray(ele_id, ["firstname", "lastname", "password", "cpassword"]) !== -1) {
+        if(ele_value !== '') {
+            $el.removeClass('is-invalid').addClass('is-valid');
+        } else {
+            $el.removeClass('is-valid').addClass('is-invalid');
+        }
+    }
+}
+
+// Full Form Processing Validation Strategy
+function perform_full_validation() {
+    var isValid = true;
+    
+    // Check fields for completely empty status
+    var fields = ['firstname', 'lastname', 'email', 'mobile', 'username', 'password', 'cpassword'];
+    fields.forEach(function(id) {
+        var $el = $('#' + id);
+        if ($el.val().trim() === '') {
+            $el.addClass('is-invalid');
+            isValid = false;
+        }
+    });
+
+    // Password Match Checking
+    var pass = $('#password').val().trim();
+    var cpass = $('#cpassword').val().trim();
+    if (pass !== '' && cpass !== '' && pass !== cpass) {
+        $('#password, #cpassword').addClass('is-invalid');
+        $('#password-feedback, #cpassword-feedback').text("Passwords do not match");
+        isValid = false;
+    }
+
+    // Checking length requirement for mobile
+    if ($('#mobile').val().trim().length < 10) {
+        $('#mobile').addClass('is-invalid');
+        isValid = false;
+    }
+
+    // Ensure absolutely NO remaining elements hold active errors
+    if ($('#registrationForm .is-invalid').length > 0) {
+        isValid = false;
+    }
+
+    return isValid;
+}
+
+function handleFormSubmission() {
+    if (perform_full_validation()) {
+        $('#registrationForm').submit();
+    } else {
+        // Scroll smoothly to first invalid field to hint UX interaction
+        $('html, body').animate({
+            scrollTop: ($('.is-invalid').first().offset().top - 100)
+        }, 200);
+    }
+}
+</script>
+{% endblock %}

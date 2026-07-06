@@ -1,0 +1,80 @@
+<!-- {% extends 'adminbase.html' %} -->
+
+{% block title %}Add Feedback{% endblock %}
+
+{% block stylesheet %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+<style>
+  
+    .heading{position: relative;}
+    .heading .globAnimation{position: absolute;right: 0;top: 10px;font-size: 20px;}
+    .filterSection .col-sm-12{border-radius: 5px;    border: 1px solid #fff;}
+    .selectBg{background: #f2f2f2 !Important;}
+    .filterSection .select-dropdown{color: #4d4d4d !important;}
+    .overlay{position: fixed;}
+    #state{display:none !Important;}
+    #districts{display:none !Important;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form action="#" class="form"> 
+        <div class="selectfilter">
+            <table width="100%" >
+                <tr>
+                    
+                    <td style="width:30%;border: 0px solid #dddd; padding-left:10px;">
+                        <select  multiple id="cc" name="cc">
+                        <option selected>Select Course</option>
+                        <option value="1">MBA</option>
+                        <option value="2">MCA</option>
+                        <option value="3">PhD</option>
+                        <option value="3">BBA</option>
+                        <option value="3">BCA</option>
+                        </select>
+                    </td>
+                    
+                    <td style="width:30%;border: 0px solid #dddd; padding-left:10px;margin-right:300px">
+                        <select multiple class="browser-default custom-select" multiple>
+                        <option selected>Batch</option>
+                        <option value="1">2021-2023</option>
+                        <option value="2">2022-2024</option>
+                        <option value="3">2023-2025</option>
+                        <option value="3">2024-2026</option>
+                        </select>
+                    </td>
+                    <td style="width:30%;border: 0px solid #dddd; padding-left:10px;" multiple>
+                        <select class="browser-default custom-select" multiple>
+                        <option selected>Academic Year</option>
+                        <option value="1">2021-2022</option>
+                        <option value="2">2022-2023</option>
+                        <option value="3">2023-2024</option>
+                        <option value="3">2024-2025</option>
+                        </select>
+                    </td>
+                    <td style="width:30%;border: 0px solid #dddd; padding-left:10px;">
+                        <select class="browser-default custom-select" multiple id="batch" name="batch">
+                        
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+   
+</div>
+{% endblock %}
+
+{% block javascript %}
+<!-- <script type="text/javascript" src='static/js/multiselect.min.js'></script> -->
+<script src="/static/js/multiselect.min.js"></script>
+{% endblock %}

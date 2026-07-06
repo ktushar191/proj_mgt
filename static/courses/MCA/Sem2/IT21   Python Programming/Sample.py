@@ -1,0 +1,10 @@
+print("Welcome to VS Code")
+print( )
+print("     @")
+print("    @@@")
+print("   @@@@@")
+print("  @@@@@@@")
+print(" @@@@@@@@@")
+print("@@@@@@@@@@@")
+
+#print("Aniket Kumare")

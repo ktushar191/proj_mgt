@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result Page</title>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color:white;
+    margin: 0;
+    padding: 0;
+
+  }
+  
+  #result {
+    background-color: rgb(196, 195, 195);
+    /* max-width: 400px; */
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 400px;
+    width: 50%;
+  }
+  
+  h1 {
+    margin-top: 0;
+    color: white;
+    background-color: red;
+    text-align: center;
+    height: 50px;
+
+  }
+  
+  p {
+    margin: 30px 0;
+    text-size-adjust: 40%;
+    padding: auto;
+    text-align: center;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+    text-align: center;
+    
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: solid;
+    
+    
+  }
+  
+  
+  button:hover {
+    background-color: yellowgreen;
+  }
+  
+  #participant-name {
+    font-weight: bold;
+  }
+  
+  span {
+    margin-left: 5px;
+  }
+  </style>
+ 
+</head>
+<body>
+  <div id="result">
+    <h1>Your Score</h1>
+    <p>Participant name: <span id="participant-name">Sanskruti</span></p>
+    <p>Total correct answers: <span id="correct-answers">5</span></p>
+    <p>Total false answers: <span id="false-answers">0</span></p>
+    <div class="buttons">
+      <button id="view-scoreboard">View Score Board</button>
+      <button id="back-to-home">Back to Homepage</button>
+    </div>
+  </div>
+  <script>
+     document.addEventListener("DOMContentLoaded", function() {
+    // Function to handle viewing the scoreboard
+    document.getElementById("view-scoreboard").addEventListener("click", function() {
+      alert("Scoreboard will be shown here!"); // Change this to your desired functionality
+    });
+  
+    // Function to handle going back to the homepage
+    document.getElementById("back-to-home").addEventListener("click", function() {
+      window.location.href = "index.html"; // Change "index.html" to the URL of your homepage
+    });
+  });
+  </script>
+</body>
+</html>

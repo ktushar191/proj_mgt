@@ -1,0 +1,134 @@
+{% extends 'userbase.html' %}
+{% load static %}
+<!DOCTYPE html> 
+    {% block stylesheet %}
+    
+    
+ 
+
+
+ 
+    {% endblock %}
+    
+
+
+  <!-- from herre -->
+   {% block content %}
+   <div class="col-md-10  offset-md-1 bg-dark "style="padding:3px;">
+
+    <div class="card ">
+ 
+      <div class="card-header text-center bg-dark  text-white">
+        <span class="fa fa-3x fa-user-circle"></span> <br>Add Event
+    </div>
+
+
+        <div class="card-body">
+
+   <div class="container">
+    
+    <form name="addevent" id="eventForm" method="post" action="../insertaddevent/">
+      {% csrf_token%}
+       
+      
+    
+       
+         
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter Event Title" required>
+            </div>
+          <label for="startDate">Event Start Date:</label>
+          <input type="date" id="startDate" name="startDate" required>
+    
+          <label for="endDate">Event End Date:</label>
+          <input type="date" id="endDate" name="endDate" required>
+          </br>
+          <label for="scale">Scale:</label>
+          <select id="scale" name="scale" required>
+            <option value="">Select Scale</option>
+            <option value="scale1">Scale 1 Star</option>
+            <option value="scale2">Scale 2 Progress bar</option>
+            <option value="scale3">Scale 3 radio btn</option>
+          </select>
+
+          <label for="course">Course:</label>
+          <select id="course" name="course" required>
+            <option value="">Select Course</option>
+            <option value="MCA">MCA</option>
+            <option value="MBA">MBA</option>
+          </select>
+    
+          <label for="batch">Batch:</label>
+          <select id="batch" name="batch" required>
+            <option value="">Select Batch</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+          </select>
+    
+          <label for="semester">Semester:</label>
+          <select id="semester" name="semester" required>
+            <option value="">Select Semester</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+          </select>
+        </br>
+          <label for="academicYear">Academic Year:</label>
+          <input type="text" id="academicYear" name="academicYear" placeholder="Enter yyyy-yyyy" required>
+    
+          <div class="form-group" style="text-align:center;">
+     
+            <button id="submit-btn--" type="submit" class="btn btn-primary"><a href="/feedback/content">Submit</a></button>
+          </div>
+      
+      </div>
+    
+     
+    </form>
+  
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+   {% endblock %}
+    <!-- till here --> 
+    {% block javascript %}
+    
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const stars = document.querySelectorAll('.star');
+      const ratingInput = document.getElementById('rating');
+    
+      stars.forEach((star, index) => {
+        star.addEventListener('click', function() {
+          ratingInput.value = index + 1;
+          highlightStars(index);
+        });
+      });
+    
+      function highlightStars(index) {
+        stars.forEach((star, i) => {
+          if (i <= index) {
+            star.classList.add('active');
+          } else {
+            star.classList.remove('active');
+          }
+        });
+      }
+    });
+    
+   </script>
+    
+    
+    {% endblock %}
+    
+
+ 

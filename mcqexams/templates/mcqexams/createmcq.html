@@ -1,0 +1,332 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+.details-name {
+    padding: 0 0 0,0;
+    margin: 0 auto;
+    width: 99%;
+    border-radius: 20px;
+    -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 6px 1px #adadadc9;
+    background-color: blue;
+}
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form onsubmit="return form_submit(event);" id="create_mcqexam" name="create_mcqexam" action="." method="post" enctype="application/x-www-form-urlencoded">
+{% csrf_token %}
+    <input type="hidden" id="is_negative_marking" name="is_negative_marking" value="">
+    <input type="hidden" id="tot_marks" name="tot_marks" value="0">
+
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div style="width:100%;height:100%;border-radius: 10px;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+        
+            <div class="row" style="float:left; width: 100%;">
+                <div class="col-md-12 details-name" style="margin-left: 15px;">
+                    <h3 style="color:#ffffff;font-size: xxx-large;text-align:center;">Create MCQ</h3>
+                </div>
+            </div>
+            <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px;">
+                    <label>Select Course</label>
+                    <select id="course_select" name="course_select" class="custom-select" style="width:100%;display:flex;font-size:14px;">
+                        <option  value="">Select Course</option>
+                        {% for item in course_details %}
+                            <option value="{{item.id}}">{{item.course_name}}</option>
+                        {%endfor%}   
+                    </select>
+                </div>
+
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Select Pattern</label>
+                    <select id="pattern" name="pattern" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                        <option  value="">Select Pattern</option>
+                            <option value="2024">2024</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                    </select>
+                </div>
+            
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Select Semester</label>
+                    <select id="sem" name="sem" class="custom-select" style="width:100%;display:flex;font-size:14px" onchange="fill_subjects();">
+                        <option  value="">Select Semester</option>
+                        {% for item in semester_details %}
+                            <option value="{{item.id}}">{{item.semester_name}}</option>
+                        {%endfor%}
+                        
+                    </select>
+                </div>
+
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Select Subject</label>
+                    <select id="subject" name="subject" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                    </select>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Select Academic Year</label>
+                    <select id="ayear" name="ayear" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                        <option  value="">Select Academic year</option>
+                        {% for item in ayear_data %}
+                            <option value="{{item.id}}">{{item.ayear}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Enter duration</label>
+                    <select id="duration" name="duration" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                        <option  value="">Select Duration</option>
+                            <option value="15">15 min</option>
+                            <option value="30">30 min</option>
+                            <option value="45">45 min</option>
+                            <option value="60">60 min</option>
+                            <option value="75">75 min</option>
+                            <option value="90">90 min</option>
+                            <option value="105">105 min</option>
+                            <option value="120">120 min</option>
+
+                    </select>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Total No. Of Questions</label>
+                    <input type="text" id="no_of_questions"  name="no_of_questions" style="width:100%;display:flex;font-size:14px" placeholder="0" onkeyup="calculate_total_marks();"></input>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Marks for Each Question</label>
+                    <input type="text" id="marks_for_each_questions"  name="marks_for_each_questions" style="width:100%;display:flex;font-size:14px" placeholder="0" onkeyup="calculate_total_marks();"></input>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label>Total Marks</label>
+                    <input type="text" id="total_marks"  name="total_marks" style="width:100%;display:flex;font-size:14px;background-color: rgb(216 209 209 / 16%);" value="0" disabled></input>
+                </div>
+                <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                    <label style="width:100%;display:flex;font-size:14px">Negative Marking</label>
+                    <input type="checkbox" id="negative_marking"  name="negative_marking" style="width:4%;display:flex;font-size:14px;margin-top: 15px;" value="false" onchange="enable_disable_txt(this);"></input>
+                    <input type="text" id="negative_marks"  name="negative_marks" style="width:91%;float: left;font-size:14px"></input>
+                </div>
+                <div class="col-md-2" style="margin-top:20px;margin-left:100px">
+                    <label>MCQ Start Date</label>
+                    <input required="required" type="date" class="dt" id="start_date"
+                        name="start_date"  value="" placeholder="Select date">
+                </div>
+                <div class="col-md-2" style="margin-top:20px;">
+                    <label>MCQ Start Time</label>
+                    <input required="required"  type="time"
+                            class='dt' id="start_time" name="start_time" value=""
+                            placeholder="Select time" />
+                </div>
+                <div class="col-md-2" style="margin-top:20px;margin-left:100px">
+                    <label>MCQ End Date</label>
+                    <input required="required" type="date" class="dt" id="end_date"
+                        name="end_date"  value="" placeholder="Select date">
+                </div>
+                <div class="col-md-2" style="margin-top:20px;">
+                    <label>MCQ End Time</label>
+                    <input required="required"  type="time"
+                            class='dt' id="end_time" name="end_time" value=""
+                            placeholder="Select time" />
+                </div>   
+                
+
+            <div class="col-md-12" style="width:100%;">
+                <div class="wm-plan-button-typo">
+                    <button id="btn_create" name="btn_create" style="width: 200px;height:50px;font-size:20px;padding: 0;margin-left: 40%;" type="button" class="wm-tweet-us"  onclick="save_mcqexam(this.id);">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+
+    </div>
+</form>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript">
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+
+var form_valid=false;
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    form_valid=true;
+    return form_valid;
+}
+function save_mcqexam(id)
+{
+    $('#create_mcqexam').submit();
+}
+
+
+function fill_subjects()
+{
+$.ajax({
+        
+        url: "/mcqexams/get_all_subjects_by_course_and_sem/",
+        method: 'POST',
+        data :{ 
+            'course_id': $('#course_select').val(),
+            'pattern': $('#pattern').val(),
+            'sem_id': $('#sem').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#subject').html('<option value="">Select Subject</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.subject_name + '</option>';
+            }).join('');
+            $('#subject').html(html);
+            }
+            else
+            {
+                
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+}
+function calculate_total_marks()
+{
+    var no_of_questions=0;
+    var marks_for_each_questions=0;
+    no_of_questions=$('#no_of_questions').val();
+    marks_for_each_questions=$('#marks_for_each_questions').val();
+    total_marks=no_of_questions*marks_for_each_questions;
+    $('#total_marks').val(total_marks);
+    $('#tot_marks').val(total_marks);
+
+}
+function enable_disable_txt(obj)
+{
+    if(obj.checked==true)
+    {
+        console.log('checked');
+        $('#negative_marks').css({ "background-color": "#fff","opacity":"100%","border":"1 px solid #ced4da" });
+        $('#negative_marks').attr('disabled',false);
+        $('#is_negative_marking').val(true);
+        
+    }
+    else
+    {
+        $('#negative_marks').css({ "background-color": "#D8D1D1","opacity":"16%","border":"1 px solid #ced4da" });
+        $('#negative_marks').attr('disabled',true);
+        $('#is_negative_marking').val(false);
+    }
+}
+$(document).ready(function () {
+
+document.getElementById('page_heading').innerText='Create MCQ Exam';
+$('#negative_marks').css({ "background-color": "#D8D1D1","opacity":"16%","border":"1 px solid #ced4da" });
+$('#negative_marks').attr('disabled',true);
+$('#is_negative_marking').val(false);
+
+});
+</script>
+
+{%endblock%}

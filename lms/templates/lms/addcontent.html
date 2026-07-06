@@ -1,0 +1,483 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'result_analysis/css/add_mark.css' %}"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+{% endblock %}
+{% block content %}
+<section id="step1" >
+<div class="formbold-main-wrapper ">
+	<!-- Author: FormBold Team -->
+	<!-- Learn More: https://formbold.com -->
+	<div class="formbold-form-wrapper p-lg-5 col-md-10">
+	  <form   onsubmit="return form_submit(event);" id="addcontent" name="addcontent" action="." method="post" enctype="multipart/form-data">
+	  
+	  <input type="hidden" id="filetobeuploaded" name="filetobeuploaded" value="" />
+      
+      
+            {% csrf_token %}
+	
+            <div class="formbold-steps">
+
+            <div class=" HeadingDiv text-white">  Add Content </div>
+
+            <div class="formbold-input-flex" style="margin-top: 15px;">
+                <div>
+                    <label class="formbold-form-label">Enter Title <span class="text-danger">*</span></label>
+                    <input id="txt_title" name="txt_title" class="formbold-form-input" style="float: left;width: 100%;"/>
+                    <span id="title_err" name="title_err" style="color: red;">* Enter Title</span>
+                </div>
+            </div>
+            <div class="formbold-input-flex">
+                <div>
+                        <label class="formbold-form-label">Select Course <span class="text-danger">*</span></label>
+
+                        <select id="course" name="course" class="formbold-form-input "  onchange="fill_subjects();course_changed();" >
+                            <option value='' selected > Select Course </option>
+                            {% for item in course_data%}
+                            <option value="{{item.id}}">{{item.course_name}}</option>
+                            {% endfor %}
+                        </select>
+                        <span id="course_err" name="course_err" style="color: red;">* Select Course</span>		
+
+                </div>
+                <div>
+                        <label class="formbold-form-label">Select Pattern <span class="text-danger">*</span></label>
+
+                        <select class="formbold-form-input" id="pattern" name="pattern" onchange="fill_subjects();pattern_changed();">
+                            <option selected value="">Select Pattern</option>
+                            {% for item in pattern_data%}
+                            <option  value="{{item.id}}">{{item.pattern}}</option>
+                            {% endfor %}
+                                        
+                        </select>
+                        <span id="pattern_err" name="pattern_err" style="color: red;">* Select Pattern</span>
+                </div>			
+            </div>
+
+            <div class="formbold-input-flex">
+                <div>
+                    <label class="formbold-form-label">Select Semester <span class="text-danger">*</span></label>		
+                            <select  id="sem" name="sem" class="formbold-form-input" onchange="fill_subjects();semester_changed();">
+                                <option value='' selected> Select Semester:</option>
+                                {% for item in semester_data%}
+                                <option value="{{item.id}}">{{item.semester_name}}</option>
+                                {% endfor %}
+                            </select>
+                        <span id="sem_err" name="sem_err" style="color: red;">* Select Semester</span>
+                </div>
+                <div>
+                    <label class="formbold-form-label">Select Subject <span class="text-danger">*</span></label>		
+                        <select id="subject" name="subject" class="formbold-form-input"  onchange="subject_changed()">
+                            </select>
+                        <span id="subject_err" name="subject_err" style="color: red;">* Select Subject</span>
+                </div>			
+            </div>
+
+            <div class="formbold-input-flex1">
+                <div class="formbold-input-flex">
+                    <div>
+                    <label for="externalmarks" class="formbold-form-label">Enter Chapter</label>
+                    <select id="chapter" name="chapter" class="formbold-form-input" >
+                            <option  value="0">Select Chapter</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+
+                        </select>
+                            
+                    </div> 
+                    <div>
+                    <label class="formbold-form-label">Select Content Type <span class="text-danger">*</span></label>
+
+                    <select id="content_type" name="content_type" class="formbold-form-input" onchange="content_type_changed();">
+                        <option value="">Select Type</option>
+                        <option value="ppt">PPT</option>
+                        <option value="txt">Text</option>
+                        <option value="video">Video</option>
+                    </select>
+                    <span id="type_err" name="type_err" style="color: red;">* Select Content Type</span>
+                </div>
+                </div>
+                <div class="formbold-input-flex" id="div_upload">
+                    <div>
+                        <label class="formbold-form-label">Upload Content <span class="text-danger">*</span></label>
+                        <input id="file_upload" name="file_upload" class="demo1" type="file" data_btn_text="Browse" accept=".png,.jpeg,.jpg,.pdf,.ppt,.pptx,.doc,.docx,.txt"  placeholder="drage and drop file here"  onchange="content_changed();"/>
+                        <span id="file_err" name="file_err" style="color: red;">* Upload Content</span>
+                    </div>
+                    
+                </div>
+                <div class="formbold-input-flex" id="div_url">
+                    <div>
+                        <label class="formbold-form-label">Enter URL <span class="text-danger">*</span></label>
+                        <input id="txt_url" name="txt_url" class="demo1" onchange="url_changed();" />
+                        <span id="url_err" name="url_err" style="color: red;">* Enter URL</span>
+                    </div>
+                    
+                </div>
+                
+            </div>
+    
+            <div class="formbold-input-flex">
+            <div class=" pt-md-3 pr-lg-5">
+                <button type="button" id="btn_add" name="btn_add" class="formbold-btn mt-5 mr-xl-5 float-md-right" onclick="add_content(this);">Add</button>
+            </div>
+            </div>
+
+		</form>
+      
+	  
+	</div>
+
+  </div>
+</section>
+  
+  {% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript">
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+function add_content(id)
+{
+    $('#addcontent').submit();
+}
+
+var form_valid=false;
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid(e);
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid(e)
+{   
+    form_valid=true;
+    course_id=$('#course').val();
+    pattern_id=$('#pattern').val();
+    sem_id=$('#sem').val();
+    subject_id=$('#subject').val();
+    content_type=$('#content_type').val();
+    content=$('#file_upload').val();
+    url=$('#txt_url').val();
+    title=$('#txt_title').val();
+    
+    if(title == '' || title=='None' || title==null)
+    {
+        form_valid=false;
+        $('#title_err').show();
+
+    }
+    else{
+        $('#title_err').hide();
+    }
+    if(course_id == '' || course_id=='None' || course_id==null)
+    {
+        form_valid=false;
+        $('#course_err').show();
+
+    }
+    else{
+        $('#course_err').hide();
+    }
+    if(pattern_id == '' || pattern_id=='None' || pattern_id==null)
+    {
+        form_valid=false;
+        $('#pattern_err').show();
+    }
+    else{
+        $('#pattern_err').hide();
+    }
+    if(sem_id == '' || sem_id=='None' || sem_id==null)
+    {
+        form_valid=false;
+        $('#sem_err').show();
+    }
+    else{
+        $('#sem_err').hide();
+    }
+    if(subject_id == '' || subject_id=='None' || subject_id==null)
+    {
+        form_valid=false;
+        $('#subject_err').show();
+    }
+    else{
+        $('#subject_err').hide();
+    }
+    if(content_type == '' || content_type=='None' || content_type==null)
+    {
+        form_valid=false;
+        $('#type_err').show();
+    }
+    else{
+        $('#type_err').hide();
+    }
+    if(content_type != '' && content_type != 'None' && content_type != null)
+    {
+        if(content_type == "ppt" || content_type == "txt")
+        {
+            if(content == '' || content=='None' || content==null)
+            {
+                form_valid=false;
+                $('#file_err').show();
+            }
+            else{
+                $('#file_err').hide();
+            }
+        }
+        else if(content_type == "video")
+        {
+             if(url == '' || url=='None' || url==null)
+            {
+                form_valid=false;
+                $('#url_err').show();
+            }
+            else{
+                $('#url_err').hide();
+            }
+        }
+    }
+    
+   
+    return form_valid;
+}
+function fill_subjects()
+{
+$.ajax({
+        
+        url: "/mcqexams/get_all_subjects_by_course_sem_pattern/",
+        method: 'POST',
+        data :{ 
+            'course_id': $('#course').val(),
+            'pattern': $('#pattern').val(),
+            'sem_id': $('#sem').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#subject').html('<option value="">Select Subject</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.subject_name + '</option>';
+            }).join('');
+            $('#subject').html(html);
+            }
+            else
+            {
+                $('#subject').html('<option value="">Select Subject</option>')
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+}
+function reset_subject()
+{
+    $('#subject').val('');
+}
+function reset_semester()
+{
+    $('#sem').val('');
+}
+function reset_pattern()
+{
+    $('#pattern').val('');
+}
+function reset_chapter()
+{
+    $('#chapter').val('0');
+}
+function course_changed()
+{
+    var course_id=$('#course').val();
+   
+    reset_pattern();
+    reset_semester();
+    reset_subject();
+    reset_chapter();
+    if(course_id == '' || course_id=='None' || course_id==null)
+    {
+        
+        $('#course_err').show();
+
+    }
+    else{
+        $('#course_err').hide();
+    }
+}
+function pattern_changed()
+{
+    var pattern_id=$('#pattern').val();
+    
+    reset_semester();
+    reset_subject();
+    reset_chapter();
+    if(pattern_id == '' || pattern_id=='None' || pattern_id==null)
+    {
+        $('#pattern_err').show();
+    }
+    else{
+        $('#pattern_err').hide();
+    }
+}
+function semester_changed()
+{
+    sem_id=$('#sem').val();
+    
+    reset_subject();
+    reset_chapter();
+    if(sem_id == '' || sem_id=='None' || sem_id==null)
+    {
+        $('#sem_err').show();
+    }
+    else{
+        $('#sem_err').hide();
+    }
+}
+function subject_changed()
+{
+    var subject_id=$('#subject').val();
+    reset_chapter();
+    if(subject_id == '' || subject_id=='None' || subject_id==null)
+    {
+        $('#subject_err').show();
+    }
+    else{
+        $('#subject_err').hide();
+    }
+}
+function content_type_changed()
+{
+    var content_type=$('#content_type').val();
+   
+   
+    if(content_type == '' || content_type=='None' || content_type==null)
+    {
+        $('#type_err').show();
+        $('#div_url').hide();
+        $('#div_upload').hide();
+    }
+    else{
+        $('#type_err').hide();
+        if(content_type =='ppt' || content_type == 'txt') 
+        {
+            $('#div_upload').show();
+            $('#div_url').hide();
+            $('#file_upload').val('');
+
+        }
+        else
+        {
+            $('#div_upload').hide();
+            $('#div_url').show();
+            $('#txt_url').val('');
+
+        }
+    }
+}
+function content_changed()
+{
+    var content=$('#file_upload').val();
+   
+    if(content == '' || content=='None' || content==null)
+    {
+        $('#file_err').show();
+    }
+    else{
+        $('#file_err').hide();
+    }
+}
+function url_changed()
+{
+    var url=$('#txt_url').val();
+   
+    if(url == '' || url=='None' || url==null)
+    {
+        $('#url_err').show();
+    }
+    else{
+        $('#url_err').hide();
+    }
+}
+
+$(document).ready(function () {
+
+    document.getElementById('page_heading').innerText='Add Study Content';
+    $('#title_err').hide();
+    $('#course_err').hide();
+    $('#pattern_err').hide();
+    $('#sem_err').hide();
+    $('#subject_err').hide();
+    $('#type_err').hide();
+    $('#file_err').hide();
+    $('#url_err').hide();
+    $('#div_upload').hide();
+    $('#div_url').hide();
+
+    });
+
+$(":file").change(function () {
+		if (this.files && this.files[0]) {
+            $(".overlay").show();
+		    var valid_ext='{{ VALID_IMAGE_FORMATS }}';
+		    //alert(valid_ext);
+		    var valid_ext_list=valid_ext.split(',');
+		    var extn = this.files[0].name.split(".").pop().toLowerCase();
+		    
+		    var reader = new FileReader();
+		    //reader.onload = imageIsLoaded;
+		    reader.readAsDataURL(this.files[0]);
+            $('#filetobeuploaded').val(reader);
+		    $(".overlay").hide();
+		}
+		});
+    
+    
+
+</script>
+
+
+{% endblock %}

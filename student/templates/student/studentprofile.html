@@ -1,0 +1,619 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- <link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/> -->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">	 -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/css/util.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/static/login/css/main.css"> -->
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css">
+    <style>
+       select {
+    background-color: #ffffff;
+    border: 1px solid #a69df3;
+    color: #050bf1;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    height: 40px;
+    padding: 8px 12px;
+    width: 100%;
+}
+input[type=text] {
+    background-color: #ffffff!important;
+    height: 40px!important ;
+    border-color:#a69df3!important;
+    color: #050bf1!important;
+    font-size: 14px!important;
+    font-weight: 400!important;
+    height: 40px;
+    padding: 8px 12px;
+    width: 100%;
+   
+}
+::placeholder {
+  color:#050bf1;
+}
+        </style>
+    <style>
+        
+    .container-login101
+    {
+        background:#17a2b8;
+    }
+    .wrap-login101 {
+    width: 50%!important;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-top: -270px;
+    padding-top: 20px;
+}
+.login100-form1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 43px 88px 93px 190px;
+  margin-left: -47px;
+  margin-bottom: -60px; 
+}
+.wm-ctservice-icon1 {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    color: #ffffff;
+    text-align: center;
+    font-size: 43px;
+    line-height: 1.8;
+    margin-bottom: 0px;
+}
+.wm-contact-service-two1 {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+ #profileimage:before {
+    font-family: FontAwesome;
+    content: "\f030"
+}
+#family:before {
+    font-family: FontAwesome;
+    content: "\f0c0"
+}
+#finish:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+    </style>
+{% endblock %}
+
+{% block content%} 
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 id="heading">Update your profile</h2>
+                <p>Fill all form field to go to next step</p>
+                <form onsubmit="return form_submit(event);" id="msform" name="msform"  action="." method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" id="step" name="step" value="{{ step }}">
+                <input type="hidden" id="image_file" name="image_file" value=''>
+                <input type="hidden" id="image_f1" name="image_f1" value=''>
+                <input type="hidden" id="country" name="country" value='India'>
+                
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active" id="personal" name="personal"  onclick="form_change(id);" ><strong>Academic</strong></li>
+                        <li id="profileimage" name="profileimage" onclick="form_change(id);"><strong>Image</strong></li>
+                        <li id="family" name="family" onclick="form_change(id);"><strong>Family Details</strong></li>
+                        <li id="finish" name="finish" onclick="form_change(id);"><strong>Finish</strong></li>
+                    </ul>
+                    <!-- <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br>  -->
+                    <fieldset id="step1" >
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Admission Details:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 1 - 4</h2>
+                                </div>
+                            </div> 
+                            <div style="height: 60%;margin-bottom: 20px;">
+                                <select class="select" id="course" name="course" onchange="fill_admission_through(this);" >
+                                    <option value='' > <strong></strong>Select Course: *</strong></option>
+                                    {% for item in course_data%}
+                                    <option value="{{item.id}}"><strong>{{item.course_name}}</strong></option>
+                                    {% endfor %}
+                                </select> 
+                            </div>
+                            <div style="height: 60%;margin-bottom: 20px;">
+                                <select class="select" id="academic_year" name="academic_year">
+                                    <option value='' > </strong>Select Acadamic Year: *</strong></option>
+                                    {% for item in ay_data%}
+                                    <option value="{{item.id}}"><strong>{{item.ayear}}</strong></option>
+                                    {% endfor %}
+                                </select> 
+                            </div>
+                            <div style="height: 60%;margin-bottom: 20px;">
+                                <select class="select" id="admissionthrough" name="admissionthrough">
+                                    <option value='' > </strong>Select Admission Through: *</strong></option>
+                                    {% for item in admissionthroughdata%}
+                                    <option value={{item.id}}><strong>{{item.admission_under_name}}</strong></option>
+                                    {% endfor %}
+                                    
+                                </select> 
+                            </div>
+                            <div style="height: 60%;margin-bottom: 20px;">
+                                <select class="select" id="castcategory" name="castcategory">
+                                    <option value='' > </strong>Select Caste Category: *</strong></option>
+                                    {% for item in categorydata%}
+                                    <option value={{item.id}}><strong>{{item.category}}</strong></option>
+                                    {% endfor %}
+                                
+                                </select> 
+                            </div>
+                           <div>
+                            <input type="text" id="txtprequalification" name="txtprequalification" placeholder="Previous Qualification" onchange="checkvalid();"/> 
+                           </div>
+                           <div>
+                            <input type="text" maxlength="3" id="txtprequalificationperc" name="txtprequalificationperc" placeholder="Previous Qualification %" onkeyup="allowNumbers(this);" /> 
+                           </div>
+                           <div>
+                            <input class="col-md-4" type="text" id="txtrollno" name="txtrollno" placeholder="Roll No"/> 
+
+                            <select class="select col-md-4" id="divisions" name="divisions" style="padding-left: 20px;">
+                                <option value='' > </strong>Select Division: </strong></option>
+                                {% for item in divisiondata %}
+                                <option value={{item.id}}><strong>{{item.div_name}}</strong></option>
+                                {% endfor %}
+                            
+                            </select> 
+                            <select class="select col-md-4" id="semesters" name="semesters" style="padding-left: 20px;">
+                                <option value='' > </strong>Select Semester: </strong></option>
+                                {% for item in semesterdata %}
+                                <option value={{item.id}}><strong>{{item.semester_name}}</strong></option>
+                                {% endfor %}
+                            
+                            </select> 
+                           </div>
+                            
+                          
+                        </div> 
+                            <input type="button" id="st1_next" name="st1_next" class="action-button" value="Next" onclick="nextevent(this);" />
+                    </fieldset>
+                    <fieldset id="step2">
+                        <div class="form-card">
+          
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Image Upload:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 2 - 4</h2>
+                                </div>
+                            </div> 
+
+                            <label class="fieldlabels">Upload Your Photo:</label> 
+                            <div class="image-upload">
+                                <label for="file-input">
+                               
+                                <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" id="profileimg" name="profileimg" class="img-thumbnail" alt="" style="width: 200px;
+                                height: 200px;">
+                                
+                                </label>
+                            </div>
+                            <!-- <input type="file" name="file_input" id="file_input" onchange="previewFile(this);" accept="image/*">  -->
+                            <input type="file" name="file_input" id="file_input" accept="image/*"> 
+                        </div> 
+                        <input type="button" id="st2_next" name="st2_next"  class="next action-button" value="Next" onclick="nextevent(this);" style="padding-left: 20px;"/>
+                        <input type="button" id="st2_previous" name="st2_previous"  class="action-button-previous" value="Previous" onclick="previousevent(this);" /> 
+                        
+                    </fieldset>
+                    <fieldset id="step3">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Family Details:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 3 - 4</h2>
+                                </div>
+                            </div> 
+                            <label class="fieldlabels">Father Name: *</label> <input type="text" name="txtfathername" id="txtfathername" placeholder="Father Name" /> 
+                            <label class="fieldlabels">Mother Name: *</label> <input type="text" name="txtmothername" id="txtmothername" placeholder="Mother Name" /> 
+                            <!-- <label class="fieldlabels">No of Siblings *</label> <input type="text" name="txtsiblings" id="txtsiblings" placeholder="No of Siblings" /> 
+                            <label class="fieldlabels">Father Occupation: *</label> <input type="text" name="txtfatheroccupation" id="txtfatheroccupation" placeholder="Father Occupation." /> -->
+                            <label class="fieldlabels">Address Line 1</label> <input type="text" name="txtaddress1" id="txtaddress1" placeholder="Address Line 1" /> 
+                            <label class="fieldlabels">Address Line 2</label> <input type="text" name="txtaddress2" id="txtaddress2" placeholder="Address Line 2" />
+                            <label class="fieldlabels">Address Line 3</label> <input type="text" name="txtaddress3" id="txtaddress3" placeholder="Address Line 3" />
+                            
+                            <input class="col-md-4" type="text" name="txtcountry" id="txtcountry" placeholder="India" style="width: 90px;"/> 
+                            <select id="state" name="state" class="select col-md-4" onchange="set_district(this.value);" style="width: 180px;margin-left: 10px;">
+                            </select>
+                            <select id="district" name="district" class="select col-md-4" onchange="" style="width: 180px;margin-left: 10px;">
+                            </select>
+                            <input class="col-md-4" type="text" name="txtpin" id="txtpin" placeholder="Enter Pin" style="width: 180px;margin-left: 10px;" maxlength="6" onkeyup="allowNumbers(this);"/> 
+                           
+                        </div> 
+                        <input type="button" name="st3_next" id="st3_next" class="next action-button" value="Next" onclick="nextevent(this);"/> 
+                        <input type="button" name="st3_previous" id="st3_previous" class="previous action-button-previous" value="Previous" onclick="previousevent(this);" />
+                    </fieldset>
+                    <fieldset id="step4">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Finish:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 4 - 4</h2>
+                                </div>
+                            </div> <br><br>
+                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You profile updated Successfully! Go Back to dashboard.</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block javascript%}
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+        <script src="/static/js/progress.js"></script>
+        <script src="/static/js/tk/main.js"></script>
+        
+<script>
+ var formid='';
+function nextevent(obj)
+{   
+    if(formid=='step1')
+    {
+        $('#step').val('step2');
+        
+    }
+    else if(formid=='step2')
+    {
+        $('#step').val('step3');
+       
+    }
+    else if(formid=='step3')
+    {
+        $('#step').val('step4');
+       
+    }
+    else if(formid=='step4')
+    {
+        $('#step').val('step1');
+        
+    }
+    $('#msform').submit();
+}
+function previousevent(obj)
+{
+    if(formid=='step1')
+    {
+        $('#step').val('step1');
+        formid='step1';
+        window.location.href = "/student/studentprofile?step=step1"
+        $("#overlay").show();
+
+        
+    }
+    else if(formid=='step2')
+    {
+        $('#step').val('step1');
+        formid='step1';
+        window.location.href = "/student/studentprofile?step=step1"
+        $("#overlay").show();
+       
+    }
+    else if(formid=='step3')
+    {
+        $('#step').val('step2');
+        formid='step2';
+        window.location.href = "/student/studentprofile?step=step2"
+        $("#overlay").show();
+       
+    }
+    else if(formid=='step4')
+    {
+        $('#step').val('step3');
+        formid='step3';
+        window.location.href = "/student/studentprofile?step=step3"
+        $("#overlay").show();
+        
+    }
+    // $('#msform').submit();
+}
+$(document).ready(function () {
+      fill_state();
+      if('{{step}}'=='step1')
+      {
+            formid='step1';
+            $('#step').val('step1');
+            $('#step1').show();
+            $('#step2').hide();
+            $('#step3').hide();
+            $('#step4').hide();
+            document.getElementById('personal').className='active';
+            
+      }
+      else if ('{{step}}'=='step2')
+      {
+            formid='step2';
+            $('#step').val('step2');
+            $('#step1').hide();
+            $('#step2').show();
+            $('#step3').hide();
+            $('#step4').hide();
+            document.getElementById('personal').className='active';
+            document.getElementById('profileimage').className='active';
+      }
+      else if('{{step}}'=='step3')
+      {
+            formid='step3';
+            $('#step').val('step3');
+            $('#step1').hide();
+            $('#step2').hide();
+            $('#step3').show();
+            $('#step4').hide();
+            document.getElementById('personal').className='active';
+            document.getElementById('profileimage').className='active';
+            document.getElementById('family').className='active';
+
+      }
+      else if('{{step}}'=='step4')
+      {
+            formid='step4';
+            $('#step').val('step4');
+            $('#step1').hide();
+            $('#step2').hide();
+            $('#step3').hide();
+            $('#step4').show();
+            document.getElementById('personal').className='active';
+            document.getElementById('profileimage').className='active';
+            document.getElementById('family').className='active';
+            document.getElementById('finish').className='active';
+      }
+    //   $("#overlay").hide();
+
+    $(":file").change(function () {
+		if (this.files && this.files[0]) {
+            $(".overlay").show();
+		    var valid_ext='{{ VALID_IMAGE_FORMATS }}';
+		    //alert(valid_ext);
+		    var valid_ext_list=valid_ext.split(',');
+		    var extn = this.files[0].name.split(".").pop().toLowerCase();
+		    
+		    var reader = new FileReader();
+		    reader.onload = imageIsLoaded;
+		    reader.readAsDataURL(this.files[0]);
+            $('#image_f1').val(reader);
+		    $(".overlay").hide();
+		}
+		});
+    });
+function form_change(id)
+{
+    if(id=='personal')
+    {
+        $('#step1').show();
+        $('#step2').hide();
+        $('#step3').hide();
+        $('#step4').hide();
+        formid='step1';
+        document.getElementById('personal').classList='active';
+        document.getElementById('profileimage').classList='';
+        document.getElementById('family').classList='';
+        document.getElementById('finish').classList='';
+        document.getElementById('step1').style.opacity = "1";
+       
+    }
+    else if(id=='profileimage')
+    {
+        $('#step2').show();
+        $('#step1').hide();
+        $('#step3').hide();
+        $('#step4').hide();
+        formid='step2';
+        document.getElementById('personal').classList='active';
+        document.getElementById('profileimage').classList='active';
+        document.getElementById('family').classList='';
+        document.getElementById('finish').classList='';
+        document.getElementById('step2').style.opacity = "1";
+       
+    }
+    else if(id=='family')
+    {
+        $('#step3').show();
+        $('#step1').hide();
+        $('#step2').hide();
+        $('#step4').hide();
+        formid='step3';
+        document.getElementById('personal').classList='active';
+        document.getElementById('profileimage').classList='active';
+        document.getElementById('family').classList='active';
+        document.getElementById('finish').classList='';
+        document.getElementById('step3').style.opacity="1";
+       
+    }
+    else if(id=='finish')
+    {
+        $('#step4').show();
+        $('#step1').hide();
+        $('#step2').hide();
+        $('#step3').hide();
+        formid='step4';
+        document.getElementById('personal').classList='active';
+        document.getElementById('profileimage').classList='active';
+        document.getElementById('family').classList='active';
+        document.getElementById('finish').classList='active';
+        document.getElementById('step4').style.opacity = "1";
+       
+    }
+    
+}
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    var form_valid=false;
+   
+    form_valid=true;
+    return form_valid;
+}
+
+function fill_admission_through(selected_course)
+{
+    var optionsAsString='';
+    var selected_cour=selected_course.value;
+    if(selected_cour!='')
+    {
+        $.ajax({
+            
+            url: "/student/get_all_admission_through/",
+            method: 'POST',
+            data :{ 
+                'course_id': selected_cour,
+                },
+            dataType: 'json',
+            
+            success : function(response,status) {
+                
+                var data=response.admission_through_data;
+                
+                if(response.success)
+                {
+                    optionsAsString += "<option value=''>Select Admission Through: *</option>";
+                    for(var i = 0; i < data.length; i++) 
+                    {
+                    optionsAsString += "<option value='" + data[i]['id'] + "'>" + data[i]['admission_under_name'] + "</option>";
+                    }
+                    $("select[name='admissionthrough']").find('option').remove().end().append($(optionsAsString));
+                }
+                else
+                {
+                
+                }
+                
+            },
+            error: function (response) {
+                console.log('Something went wrong, please refresh the page.');
+            }
+        }) 
+    }
+    else
+    {
+        optionsAsString += "<option value=''>Select Admission Through: *</option>";
+        $("select[name='admissionthrough']").find('option').remove().end().append($(optionsAsString));
+
+    }
+}
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+function imageIsLoaded(e) {
+    $('#profileimg').attr('src', e.target.result);
+};
+function fill_state()
+{
+    
+    $('#state').html('<option value="">Select state</option>')
+    var html = $.map(states, function(state){
+                return '<option value="' + state + '">' + state + '</option>';
+    }).join('');
+    $('#state').html(html);
+
+}
+function set_district(state_id)
+{
+
+    districts=state_districts[state_id];
+    $('#district').html('<option value="">Select District</option>')
+    var html = $.map(districts, function(dist){
+                return '<option value="' + dist + '">' + dist + '</option>';
+    }).join('');
+    $('#district').html(html);
+}
+document.getElementById("txtcountry").readOnly=true; 
+</script>
+
+{% endblock %}
+

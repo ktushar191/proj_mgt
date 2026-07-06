@@ -1,0 +1,401 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <style>
+      .hideable{
+        display: none;
+      }      
+ 
+    </style>
+ 
+{% endblock %}
+
+{% block content%} 
+
+<form>
+   
+	<main class=" "
+    style="padding-bottom: 120px; ">
+
+    <div class="container "  style="padding:40px; " > 
+
+        <div class="col-md-6 offset-md-3  bg-dark" style="padding:10px;">
+
+            <div class="card ">
+
+                <div class="card-header text-center bg-dark  text-white">
+                    <span class="fa fa-3x fa-user-circle"></span> <br> Non-Academic Feedback
+                </div>
+
+                <div class="card-body">
+                    <form id="reg-form"  >
+
+                        <div class="form-group">
+                            <label for="user_name">User Name</label> <input name="user_name"
+                                type="text" class="form-control" id="user_name"
+                                aria-describedby="emailHelp" placeholder="Enter name">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="roll_no">Roll No</label> <input name="roll_no"
+                                type="text" class="form-control" id="roll_no"
+                                aria-describedby="rollno" placeholder="Ente Rolll No">
+
+                        </div>
+
+                        <div class="form-group"> 
+                            <label for="courses">Select a Course:</label>
+                            <select id="courses" name="courses">
+                                <option value="MCA">MCA</option>
+                                <option value="MBA">MBA</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="semister">Select a Semister:</label>
+                            <select id="semister" name="semister">
+                                <option value="I">I</option>
+                                <option value="II">II</option>
+                                <option value="III">III</option>
+                                <option value="IV">IV</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="semister">Select a Event:</label>
+                            <select id="event" name="event" onchange="toggleElements()">
+                                <option value="cressendo">Cressendo</option>
+                                <option value="seminar">Seminar</option>
+                                <option value="induction">Induction</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="traffic_awereness">Traffic Awereness</option>
+                                <option value="seminar">Seminar</option>
+                            </select>
+                        </div> 
+
+                    </form>
+                </div>
+
+
+                {% comment %} Events {% endcomment %}
+                
+                <div class="hideable" id="cressendo">
+                    <form id="Faculty_form"     >
+                                 
+                          <h4 style="text-align:center;">Cressendo Feedback  </h4>
+                         
+                      
+                        <div class="form-check">
+ 
+                            <strong>1 .Canteen </strong>
+                                <br>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Excellent
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Good
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Average
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault1" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Poor
+                            </label> 
+                          </div>
+                           
+                          <div class="form-check">
+                            
+                            <strong>2 .Network </strong>
+                                <br>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                &nbsp;  Excellent
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Good
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Average
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Poor
+                            </label> 
+                          </div>
+
+
+                          
+
+                          <div class="form-check">
+                            
+                            <strong>3 .Administrative Offices: </strong>
+                                <br>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Excellent
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Good
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Average
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Poor
+                            </label> 
+                          </div>
+
+                          <div class="form-check">
+                            
+                            <strong>4 .Dormitories/Residence Halls:</strong>
+                                <br>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Excellent
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Good
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Average
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Poor
+                            </label> 
+                          </div>
+  
+                          <div class="form-check">
+                            
+                            <strong>5 .Transportation Services:</strong>
+                                <br>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Excellent
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Good
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Average
+                            </label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault1" value="">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Poor
+                            </label> 
+                          </div>
+                        <button id="submit-btn--" type="submit" class="btn btn-primary">Submit</button>
+
+                    </form>
+                </div>
+{% comment %}  {% endcomment %}
+
+<div class="hideable" id="induction">
+    <form id="Faculty_form"     >
+                 
+          <h4 style="text-align:center;">Induction Feedback  </h4>
+         
+      
+        <div class="form-check">
+
+            <strong>1 .Canteen </strong>
+                <br>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Excellent
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Good
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Average
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Poor
+            </label> 
+          </div>
+           
+          <div class="form-check">
+            
+            <strong>2 .Network </strong>
+                <br>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                &nbsp;  Excellent
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Good
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Average
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Poor
+            </label> 
+          </div>
+
+
+          <div class="form-check">
+            
+            <strong>3 .Transportation Services:</strong>
+                <br>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Excellent
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Good
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Average
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Poor
+            </label> 
+          </div>
+
+          <div class="form-check">
+            
+            <strong>4 .Administrative Offices: </strong>
+                <br>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Excellent
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Good
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Average
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Poor
+            </label> 
+          </div>
+
+          <div class="form-check">
+            
+            <strong>5 .Dormitories/Residence Halls:</strong>
+                <br>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Excellent
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Good
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Average
+            </label>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Poor
+            </label> 
+          </div>
+
+        <button id="submit-btn--" type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+</div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</main>
+</form>
+ 
+
+{% endblock%}
+
+
+
+
+{% block javascript%}
+<script>
+    function toggleElements() {
+      // Get the selected value from the dropdown
+      const selectedValue = document.getElementById('event').value;
+    
+      // Hide all toggle elements
+      const toggleElements = document.querySelectorAll('.hideable');
+      toggleElements.forEach(function(element) {
+        element.style.display = 'none';
+      });
+    
+      // Show the toggle element corresponding to the selected value
+      const selectedElement = document.getElementById(selectedValue);
+      if (selectedElement) {
+        selectedElement.style.display = 'block';
+      }
+    }
+    </script>
+    
+
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+        <script src="/static/js/progress.js"></script>
+           
+{% endblock %}
+

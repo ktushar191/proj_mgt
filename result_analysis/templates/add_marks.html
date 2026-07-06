@@ -1,0 +1,418 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href={% static 'result_analysis/css/add_mark.css' %}> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+{% endblock %}
+{% block content %}
+<section id="step1" >
+<div class="formbold-main-wrapper ">
+	<!-- Author: FormBold Team -->
+	<!-- Learn More: https://formbold.com -->
+	<div class="formbold-form-wrapper p-lg-5 col-md-10">
+	  <form  id="marks_details" name="marks_details" method="post" action="." enctype="multipart/form-data">
+      {% csrf_token %}
+	
+		  <div class="formbold-steps">
+
+		<div class=" HeadingDiv text-white">  Add Result Details <img src="{% static 'result_analysis/images/checklist.png' %}" width="28" height="28" alt=""></div>
+		
+		  </div>
+		  <div class="formbold-input-flex">
+			<div>
+				<label class="formbold-form-label">Select Course <span class="text-danger">*</span></label>
+
+				<select id="course-select" class="formbold-form-input " data-error-target="course-error" >
+					<option selected="" value="">Select Course</option>
+					{% for cinfo in course_details %}
+					<option value="{{cinfo.id}}">{{cinfo.course_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="course-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+				
+
+			</div>
+			<div>
+				<label class="formbold-form-label">Select Semester <span class="text-danger">*</span></label>
+
+				<select  id="semester-select" class="formbold-form-input" data-error-target="semester-error" >
+					<option selected="" value="">Select Semester</option>
+					{% for sinfo in semester_details %}
+					<option value="{{sinfo.id}}">{{sinfo.short_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="semester-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+			</div>
+		  </div>
+		
+			<div class="formbold-input-flex">
+				<div>
+					<label class="formbold-form-label">Select Academic Year <span class="text-danger">*</span></label>
+
+					<select id="ay-select" class="formbold-form-input" data-error-target="ay-error" >
+						<option selected="" value="">Select Academic Year</option>
+						{% for ainfo in acedemic_year %}
+						<option value="{{ainfo.id}}">{{ainfo.ayear}}</option>
+						{% endfor %}
+					</select>
+					<div class="error-container" id="ay-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+				</div>
+				<div>
+					<label class="formbold-form-label">Select Subject <span class="text-danger">*</span></label>
+
+					<select class="formbold-form-input" id="subject-select" data-error-target="subject-error">
+						<option selected="" value="">Select Subject</option>
+					</select>
+					<div class="error-container" id="subject-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+				</div>
+			  </div>
+			<div class="formbold-input-flex">
+				<div class="formbold-input-flex">
+					<div>
+					<label for="externalmarks" class="formbold-form-label"> Enter Marks <span class="text-danger">*</span></label>
+					<input type="number"  name="externalmarks" placeholder="Enter Marks" id="externalmarks" class="formbold-form-input" data-error-target="externalmarks-error" />
+					<div class="error-container" id="externalmarks-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div> 
+					<div>
+					<label class="formbold-form-label">Selcet Grade <span class="text-danger">*</span></label>
+
+					<select id="grade-select" class="formbold-form-input" data-error-target="grade-error">
+						<option selected="" value="">Select Grade</option>
+						{% for grade in grade_details %}
+						<option value="{{grade.id}}">{{grade.grade_name}}</option>
+						{% endfor %}
+					</select>
+					<div class="error-container" id="grade-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+				</div>
+				</div>
+				<div class="formbold-input-flex">
+					<div>
+					<label for="sgpa" class="formbold-form-label"> Enter SGPA <span class="text-danger">*</span></label>
+					<input type="number" step="any" name="sgpa" placeholder="Enter SGPA" id="sgpa" class="formbold-form-input" data-error-target="sgpa-error"/>
+					<div class="error-container" id="sgpa-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div> 
+					<div>
+					<label class="formbold-form-label">Selcet Outcome <span class="text-danger">*</span></label>
+
+					<select id="outcome-select" class="formbold-form-input" data-error-target="outcome-error">
+						<option selected="" value="">Selcet Outcome</option>
+						<option value="1">Pass</option>
+						<option value="2">Fail</option>
+						<option value="3">Fail A.T.K.T</option>
+					</select>
+					<div class="error-container" id="outcome-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div>
+				</div>
+			
+			  </div>
+  
+		  <div class="formbold-form-btn-wrapper">
+			<button type="button" id="addbtn"  class="formbold-btn">
+				Add
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<g clip-path="url(#clip0_1675_1807)">
+				<path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white"/>
+				</g>
+				<defs>
+				<clipPath id="clip0_1675_1807">
+				<rect width="16" height="16" fill="white"/>
+				</clipPath>
+				</defs>
+				</svg>
+			</button>
+		  </div>
+				<table id="tbl_marks" class="content-table d-none">
+					<thead>
+					  <tr>
+						<th>Course</th>
+						<th>Semester</th>
+						<th>Academic Year</th>
+						<th >Subject</th>
+						<th>Marks</th>
+						<th>Grade</th>
+						<th>SGPA</th>
+						<th>Outcome</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  
+					</tbody>
+				  </table>
+				 <div class="d-flex justify-content-center gap-5">
+					<button type="submit" id="btn_sub" class="formbold-btn ml-5 d-none">Submit</button>
+					
+					<button type="reset" id="btn_cancel" class="formbold-btn2 ml-5 d-none">Cancel</button>
+				</div>
+			
+				
+		</form>
+	  
+	</div>
+
+  </div>
+</section>
+  <section id="step2" style="display: none;" >
+	
+	<div class="form-card col-md-9 bg-white rounded-2 p-5">
+	   
+		<h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+		<div class="row justify-content-center">
+			<div class="col-2"> <img width="135" height="135" src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+		</div> <br><br>
+		<div class="row justify-content-center">
+			<div class="col-7 text-center">
+				<h5 class="purple-text text-center">Your marks have been submitted successfully.</h5>
+				<h5 class="purple-text text-center"><a href="/result_analysis/reports">Click here </a>to go to the dashboard</h5>
+			</div>
+		</div>
+	</div>
+
+</section>
+  {% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    
+	$(document).ready(function() {
+		var subjectDetails = {{ subject_details|safe }};
+		var courseSelect = document.getElementById("course-select");
+		var semesterSelect = document.getElementById("semester-select");
+		var aySelect = document.getElementById("ay-select");
+		var subSelect = document.getElementById("subject-select");
+		var externalMarks = document.getElementById("externalmarks");
+		var gradeSelect = document.getElementById("grade-select");
+		var sgpa = document.getElementById("sgpa");
+		var outcomeSelect = document.getElementById("outcome-select");
+		var tbl_marks = document.getElementById("tbl_marks");
+		var btn_sub = document.getElementById("btn_sub");
+		var btn_cancel = document.getElementById("btn_cancel");		
+		var table_data=[];
+		function filterSubjects() {
+			var selectedCourse = $('#course-select').val();
+			var selectedSemester = $('#semester-select').val();
+
+			// Reset the subjects dropdown
+			$('#subject-select').empty();
+
+			// Default option
+			var defaultOption = '<option selected="" value="">Select Subject</option>';
+			$('#subject-select').append(defaultOption);
+
+			// Check if course or semester is not selected
+			if (selectedCourse == "" && selectedSemester == "") {
+				// Display all subjects if neither course nor semester is selected
+				for (var i = 0; i < subjectDetails.length; i++) {
+					var subjectID = subjectDetails[i].id;
+					var subjectName = subjectDetails[i].subject_short_name;
+					$('#subject-select').append('<option value="' + subjectID + '">' + subjectName + '</option>');
+				}
+				return;
+			} else if (selectedCourse && selectedSemester == "") {
+				// Filter and display subjects based on selected course 
+				for (var i = 0; i < subjectDetails.length; i++) {
+					var courseID = subjectDetails[i].course_id;
+					var subjectID = subjectDetails[i].id;
+					var subjectName = subjectDetails[i].subject_short_name;
+
+					if (selectedCourse == courseID) {
+						$('#subject-select').append('<option value="' + subjectID + '">' + subjectName + '</option>');
+					}
+				}
+				return;
+			} else if (selectedSemester && selectedCourse == "") {
+				var selectCourseOption = '<option class="text-danger" value="">Please select appropriate course </option>';
+				$('#subject-select').append(selectCourseOption);
+				return;
+			}
+
+			// Filter and display subjects based on selected course and semester
+			for (var i = 0; i < subjectDetails.length; i++) {
+				var courseID = subjectDetails[i].course_id;
+				var semesterID = subjectDetails[i].sem_id;
+				var subjectID = subjectDetails[i].id;
+				var subjectName = subjectDetails[i].subject_short_name;
+
+				if ((selectedCourse == courseID) && (selectedSemester == semesterID)) {
+					$('#subject-select').append('<option value="' + subjectID + '">' + subjectName + '</option>');
+				}
+			}
+			$('#subject-select').val(""); // Reset the subject select
+		}
+		function validateForm() {
+			var isValid = true;
+			if ($('#course-select').val() === "" ) {
+				isValid = false;
+				 setError(courseSelect,"Course is required.");
+			}
+			if ($('#semester-select').val() === "") {
+				isValid = false;
+				setError(semesterSelect,"Semester is required.");
+			}
+			if ($('#ay-select').val() === "") {
+				isValid = false;
+				setError(aySelect,"Academic Year is required.");
+			}
+			if ($('#subject-select').val() === "") {
+				isValid = false;
+				setError(subSelect,"Subject is required.");
+			}
+			if ($('#externalmarks').val() === "" || isNaN($('#externalmarks').val()) || $('#externalmarks').val() < 0) {
+				isValid = false;
+				setError(externalMarks,"Valid Marks are required.");
+			}
+			if ($('#grade-select').val() === "") {
+				isValid = false;
+				setError(gradeSelect,"Grade is required.");
+			}
+		
+			if ($('#sgpa').val() === "" || isNaN($('#sgpa').val()) || $('#sgpa').val() < 0) {
+				isValid = false;
+			
+				setError(sgpa,"Valid SGPA is required.");
+			}
+			if ($('#outcome-select').val() === "") {
+				isValid = false;
+				setError(outcomeSelect,"Outcome is required.");
+			}
+			
+			return isValid;
+		}
+		function setError(input,message){
+			const formControl=input.parentElement;
+			const error_msg=formControl.querySelector('small');
+			const err_icon=formControl.querySelector('i');
+			error_msg.innerText=message;
+			err_icon.classList.remove("d-none");
+			error_msg.classList.remove("d-none");
+			
+		}
+	
+		function addrow() {
+			if (!validateForm()) {
+				return; // If the form is not valid, exit the function
+			}
+			var tr = document.createElement('tr');
+
+			var td1 = tr.appendChild(document.createElement('td'));
+			var td2 = tr.appendChild(document.createElement('td'));
+			var td3 = tr.appendChild(document.createElement('td'));
+			var td4 = tr.appendChild(document.createElement('td'));
+			var td5 = tr.appendChild(document.createElement('td'));
+			var td6 = tr.appendChild(document.createElement('td'));
+			var td7 = tr.appendChild(document.createElement('td'));
+			var td8 = tr.appendChild(document.createElement('td'));
+			
+			td1.innerHTML = courseSelect.options[courseSelect.selectedIndex].text;
+			td2.innerHTML = semesterSelect.options[semesterSelect.selectedIndex].text;
+			td3.innerHTML = aySelect.options[aySelect.selectedIndex].text;
+			td4.innerHTML = subSelect.options[subSelect.selectedIndex].text;
+			td5.innerHTML = externalMarks.value;
+			td6.innerHTML = gradeSelect.options[gradeSelect.selectedIndex].text;
+			td7.innerHTML = sgpa.value;
+			td8.innerHTML = outcomeSelect.options[outcomeSelect.selectedIndex].text;
+
+			tbl_marks.querySelector('tbody').appendChild(tr);
+			var row_data=[courseSelect.value,semesterSelect.value,aySelect.value,subSelect.value,externalMarks.value,gradeSelect.value,sgpa.value,outcomeSelect.value];
+			table_data.push(row_data);
+			
+			if(tbl_marks.classList.contains("d-none")){
+				tbl_marks.classList.remove("d-none");
+				btn_sub.classList.remove("d-none");
+				btn_cancel.classList.remove("d-none");
+			}
+			
+		}
+		$('#course-select, #semester-select, #ay-select, #subject-select, #grade-select, #outcome-select').change(function() {
+			var errorTarget = $(this).data('error-target');
+			$('#' + errorTarget).addClass('d-none');
+		});
+		 // Hide specific error message and icon when text input changes
+		 $('#externalmarks, #sgpa').on('input', function() {
+			var errorTarget = $(this).data('error-target');
+			$('#' + errorTarget).addClass('d-none');
+		});
+
+		$('#course-select, #semester-select').change(function() {
+			filterSubjects();
+		});
+		
+		$('#addbtn').click(function() {
+			addrow();
+		});
+
+		filterSubjects(); // Initial call to filter subjects on page load
+        
+        function form_sub(event) {
+            event.preventDefault(); // Prevent the default form submission
+                // If the form is valid, submit it using AJAX
+                var formData = new FormData(document.getElementById('marks_details'));
+                formData.append('table_data', JSON.stringify(table_data)); // Add table_data to the form data
+				$("#overlay").show();
+                $.ajax({
+                    url: ".", // Adjust the URL if necessary
+                    type: "POST",
+                    data:formData ,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}' // Ensure this is correct
+                    },
+                    success: function(response) {
+                       
+						 // You can also handle the response data here if needed
+						 if(response.status === 'success') {
+							// Perform actions on success
+							console.log(response.message);
+							$('#overlay').hide();
+							$('#step1').hide();
+							$('#step2').show();
+							
+						} else {
+							// Handle errors
+							console.log(response.message);
+						}
+					
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error submitting the form:", status, error);
+                        alert("Error submitting the form.");
+                    }
+                });
+            
+    
+            return false; // Prevent the default form submission
+        }
+        $('#marks_details').on('submit', form_sub);
+	});
+
+	
+</script>
+
+
+{% endblock %}

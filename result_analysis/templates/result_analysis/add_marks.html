@@ -1,0 +1,688 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block stylesheet %}
+  <link rel="stylesheet" href={% static 'result_analysis/css/add_mark.css' %}> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+{% endblock %}
+{% block content %}
+<section id="step1" >
+<div class="formbold-main-wrapper ">
+	<!-- Author: FormBold Team -->
+	<!-- Learn More: https://formbold.com -->
+	<div class="formbold-form-wrapper p-lg-5 col-md-10">
+	  <form  id="marks_details" name="marks_details" method="post" action="." enctype="multipart/form-data">
+      {% csrf_token %}
+	
+		  <div class="formbold-steps">
+
+		<div class=" HeadingDiv text-white">  Add Result Details <img src="{% static "result_analysis/images/checklist.png" %}" width="28" height="28" alt=""></div>
+		
+		  </div>
+		  <div class="formbold-input-flex">
+			<div>
+				<label class="formbold-form-label">Select Course <span class="text-danger">*</span></label>
+
+				<select id="course-select" class="formbold-form-input " data-error-target="course-error" >
+					<option selected="" value="">Select Course</option>
+					{% for cinfo in course_details %}
+					<option value="{{cinfo.id}}">{{cinfo.course_name}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="course-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+				
+
+			</div>
+			<div>
+				<label class="formbold-form-label">Select Academic Year <span class="text-danger">*</span></label>
+
+				<select id="ay-select" class="formbold-form-input" data-error-target="ay-error" >
+					<option selected="" value="">Select Academic Year</option>
+					{% for ainfo in acedemic_year %}
+					<option value="{{ainfo.id}}">{{ainfo.ayear}}</option>
+					{% endfor %}
+				</select>
+				<div class="error-container" id="ay-error">
+					<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+					<small class="d-none error-message">Error Message</small>
+				</div>
+			</div>
+			
+		  </div>
+		
+			<div class="formbold-input-flex1">
+				<div class="formbold-input-flex">
+					<div>
+						<label class="formbold-form-label">Select Semester <span class="text-danger">*</span></label>
+		
+						<select  id="semester-select" class="formbold-form-input" data-error-target="semester-error" >
+							<option selected="" value="">Select Semester</option>
+							{% for sinfo in semester_details %}
+							<option value="{{sinfo.id}}">{{sinfo.short_name}}</option>
+							{% endfor %}
+						</select>
+						<div class="error-container" id="semester-error">
+							<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+							<small class="d-none error-message">Error Message</small>
+						</div>
+					</div>
+					<div>
+						<label class="formbold-form-label">Select Pattern <span class="text-danger">*</span></label>
+				
+						<select class="formbold-form-input" id="pattern-select" data-error-target="pattern-error">
+						  <option selected="" value="">Select Pattern</option>
+						  <option  value="2020">2020</option>
+						  <option  value="2024">2024</option>
+				
+						</select>
+						<div class="error-container" id="pattern-error">
+						  <i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						  <small class="d-none error-message">Error Message</small>
+						</div>
+					</div>
+				</div>
+				
+					<div>
+						<label class="formbold-form-label">Select Subject <span class="text-danger">*</span></label>
+	
+						<select class="formbold-form-input" id="subject-select" data-error-target="subject-error">
+							<option selected="" value="">Select Subject</option>
+						</select>
+						<div class="error-container" id="subject-error">
+							<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+							<small class="d-none error-message">Error Message</small>
+						</div>
+					</div>
+				
+			  </div>
+			<div class="formbold-input-flex1">
+				<div class="formbold-input-flex">
+					<div>
+					<label for="externalmarks" class="formbold-form-label"> Enter Marks <span class="text-danger">*</span></label>
+					<input type="number"  name="externalmarks" placeholder="Enter Marks" id="externalmarks" class="formbold-form-input" data-error-target="externalmarks-error" />
+					<div class="error-container" id="externalmarks-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div> 
+					<div>
+					<label class="formbold-form-label">Selcet Grade <span class="text-danger">*</span></label>
+
+					<select id="grade-select" class="formbold-form-input" data-error-target="grade-error">
+						<option selected="" value="">Select Grade</option>
+						{% for grade in grade_details %}
+						<option value="{{grade.id}}">{{grade.grade_name}}</option>
+						{% endfor %}
+					</select>
+					<div class="error-container" id="grade-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+				</div>
+				</div>
+				<div class="formbold-input-flex">
+					<div>
+					<label for="sgpa" class="formbold-form-label"> Enter SGPA <span class="text-danger">*</span></label>
+					<input type="number" step="any" name="sgpa" placeholder="Enter SGPA" id="sgpa" class="formbold-form-input" data-error-target="sgpa-error"/>
+					<div class="error-container" id="sgpa-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div> 
+					<div>
+					<label class="formbold-form-label">Selcet Outcome <span class="text-danger">*</span></label>
+
+					<select id="outcome-select" class="formbold-form-input" data-error-target="outcome-error">
+						<option selected="" value="">Selcet Outcome</option>
+						<option value="1">Pass</option>
+						<option value="2">Fail</option>
+						<option value="3">Fail A.T.K.T</option>
+					</select>
+					<div class="error-container" id="outcome-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+					</div>
+				</div>
+			
+			  </div>
+  
+		  <div class="formbold-input-flex">
+			<div>
+				<label class="formbold-form-label">Upload Marksheet <span class="text-danger">*</span></label>
+					<input id="marksheet_input" name="marksheet_input" class="demo1" type="file" data_btn_text="Browse" accept=".png,.jpeg,.jpg,.pdf"  placeholder="drage and drop file here"  data-error-target="marksheet_input-error"/>
+					<div class="error-container" id="marksheet_input-error">
+						<i class="fa-solid fa-circle-xmark error-icon d-none"></i>
+						<small class="d-none error-message">Error Message</small>
+					</div>
+			</div>
+			<div class=" pt-md-3 pr-lg-5">
+				<button type="button" id="addbtn"  class="formbold-btn mt-5 mr-xl-5 float-md-right">
+					Add
+					<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<g clip-path="url(#clip0_1675_1807)">
+					<path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white"/>
+					</g>
+					<defs>
+					<clipPath id="clip0_1675_1807">
+					<rect width="16" height="16" fill="white"/>
+					</clipPath>
+					</defs>
+					</svg>
+				</button>
+				
+			</div>
+			
+		  </div>
+				<table id="tbl_marks" class="content-table d-none">
+					<thead>
+					  <tr>
+						<th>Course</th>
+						<th>Semester</th>
+						<th>Academic Year</th>
+						<th>Pattern</th>
+						<th >Subject</th>
+						<th>Marks</th>
+						<th>Grade</th>
+						<th>SGPA</th>
+						<th>Outcome</th>
+						<th>Marksheet</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  
+					</tbody>
+				  </table>
+				 <div class="d-flex justify-content-center gap-5">
+					<button type="submit" id="btn_sub" class="formbold-btn ml-5 d-none">Submit</button>
+					
+					<button type="reset" id="btn_cancel" class="formbold-btn2 ml-5 d-none">Cancel</button>
+				</div>
+			
+				
+		</form>
+	  
+	</div>
+
+  </div>
+</section>
+  <section id="step2" style="display: none;" >
+	
+	<div class="form-card col-md-9 bg-white rounded-2 p-5">
+	   
+		<h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+		<div class="row justify-content-center">
+			<div class="col-2"> <img width="135" height="135" src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+		</div> <br><br>
+		<div class="row justify-content-center">
+			<div class="col-7 text-center">
+				<h5 class="purple-text text-center">Your marks have been submitted successfully.</h5>
+				<h5 class="purple-text text-center"><a href="/result_analysis/reports">Click here </a>to go to the dashboard</h5>
+			</div>
+		</div>
+	</div>
+
+</section>
+  {% endblock %}
+
+{% block javascript %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+var filename="",filelenght=0;
+      //File Upload Button JS
+(function ($) {
+	/**
+	 * Create drag and drop element.
+	 */
+	var customDragandDrop = function (element) {
+		$(element).addClass("kwt-file__input");
+		var element = $(element).wrap(
+			`<div class="kwt-file"><div class="kwt-file__drop-area"><span class='kwt-file__choose-file ${element.attributes.data_btn_text
+				? "" === element.attributes.data_btn_text.textContent
+					? ""
+					: `kwt-file_btn-text`
+				: ""
+			}'>${element.attributes.data_btn_text
+				? "" === element.attributes.data_btn_text.textContent
+					? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M67.508 468.467c-58.005-58.013-58.016-151.92 0-209.943l225.011-225.04c44.643-44.645 117.279-44.645 161.92 0 44.743 44.749 44.753 117.186 0 161.944l-189.465 189.49c-31.41 31.413-82.518 31.412-113.926.001-31.479-31.482-31.49-82.453 0-113.944L311.51 110.491c4.687-4.687 12.286-4.687 16.972 0l16.967 16.971c4.685 4.686 4.685 12.283 0 16.969L184.983 304.917c-12.724 12.724-12.73 33.328 0 46.058 12.696 12.697 33.356 12.699 46.054-.001l189.465-189.489c25.987-25.989 25.994-68.06.001-94.056-25.931-25.934-68.119-25.932-94.049 0l-225.01 225.039c-39.249 39.252-39.258 102.795-.001 142.057 39.285 39.29 102.885 39.287 142.162-.028A739446.174 739446.174 0 0 1 439.497 238.49c4.686-4.687 12.282-4.684 16.969.004l16.967 16.971c4.685 4.686 4.689 12.279.004 16.965a755654.128 755654.128 0 0 0-195.881 195.996c-58.034 58.092-152.004 58.093-210.048.041z" /></svg>`
+					: `${element.attributes.data_btn_text.textContent}`
+				: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M67.508 468.467c-58.005-58.013-58.016-151.92 0-209.943l225.011-225.04c44.643-44.645 117.279-44.645 161.92 0 44.743 44.749 44.753 117.186 0 161.944l-189.465 189.49c-31.41 31.413-82.518 31.412-113.926.001-31.479-31.482-31.49-82.453 0-113.944L311.51 110.491c4.687-4.687 12.286-4.687 16.972 0l16.967 16.971c4.685 4.686 4.685 12.283 0 16.969L184.983 304.917c-12.724 12.724-12.73 33.328 0 46.058 12.696 12.697 33.356 12.699 46.054-.001l189.465-189.489c25.987-25.989 25.994-68.06.001-94.056-25.931-25.934-68.119-25.932-94.049 0l-225.01 225.039c-39.249 39.252-39.258 102.795-.001 142.057 39.285 39.29 102.885 39.287 142.162-.028A739446.174 739446.174 0 0 1 439.497 238.49c4.686-4.687 12.282-4.684 16.969.004l16.967 16.971c4.685 4.686 4.689 12.279.004 16.965a755654.128 755654.128 0 0 0-195.881 195.996c-58.034 58.092-152.004 58.093-210.048.041z" /></svg>`
+			}</span>${element.outerHTML}</span><span class="kwt-file__msg">${"" === element.placeholder ? "or drop files here" : `${element.placeholder}`
+			}</span><div class="kwt-file__delete"></div></div></div>`
+		);
+		var element = element.parents(".kwt-file");
+
+		// Add class on focus and drage enter event.
+		element.on("dragenter focus click", ".kwt-file__input", function (e) {
+			$(this).parents(".kwt-file__drop-area").addClass("is-active");
+		});
+
+		// Remove class on blur and drage leave event.
+		element.on("dragleave blur drop", ".kwt-file__input", function (e) {
+			$(this).parents(".kwt-file__drop-area").removeClass("is-active");
+		});
+
+		// Show filename when change file.
+		element.on("change", ".kwt-file__input", function (e) {
+			let filesCount = $(this)[0].files.length;
+			let textContainer = $(this).next(".kwt-file__msg");
+			if (1 === filesCount) {
+				let fileName = $(this).val().split("\\").pop();
+				filename=fileName;
+				filelenght=filesCount;
+				textContainer
+					.text(fileName)
+					.next(".kwt-file__delete")
+					.css("display", "block");
+			} else if (filesCount > 1) {
+				filename=fileName;
+				filelenght=filesCount;
+				textContainer
+					.text(filesCount + " files selected")
+					.next(".kwt-file__delete")
+					.css("display", "inline-block");
+			} else {
+				filename="";
+				filelenght=0;
+				textContainer.text(
+					`${"" === this[0].placeholder
+						? "or drop files here"
+						: `${this[0].placeholder}`
+					}`
+				);
+				$(this)
+					.parents(".kwt-file")
+					.find(".kwt-file__delete")
+					.css("display", "none");
+			}
+		});
+
+		// Delete selected file.
+		element.on("click", ".kwt-file__delete", function (e) {
+			let deleteElement = $(this);
+			deleteElement.parents(".kwt-file").find(`.kwt-file__input`).val(null);
+			filename="";
+			filelenght=0;
+			deleteElement
+				.css("display", "none")
+				.prev(`.kwt-file__msg`)
+				.text(
+					`${"" ===
+						$(this).parents(".kwt-file").find(".kwt-file__input")[0].placeholder
+						? "or drop files here"
+						: `${$(this).parents(".kwt-file").find(".kwt-file__input")[0].placeholder
+						}`
+					}`
+				);
+		});
+	};
+
+	$.fn.kwtFileUpload = function (e) {
+		var _this = $(this);
+		$.each(_this, function (index, element) {
+			customDragandDrop(element);
+		});
+		return this;
+	};
+})(jQuery);
+
+// Plugin initialize
+jQuery(document).ready(function ($) {
+	$(".demo1").kwtFileUpload();
+	
+});
+
+$(document).ready(function() {
+		var subjectDetails = {{ subject_details|safe }};
+		var courseSelect = document.getElementById("course-select");
+		var semesterSelect = document.getElementById("semester-select");
+		var aySelect = document.getElementById("ay-select");
+		var subSelect = document.getElementById("subject-select");
+		var externalMarks = document.getElementById("externalmarks");
+		var gradeSelect = document.getElementById("grade-select");
+		var sgpa = document.getElementById("sgpa");
+		var outcomeSelect = document.getElementById("outcome-select");
+		var patternSelect = document.getElementById("pattern-select");
+		var marksheet_input = document.getElementById("marksheet_input");
+		var tbl_marks = document.getElementById("tbl_marks");
+		var btn_sub = document.getElementById("btn_sub");
+		var btn_cancel = document.getElementById("btn_cancel");		
+		var table_data=[];
+		
+		function filterSubjects() {
+			var selectedCourse = $('#course-select').val();
+			var selectedSemester = $('#semester-select').val();
+			var selectedPattern = $('#pattern-select').val();
+		
+			// Reset the subjects dropdown
+			$('#subject-select').empty();
+		
+			// Default option
+			$('#subject-select').append('<option selected="" value="">Select Subject</option>');
+		
+			// Flag to check if any subject is found
+			var subjectFound = false;
+		
+			// Case 1: No selection, show all subjects
+			if (!selectedCourse && !selectedSemester && !selectedPattern) {
+				for (var i = 0; i < subjectDetails.length; i++) {
+					var subject = subjectDetails[i];
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+				}
+				return;
+			}
+		
+			for (var i = 0; i < subjectDetails.length; i++) {
+				var subject = subjectDetails[i];
+				var matchCourse = !selectedCourse || selectedCourse == subject.course_id;
+				var matchSemester = !selectedSemester || selectedSemester == subject.sem_id;
+				var matchPattern = !selectedPattern || selectedPattern == subject.subject_pattern;
+		
+				// Case 2: Course selected, but no semester or pattern selected
+				if (selectedCourse && !selectedSemester && !selectedPattern) {
+					var selectSemesterOption = '<option class="text-danger" value="">Please select an appropriate semester</option>';
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectSemesterOption);
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 3: Course and pattern selected, but no semester selected
+				if (selectedCourse && selectedPattern && !selectedSemester && matchCourse && matchPattern) {
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+					subjectFound = true;
+				}
+		
+				// Case 4: Course and semester selected, but no pattern selected
+				if (selectedCourse && selectedSemester && !selectedPattern) {
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 5: Course, semester, and pattern selected
+				if (selectedCourse && selectedSemester && selectedPattern && matchCourse && matchSemester && matchPattern) {
+					$('#subject-select').append('<option name="' + subject.subject_short_name + '" value="' + subject.id + '">' + subject.subject_name + '</option>');
+					subjectFound = true;
+				}
+		
+				// Case 6: Semester selected, but no course or pattern selected
+				if (selectedSemester && !selectedCourse && !selectedPattern) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					var selectPatternOption = '<option class="text-danger" value="">Please select an appropriate pattern</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectCourseOption);
+					$('#subject-select').append(selectPatternOption);
+					return;
+				}
+		
+				// Case 7: Semester and pattern selected, but no course selected
+				if (selectedSemester && selectedPattern && !selectedCourse) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					$('#subject-select').append(selectCourseOption);
+					return;
+				}
+		
+				// Case 8: Only pattern selected
+				if (selectedPattern && !selectedCourse && !selectedSemester) {
+					var selectCourseOption = '<option class="text-danger" value="">Please select an appropriate course</option>';
+					$('#subject-select').empty().append('<option selected="" value="">Select Subject</option>');
+					$('#subject-select').append(selectCourseOption);
+					return;
+				}
+			}
+		
+			// Case: No subjects found for the selected combination
+			if (!subjectFound && (selectedCourse && selectedSemester && selectedPattern || selectedCourse && selectedPattern)) {
+				var noSubjectOption = '<option class="text-danger" value="">No subjects found</option>';
+				$('#subject-select').append(noSubjectOption);
+			}
+		
+			// Reset the subject select
+			$('#subject-select').val("");
+		}
+		
+		
+		
+		function validateForm() {
+			var isValid = true;
+			 // Clear previous errors
+			 clearErrors();
+			 clearMarksheetError();
+			if ($('#course-select').val() === "" ) {
+				isValid = false;
+				 setError(courseSelect,"Course is required.");
+			}
+			if ($('#semester-select').val() === "") {
+				isValid = false;
+				setError(semesterSelect,"Semester is required.");
+			}
+			if ($('#ay-select').val() === "") {
+				isValid = false;
+				setError(aySelect,"Academic Year is required.");
+			}
+			if ($('#pattern-select').val() === "") {
+				isValid = false;
+				setError(patternSelect,"Pattern is required.");
+			}
+			if ($('#subject-select').val() === "") {
+				isValid = false;
+				setError(subSelect,"Subject is required.");
+			}
+			if ($('#externalmarks').val() === "" || isNaN($('#externalmarks').val()) || $('#externalmarks').val() < 0) {
+				isValid = false;
+				setError(externalMarks,"Valid Marks are required.");
+			}
+			if ($('#grade-select').val() === "") {
+				isValid = false;
+				setError(gradeSelect,"Grade is required.");
+			}
+		
+			if ($('#sgpa').val() === "" || isNaN($('#sgpa').val()) || $('#sgpa').val() < 0) {
+				isValid = false;
+			
+				setError(sgpa,"Valid SGPA is required.");
+			}
+			if ($('#outcome-select').val() === "") {
+				isValid = false;
+				setError(outcomeSelect,"Outcome is required.");
+			}
+			 // Validate file input
+			 const marksheet = $('#marksheet_input')[0];
+			 if (marksheet.files.length === 0 && filelenght===0) {
+				 isValid = false;
+				 setMarksheetError("Marksheet is required.");
+			 }else {
+				clearMarksheetError(); // Clear error if file is selected
+			}
+			
+			return isValid;
+		}
+		function clearErrors() {
+			$('.error-container small').addClass('d-none').text('');
+			$('.error-container i').addClass('d-none');
+		   
+		}
+		function clearMarksheetError() {
+			const fileInput = document.getElementById('marksheet_input');
+			const formControl = fileInput.closest('.formbold-input-flex');
+			const errorContainer = formControl.querySelector('.error-container');
+			const errorMsg = errorContainer.querySelector('small');
+			const errorIcon = errorContainer.querySelector('i');
+		
+			errorContainer.classList.add('d-none');
+			errorMsg.classList.add('d-none');
+			errorIcon.classList.add('d-none');
+		}
+		function setError(input,message){
+			const formControl=input.parentElement;
+			const error_msg=formControl.querySelector('small');
+			const err_icon=formControl.querySelector('i');
+			error_msg.innerText=message;
+			$('.error-container').removeClass('d-none');
+			err_icon.classList.remove("d-none");
+			error_msg.classList.remove("d-none");
+			
+		}
+		function setMarksheetError(message) {
+			const fileInput = document.getElementById('marksheet_input');
+			// Traverse to find the closest .formbold-input-flex ancestor
+			let formControl = fileInput.closest('.formbold-input-flex');
+			// If .formbold-input-flex is not the immediate parent, use closest to navigate
+			if (!formControl) {
+				formControl = fileInput.closest('.formbold-input-flex'); // Adjust if needed
+			}
+			// Find the error container within the formControl
+			const errorContainer = formControl.querySelector('.error-container');
+			const errorMsg = errorContainer.querySelector('small');
+			const errorIcon = errorContainer.querySelector('i');
+			// Set the error message and make the error container visible
+			errorMsg.innerText = message;
+			errorContainer.classList.remove('d-none');
+			errorIcon.classList.remove('d-none');
+			errorMsg.classList.remove('d-none');
+		}
+		
+		function addrow() {
+			if (!validateForm()) {
+				return; // If the form is not valid, exit the function
+			}
+			var tr = document.createElement('tr');
+
+			var td1 = tr.appendChild(document.createElement('td'));
+			var td2 = tr.appendChild(document.createElement('td'));
+			var td3 = tr.appendChild(document.createElement('td'));
+			var td4 = tr.appendChild(document.createElement('td'));
+			var td5 = tr.appendChild(document.createElement('td'));
+			var td6 = tr.appendChild(document.createElement('td'));
+			var td7 = tr.appendChild(document.createElement('td'));
+			var td8 = tr.appendChild(document.createElement('td'));
+			var td9 = tr.appendChild(document.createElement('td'));
+			var td10 = tr.appendChild(document.createElement('td'));
+			
+			td1.innerHTML = courseSelect.options[courseSelect.selectedIndex].text;
+			td2.innerHTML = semesterSelect.options[semesterSelect.selectedIndex].text;
+			td3.innerHTML = aySelect.options[aySelect.selectedIndex].text;
+			td4.innerHTML = patternSelect.options[patternSelect.selectedIndex].text;
+			td5.innerHTML = subSelect.options[subSelect.selectedIndex].getAttribute('name');
+			td6.innerHTML = externalMarks.value;
+			td7.innerHTML = gradeSelect.options[gradeSelect.selectedIndex].text;
+			td8.innerHTML = sgpa.value;
+			td9.innerHTML = outcomeSelect.options[outcomeSelect.selectedIndex].text;
+			td10.innerHTML = filename;
+			tbl_marks.querySelector('tbody').appendChild(tr);
+			var row_data=[courseSelect.value,semesterSelect.value,aySelect.value,patternSelect.value,subSelect.value,externalMarks.value,gradeSelect.value,sgpa.value,outcomeSelect.value,filename];
+			table_data.push(row_data);
+			
+			if(tbl_marks.classList.contains("d-none")){
+				tbl_marks.classList.remove("d-none");
+				btn_sub.classList.remove("d-none");
+				btn_cancel.classList.remove("d-none");
+			}
+			
+		}
+		$('#course-select, #semester-select,#pattern-select, #ay-select, #subject-select, #grade-select, #outcome-select').change(function() {
+			var errorTarget = $(this).data('error-target');
+			$('#' + errorTarget).addClass('d-none');
+		});
+		 // Hide specific error message and icon when text input changes
+		 $('#externalmarks, #sgpa').on('input', function() {
+			var errorTarget = $(this).data('error-target');
+			$('#' + errorTarget).addClass('d-none');
+		});
+		// Hide file input error message and icon when a file is selected
+		$(document).on('change', '#marksheet_input', function() {
+			if (this.files.length > 0) {
+				// Hide the error message and icon
+				clearMarksheetError();
+			}
+		});
+
+		$('#course-select, #semester-select, #pattern-select').change(function() {
+			filterSubjects();
+		});
+		
+		$('#addbtn').click(function() {
+			addrow();
+		});
+
+		filterSubjects(); // Initial call to filter subjects on page load
+        
+        function form_sub(event) {
+            event.preventDefault(); // Prevent the default form submission
+                // If the form is valid, submit it using AJAX
+                var formData = new FormData(document.getElementById('marks_details'));
+                formData.append('table_data', JSON.stringify(table_data)); // Add table_data to the form data
+				$("#overlay").show();
+                $.ajax({
+                    url: ".", // Adjust the URL if necessary
+                    type: "POST",
+                    data:formData ,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}' // Ensure this is correct
+                    },
+                    success: function(response) {
+                       
+						 // You can also handle the response data here if needed
+						 if(response.status === 'success') {
+						
+							$('#overlay').hide();
+							$('#step1').hide();
+							$('#step2').show();
+							
+						} else {
+							$('#overlay').hide();
+							// Handle errors
+							swal({
+								title: "Error!",
+							   // text: `${response.message}`,
+								icon: "error",
+								button: "Ok",
+								content: {
+								  element: "div",
+								  attributes: {
+									innerHTML: `<p style="text-align: center;">${response.message}</p>`,
+								  },
+								},
+							  });
+						}
+					
+                    },
+                    error: function(xhr, status, error) {
+						$('#overlay').hide();
+						swal({
+							title: "Error!",
+						   // text: "Error submitting the form.Please try again or contact support.",
+							icon: "error",
+							button: "Ok",
+							content: {
+								 element: "div",
+								 attributes: {
+								   innerHTML: `<p style="text-align: center;">Error submitting the form.Please try again or contact support.</p>`,
+								 },
+							   },
+						  });
+                    }
+                });
+            
+    
+            return false; // Prevent the default form submission
+        }
+        $('#marks_details').on('submit', form_sub);
+
+		
+
+	});//Document.ready
+
+
+</script>
+
+
+{% endblock %}

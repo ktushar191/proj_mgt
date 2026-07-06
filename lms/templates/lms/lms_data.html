@@ -1,0 +1,122 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <style>
+        @import "compass/css3";
+        @import url(https://fonts.googleapis.com/css?family=Merriweather);
+        
+
+        *, 
+        *:before, 
+        *:after {
+        @include box-sizing(border-box); 
+        }
+
+
+
+    form {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #c3f697;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+    box-shadow: 3px 3px 10px 10px rgba(136, 120, 151, 0.874);
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+
+    input,select{
+        text-align: center;
+        display: flex;
+        border:0; outline:0;
+        /* padding: auto; */
+        padding: auto;
+        border-radius:8px;
+        /* display: table-column; */
+        width: 100%;
+        margin-top: 2px;
+        box-shadow:10px 10px 5px rgba(rgb(56, 48, 48), 0.1);
+    }
+    
+    }
+
+    #input-submit {
+        color: #e4e9f2; 
+        background: rgb(71, 115, 244);
+        cursor: pointer;
+        text-align: center;
+       
+    }
+
+
+
+    </style>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block content%}
+<h1 style="text-align: center;color: #c352ec;@include text-shadow(1px 1px 0 rgba(white, 1)); margin-top: 70px;">Upload Study Material</h1>
+<form class="cf" action="" >
+    {% csrf_token %}
+        <div class="half left cf">
+            Course :<select name="" id="" >
+                <option >-Select-</option>
+                <option >MBA</option>
+                <option >MCA</option>
+                </select>
+            Semester :<select name="" id="" >
+                <option >-Select-</option>
+                <option >SEMESTER I</option>
+                <option >SEMESTER II</option>
+                <option >SEMESTER III</option>
+                <option >SEMESTER IV</option>
+                </select>
+            Subject :<select name="" id="" >
+                <option >-Select-</option>
+                <option >AIT</option>
+                <option >ADBMS</option>
+                </select>
+            Unit Name :<input type="text" id="" placeholder="Unit Name">
+            Topic Name :<input type="text" id="" placeholder="Topic Name">
+            Category :<select name="" id="" >
+                <option >-Select-</option>
+                <option >Notes</option>
+                <option >PYQ</option>
+                <option >Videos</option>
+                </select>
+            Upload : <input type="file" id="">
+        </div>
+        <center><input type="submit" value="Upload" id="input-submit" style="height: auto; width: 30%; text-align: center;"></center>
+</form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block javascript%}
+
+<script>
+    
+</script>
+
+{% endblock %}
+

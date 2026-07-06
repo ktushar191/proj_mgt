@@ -1,0 +1,192 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form onsubmit="return form_submit(event);" id="addsubjects" name="addsubjects" action="." method="post"
+enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+    <div style="width:100%;height:90%;border-radius: 10px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);margin-top: 40px;">
+       
+        <div class="row" style="float:left; width: 100%;margin-top:20px;">
+            <div class="col-md-12">
+                <h3 style="margin-top:20px;font-size: xxx-large;text-align:center;">Add Subjects</h3>
+            </div>
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+            
+     
+            <div class="col-md-4" style="margin-left:110px;">
+                <label>Enter Subject Code</label>
+                <input id="subject_code" name="subject_code" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Subject code">
+            </div>
+            <div class="col-md-4" style="margin-left:110px">
+                <label>Enter Subject Name</label>
+                <input id="subject_name" name="subject_name" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Subject Name">
+            </div>
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;">
+           
+            <div class="col-md-4" style="margin-top:15px;margin-left:110px;">
+                <label>Enter Subject Short Name</label>
+                <input id="subject_shortname" name="subject_shortname" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Subject Short Name">
+            </div>
+            <div class="col-md-4" style="margin-top:15px;margin-left:100px">
+                <label>Enter Subject Pattern</label>
+                <input id="subject_pattern" name="subject_pattern" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Subject Pattern">
+            </div>
+
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;">
+           
+            <div class="col-md-4" style="margin-top:15px;margin-left:110px;">
+                <label>Select Course Id</label>
+                <select id="course_id" name="course_id" class="custom-select" style="width:100%;display:flex;font-size:14px" aria-placeholder="Enter Course Id">
+                    <option selected value="">Select Course</option>
+                    {% for ci in course_ids %}
+                    <option value="{{ci.id}}">{{ci.course_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4" style="margin-top:15px;margin-left:100px">
+                <label>Select Semester Id</label>
+                <select id="sem_id" name="sem_id" class="custom-select" style="width:100%;display:flex;font-size:14px" aria-placeholder="Enter Semester Id">
+                    <option selected value="">Select Semester</option>
+                    {% for si in sem_ids %}
+                    <option value="{{si.id}}">{{si.semester_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row" style="float:left; width: 100%;margin-bottom:20px;">
+         
+            <div class="col-md-4" style="margin-top:15px;margin-left:110px;">
+                <label>Enter Credit Points</label>
+                <input id="credit_points" name="credit_points" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Credit Points">
+            </div>
+            <div class="col-md-4" style="margin-top:15px;margin-left:100px;">
+                <label>Enter External Marks</label>
+                <input id="external_marks" name="external_marks" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter External Marks">
+            </div>
+        </div>
+        <div class="row" style="float:left; width: 100%;">
+           
+            <div class="col-md-4" style="margin-top:15px;margin-left:110px;">
+                <label>Enter Internal Marks</label>
+                <input id="internal_marks" name="internal_marks" type="text" style="width:100%;display:flex;;font-size:18px" placeholder="Enter Internal Marks">
+            </div>
+        </div>
+    
+  
+        <div class="row" style="float: left;width:100%;margin-bottom:20px;margin-left:380px">
+            <div class="wm-plan-button-typo">
+                <button id="btn_create" name="btn_create" style="width: 200px;height:50px;font-size:20px;" type="button" class="wm-tweet-us"  onclick="add_subject(this.id);">Create</button>
+              </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-2"></div>
+
+</div>
+</form>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript">
+    var form_valid=false;
+    function form_submit(e)
+    {
+        $("#overlay").show();
+        
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            $("#overlay").hide();
+            e.preventDefault();
+            return false;
+        }
+    }
+    function is_form_valid()
+    {
+        form_valid=true;
+        return form_valid;
+    }
+    function add_subject(id)
+    {
+        $('#addsubjects').submit();
+    }
+</script>
+
+{%endblock%}

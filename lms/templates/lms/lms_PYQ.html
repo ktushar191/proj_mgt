@@ -1,0 +1,265 @@
+{%extends 'userbase.html' %}
+{% load static %}
+{%block stylesheet%}
+    <style>
+        .wm-more-details{
+            margin: 0px 0px 0px 0px!important;
+            float: initial!important;
+            padding: 5px 10px!important;
+            
+        }
+        .wm-courses-preview{
+        padding: 0px 3px 0px!important;
+        
+       }
+       .wm-courses-preview a{
+        background-color:#51808d!important;
+       }
+       .wm-courses-started-listing a{
+        font-size: smaller!important;
+        color:#ffffff;
+        
+        
+       }
+    .wm-courses-getting-started li {
+   
+        padding: 10px 5px 10px 10px !important;
+        border: 1px solid #3498db;
+    }
+    
+   
+.wm-popular-hover small, .whychooseus-list ul li span, .wm-fancy-title h2 span, .wm-event-latest-slider .slick-arrow:hover, .wm-latest-event-text time, .wm-testimonial-slider-wrap figure figcaption span, .wm-testimonial-slider .slick-arrow:hover, .wm-post-options li, .wm-post-options li a, .wm-simple-section-title h2 span, .wm-partners-slider .slick-arrow:hover, .wm-contact-tab .nav-tabs li a, .wm-contact-form form input[type="submit"], .contact-social-icon li:hover a, .contact-social-icon li:hover i, .wm-lesson-list figure figcaption span, .wm-lesson-tabnav li.active a, .wm-lesson-text time i, .wm-lesson-text span i, .wm-plain-btn-style, .wm-section-title-two h2 span, .wm-event-options ul i, .wm-buyticket-section h2, .wm-buyticket-section ul li span, .wm-Article time, .wm-Article a, .tags a, .wm-latestnews time, .wm-latestnews a, .wm-blog-single .wm-blog-post-option li, .wm-blog-single .wm-blog-post-option li a, .wm-author-text h5 a, .wm-social-icon li a:hover, .wm-widgettitle h2 span, .wm-reviews-text span, .wm-filterable ul li a, .wm-case-filter figcaption > a, .wm-team-info .wm-icon a:hover, .wm-title-typoelements h2 span, .wm-tabs-typo .nav-tabs > li:hover, .wm-list-wrap .wm-icon-list-style li i, .wm-list-style li, .wm-buyplan, .wm-price-plans ul li a i, .wm-promo-box .read-more, .wm-promo-box-text span, .wm-callaction-typo-text a, .wm-button-left .wm-read-button, .wm-button-left .wm-search-button, .wm-buttonapply .wm-apply-button:hover, .wm-button-right .wm-read-more, .wm-arrow-right, .wm-arrow-left-button.wm-iconarrow-righ:hover, .wm-iconarrow-left:hover, .wm-arrow-left, .wm-iconarrow-right:hover, .wm-button-right .wm-read-more-button, .wm-ourcourses-left a, .wm-ourcourses-right .wm-previous-icon, .wm-ourcourses-right .wm-Next-icon, .wm-courses-info ul li a, .wm-certification-listing a, .wm-courses-started-text h6 a, .widget_professor-info > .wm-read-more, .widget_courses-program span, .wm-select-checkbox input[type="checkbox"]:checked + label span:before, .widget_course-price span, .widget_course-price a, .wm-futurecourse a:hover, .wm-futurecourse span, .wm-Article h6 a:hover, .wm-latestnews h5 a:hover, .wm-price-plans ul li i, .wm-student-nav-text a, .wm-student-nav ul li:hover > a, .wm-student-dashboard-form form input[type="submit"], .wm-favorite > .wm-remove, .wm-statement-started-text h6 a, .wm-student-profile-text > a:hover, .wm-profile-info article ul li h6 a, .wm-student-nav ul li > a:hover i, .wm-profile-info article ul li a:hover, .wm-our-professors figcaption > a, .wm-classic-heading h2 span, .wm-student-nav ul li.active a, .wm-student-nav ul li:hover > a, .wm-student-nav ul li.active > a:before, .wm-student-nav ul li.active > a i, .wm-student-nav ul li.active > a:before, .wm-profile-detail-info h6 a, .wm-reviews-text span, .wm-summary .wm-reviews span, .wm-summary span, .wm-shop-icon span, .wm-404page-text li:before, .wm-404page-text a, .wm-404page-button a, .wm-404page-button a:before, .wm-sidebar li:hover a:after, .wm-sidebar li:active a:after, .wm-sidebar a:hover, .wm-sidebar a:active, .wm-sidebar a:focus, .wm-submit-question a, .wm-sidebar li:hover a:after, .wm-sidebar li:active a:after, .wm-submit-question a, .wm-faq .panel-title a, .wm-faq-form input[type="submit"], .wm-sidebar a:hover, .wm-sidebar a:active, .wm-sidebar a:focus, .widget_check-box .rating-box:before, .widget_check-box .rating-box:before, .wm-futurecourse a:hover, .wm-futurecourse span, .wm-range-slider form input[type="submit"], .wm-grid-info span, .wm-cart-button a, .wm-cart-button i, .widget_our-professors figcaption a:hover, .widget_our-professors ul li a:hover i, .widget_contact-form input[type="submit"], .widget_twittwe-feed h5 span, .widget_twittwe-feed li a:hover, .widget_twittwe-feed li:before, .wm-rich-aditor li:before, .wm-shop-list .wm-cart-button > span {
+    color: #3498db!important;
+}
+
+.wm-student-dashboard-nav {
+    padding-right: 0px!important;
+}
+.wm-student-nav {
+    background-color: #f7f7f7;
+    padding: 30px 32px!important;
+}
+
+
+.act{
+    background-color: #3498db;
+}
+    </style>
+{%endblock%}
+
+{%block content%}
+
+		<div class="wm-main-content" style="padding-top: 20px;">
+        
+			<div class="wm-main-section wm-checkcourses-full">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+                            <div class="wm-fancy-title-three">
+                                <div class="wm-fancy-title-inner">
+                                    <span class="wm-color-three" style="padding-bottom: 10px;font-size:20px;">Previous Years Question Papers</span>
+                                </div>
+                            </div>
+						</div>
+
+                        <div class="col-md-12">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8">
+                                <div class="wm-title-full">
+                                    <div class="col-md-9"><h2 class="prg_class" id="program_name" style="font-size:18px;color: #000560;"></h2>
+                                    </div>
+									
+                                    <div class="col-md-3" style="padding-bottom: 10px;display:none">
+                                        <div class="wm-ourcourses-right">
+                                            <a id="btn_syllabus" class="wm-previous-icon" href="#" style="border-color: #3498db;"><i class="fa fa-download"></i>Syllabus</a>
+                                        </div>
+                                    </div>
+                                    
+								</div>
+                              
+                            </div>
+						</div>
+
+                        <div class="wm-main-section">
+                            <div class="container">
+                                
+                                    <aside class="col-md-4">
+                                        <div class="wm-student-dashboard-nav">
+                                            <div class="wm-student-nav">
+                                                
+                                                <ul style="float:left;">
+                                                    <li class="li-1" id ="mba" onclick="change_course(this.id,this);"><a href="#">MBA</a></li>
+                                                    <li class="li-1" id ="mca"  onclick="change_course(this.id,this);"><a href="#">MCA</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>						
+                                    </aside>
+
+                                    <!-- MBA Course -->
+                                    <div class="col-md-8" id ="div_mba">
+                                        <div class="wm-courses-getting-started">
+                                      
+                                            <div class="wm-courses-started">
+                                                
+                                                <ul class="wm-courses-started-listing">
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >OCTOBER  2023</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\M.B.A. oct 2023.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >APRIL 2023</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\M.B.A april 2023.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >OCTOBER 2022</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\MCA oct 2022.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >APRIL 2022</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\M.B.A april 2022.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    
+                                                </ul>
+                                            </div>
+                                           
+                                                                                          
+                                        </div>
+                                                       
+                                    </div>
+
+
+                                    <!-- MCA Course -->
+                                    <div class="col-md-8" id ="div_mca">
+                                        <div class="wm-courses-getting-started">
+                                      
+                                            <div class="wm-courses-started">
+                                                
+                                                <ul class="wm-courses-started-listing">
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >OCTOBER  2023</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\MCA oct 2023.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >APRIL 2023</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\M.C.A april 2023.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >OCTOBER  2022</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\MCA oct 2022.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="#" class="wmicon-pen" style="color:#3498db!important;"></a>
+                                                        <div class="wm-courses-started-text">
+                                                            <h6><a href="#" >APRIL 2022</a></h6>												
+                                                        </div>
+                                                        <div class="wm-courses-preview">
+                                                            <a href="\static\previous year question\MCA april 2022.pdf" target="_blank">Download</a> 
+                                                        </div>
+                                                    </li>
+
+                                                   
+                                                </ul>
+                                            </div>
+                                           
+                                                                                          
+                                        </div>
+                                                       
+                                    </div>
+
+                                
+                                </div>
+                            </div>
+                        </div>
+                    
+					</div>
+				</div>
+			</div>
+		
+        </div>
+{%endblock%}
+
+
+{%block javascript%}
+    <script>
+        function change_course(id,obj)
+        {
+            if(id=='mba')
+            {
+                
+                $('#div_mba').show();
+                $('#div_mca').hide();
+               
+               
+            }
+            else if (id=='mca')
+            {
+                
+                $('#div_mba').hide();
+                $('#div_mca').show();
+                
+            }
+           
+
+            document.getElementById('program_name').innerText=obj.innerText;
+            document.getElementById('btn_syllabus').setAttribute('href','study-material/'+id+"-syllabus.pdf")
+        }
+
+
+        $(document).ready(function () 
+        {
+            
+                $('#div_mba').show();
+                $('#div_mca').hide();
+                $('#div_bba').hide();
+                $('#div_bca').hide();
+                $('#div_phd').hide();
+           
+            document.getElementById('program_name').innerText='MBA';
+            document.getElementById('btn_syllabus').setAttribute('href','study-material/dsclm-syllabus.pdf');
+        });
+</script>
+{%endblock%}
+

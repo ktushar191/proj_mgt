@@ -1,0 +1,447 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/registration.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/tk.css"> -->
+    <style>
+    .alert-validate::before {
+        top: 54%!important;
+    }
+    .alert-validate::after {
+        top: 54%!important;
+    }
+    </style>
+    
+
+{% endblock %}
+
+{% block content%} 
+
+<!-- <div class="container-fluid"> -->
+    
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <h2 id="heading">Sign Up Your User Account</h2>
+                <!-- <p>Fill all form field to go to next step</p> -->
+                <form onsubmit="return form_submit(event);" name="registration" id="registration" action="." method="post" enctype="application/x-www-form-urlencoded">
+                    {% csrf_token %}
+                   
+                    <fieldset id="step1" >
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Account Information:</h2>
+                                </div>
+                                <!-- <div class="col-5">
+                                    <h2 class="steps">Step 1 - 4</h2>
+                                </div> -->
+                            </div> 
+                            <div id="div_firstname" class="validate-input" data-validate="First Name is required">
+                                <label class="fieldlabels">First Name: *</label>
+                                <input type="text" class="input_info" name="firstname" id="firstname" placeholder="First Name" onkeyup="restrictFirstSpace(this);allowAtoZandSpace(this);is_Valid(this);"/> 
+                            </div>
+                            <div id="div_lastname" class="validate-input" data-validate="Last Name is required">
+                                <label class="fieldlabels">Last Name: *</label>
+                                <input type="text" class="input_info" name="lastname" id="lastname" placeholder="Last Name" onkeyup="restrictFirstSpace(this);allowAtoZandSpace(this);is_Valid(this);"/> 
+                            </div>
+
+                            <div id="div_mobile" class="validate-input" data-validate="Mobile number is required" >
+                                <label class="fieldlabels">Mobile No: *</label> 
+                                <input type="text" class="input_info" name="mobile" id="mobile" maxlength="10" placeholder="Mobile Number" onkeyup="allowContactNumber(this);is_Valid(this);"/>
+                            </div>
+
+                            <div id="div_email" class="validate-input" data-validate="Email is required" >
+                                <label class="fieldlabels">Email: *</label> 
+                                <input type="email" class="input_info" name="email" id="email" placeholder="Email Id" onkeyup="is_Valid(this);"/>
+                            </div> 
+                            <div id="div_audience" class="validate-input" >
+                                <label>User Type</label>
+                                <select id="user_type" name="user_type" class="fieldlabels">
+                                    <option selected value="">Select User Type</option>
+                                    {% for u in user_role %}
+                                    <option value="{{u.role_code}}">{{u.role_name}}</option>
+                                    {% endfor%}
+                                </select>
+                            </div><br><br>
+                            <div id="div_username" class="validate-input" data-validate="Username is required">
+                                <label class="fieldlabels">Username: *</label>
+                                <input type="text" class="input_info" name="username" id="username" placeholder="UserName" onkeyup="is_Valid(this);"/> 
+                            </div>
+                            <div id="div_password" class="validate-input" data-validate="Password is required">
+                                <label class="fieldlabels">Password: *</label> 
+                                <input type="password" class="input_info" name="password" id="password" placeholder="Password" onkeyup="is_Valid(this);"/> 
+                            </div>
+                            <div id="div_cpassword" class="validate-input" data-validate="Confirm Password is required">
+                                <label class="fieldlabels">Confirm Password: *</label> 
+                                <input type="password" class="input_info" name="cpassword" id="cpassword"  placeholder="Confirm Password" onkeyup="is_Valid(this);"/>
+                            </div>
+
+                        </div> 
+                            <input type="submit" name="save" id="save" class=" action-button" value="Save" />
+                    </fieldset>
+                 
+                    <fieldset id="step4" style="display:none">
+                        <div class="form-card">
+                           
+                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                    <h5 class="purple-text text-center"><a href="/accounts">Click here </a>to Log In</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+
+{% endblock%}
+
+{% block javascript%}
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+      
+        <script src="/static/js/progress.js"></script>
+        <!-- <script type="text/javascript" src="/static/js/tk/validations.js"></script> -->
+       
+            
+<script type="text/javascript">
+
+var global_validation=false;
+var selected_role="";
+$(document).ready(function () {
+    //    $('#overlay').show();
+       form_load();     
+       
+});
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+function form_load()
+{
+    if("{{flag}}"=="1")
+    {
+        $('#step1').show();
+        $('#step4').hide();
+    }
+    else if("{{flag}}"=="2")
+    {
+        $('#step4').show();
+        $('#step1').hide();
+    }
+
+}
+function is_Valid(obj)
+{
+    ele_id=obj.id;
+    ele_value=obj.value;
+    parent_ele="div_"+ele_id
+    if (ele_id=="email")
+    {
+        var flag=validate_email(ele_value);
+        if(flag==true)
+        {
+            $.ajax({
+               
+               url: "/student/check_email_availability/",
+               method: 'POST',
+               data :{ 
+                   'email': ele_value,
+                    },
+               dataType: 'json',
+               
+               success : function(response,status) {
+                   
+                   if(response.success)
+                   {
+                       document.getElementById(ele_id).classList='input_error';
+                       document.getElementById(parent_ele).classList='validate-input alert-validate';
+                       document.getElementById(parent_ele).setAttribute('data-validate',"Email already exist");
+                       global_validation=false;
+                   }
+                   else
+                   {
+                       document.getElementById(ele_id).classList='input_success';
+                       document.getElementById(parent_ele).classList='validate-input';
+                       global_validation=true;
+                   }
+                   
+               },
+               error: function (response) {
+                   console.log('Something went wrong, please refresh the page.');
+               }
+           })
+        //    document.getElementById(ele_id).classList='input_success';
+        //    document.getElementById(parent_ele).classList='validate-input';
+        //    global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            document.getElementById(parent_ele).classList='validate-input alert-validate';
+            document.getElementById(parent_ele).setAttribute('data-validate',"Invalid format");
+            global_validation=false;
+        }
+        
+    }
+    if (ele_id=="mobile")
+    {
+
+        var flag = validate_mobile(ele_value);
+        if(flag==true)
+        {
+            
+
+            $.ajax({
+               
+                url: "/student/check_mobile_availability/",
+                method: 'POST',
+                data :{ 
+                    'mobile': ele_value,
+                     },
+                dataType: 'json',
+                
+                success : function(response,status) {
+                    
+                    if(response.success)
+                    {
+                        document.getElementById(ele_id).classList='input_error';
+                        document.getElementById(parent_ele).classList='validate-input alert-validate';
+                        document.getElementById(parent_ele).setAttribute('data-validate',"Mobile number already exist");
+                        global_validation=false;
+                    }
+                    else
+                    {
+                        document.getElementById(ele_id).classList='input_success';
+                        document.getElementById(parent_ele).classList='validate-input';
+                        global_validation=true;
+                    }
+                    
+                },
+                error: function (response) {
+                    console.log('Something went wrong, please refresh the page.');
+                }
+            })
+            
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            document.getElementById(parent_ele).classList='validate-input alert-validate';
+            document.getElementById(parent_ele).setAttribute('data-validate',"Invalid format");
+            global_validation=false;
+        }
+    }
+    if (ele_id=='username' && ele_value.trim().length !='')
+    {
+        $.ajax({
+               
+               url: "/student/check_username_availability/",
+               method: 'POST',
+               data :{ 
+                   'username': ele_value,
+                    },
+               dataType: 'json',
+               
+               success : function(response,status) {
+                   
+                   if(response.success)
+                   {
+                       document.getElementById(ele_id).classList='input_error';
+                       document.getElementById(parent_ele).classList='validate-input alert-validate';
+                       document.getElementById(parent_ele).setAttribute('data-validate',"Username already exist");
+                       global_validation=false;
+                   }
+                   else
+                   {
+                       document.getElementById(ele_id).classList='input_success';
+                       document.getElementById(parent_ele).classList='validate-input';
+                       global_validation=true;
+                   }
+                   
+               },
+               error: function (response) {
+                   console.log('Something went wrong, please refresh the page.');
+               }
+           })
+
+    }
+    else if(ele_id=="username" || ele_id=="password" || ele_id=="cpassword" || ele_id=="firstname" || ele_id=="lastname" || ele_id=="mobile")
+    {
+        if(ele_value !='')
+        {
+            document.getElementById(ele_id).classList='input_success';
+            document.getElementById(parent_ele).classList='validate-input';
+            global_validation=true;
+        }
+        else
+        {
+            document.getElementById(ele_id).classList='input_error';
+            document.getElementById(parent_ele).classList='validate-input alert-validate';
+            global_validation=false;
+        }
+    }
+
+}
+
+function is_form_valid() 
+{
+    var form_valid = false;
+    if($('#email').val().trim()==''||$('#mobile').val().trim()==''|| $('#username').val().trim()==''||$('#password').val().trim()==''||$('#cpassword').val().trim()=='' || $('#firstname').val().trim()=='' || $('#lastname').val().trim()=='')
+    {
+        if($('#firstname').val().trim() =='')
+        {
+            document.getElementById('firstname').classList='input_error';
+            document.getElementById('div_firstname').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+
+        if($('#lastname').val().trim() =='')
+        {
+            document.getElementById('lastname').classList='input_error';
+            document.getElementById('div_lastname').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+
+        if($('#email').val().trim() =='')
+        {
+            document.getElementById('email').classList='input_error';
+            document.getElementById('div_email').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+        if($('#mobile').val().trim() =='')
+        {
+            document.getElementById('mobile').classList='input_error';
+            document.getElementById('div_mobile').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+        
+        if ($('#username').val().trim() =='')
+        {
+            document.getElementById('username').classList='input_error';
+            document.getElementById('div_username').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+        if ($('#password').val().trim() =='')
+        {
+            document.getElementById('password').classList='input_error';
+            document.getElementById('div_password').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+        if ($('#cpassword').val().trim() =='')
+        {
+            document.getElementById('cpassword').classList='input_error';
+            document.getElementById('div_cpassword').classList='validate-input alert-validate';
+            global_validation=false;
+        }
+       
+    }
+
+    if($('#password').val().trim()!=$('#cpassword').val().trim())
+    {
+        document.getElementById('password').classList='input_error';
+        document.getElementById('div_password').classList='validate-input alert-validate';
+        document.getElementById('cpassword').classList='input_error';
+        document.getElementById('div_cpassword').classList='validate-input alert-validate';
+        document.getElementById('div_password').setAttribute('data-validate',"Password and Confirm Password did not match");
+        document.getElementById('div_cpassword').setAttribute('data-validate',"Password and Confirm Password did not match");
+        global_validation=false;
+        
+    }
+    
+    if($('#mobile').val().trim().length<10)
+    {
+        document.getElementById('mobile').classList='input_error';
+        document.getElementById('div_mobile').classList='validate-input alert-validate';
+        document.getElementById('div_password').setAttribute('data-validate',"Invalid format");
+        global_validation=false;
+    }
+    var fname=document.getElementById('firstname');
+    var lname=document.getElementById('lastname');
+    var mobile=document.getElementById('mobile');
+    var email=document.getElementById('email');
+    var username=document.getElementById('username');
+    var password=document.getElementById('password');
+    var cpassword=document.getElementById('cpassword');
+
+    if(fname.classList.contains('input_error')||lname.classList.contains('input_error')||mobile.classList.contains('input_error')||email.classList.contains('input_error')||username.classList.contains('input_error')||password.classList.contains('input_error')||cpassword.classList.contains('input_error'))
+    {
+        global_validation=false;
+    }
+    
+    if(global_validation)
+    {
+        form_valid=true;   
+    }
+    
+    return form_valid;
+}
+
+function form_submit()
+    {
+        $("#overlay").show();
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+          
+            $("#overlay").hide();
+            return false;
+        }
+    }
+
+function validate_mobile(mobile)
+{
+    // const re = /[2-9]{2}\d{8}/;
+    const re = /^[2-9]{1}[0-9]{9}$/
+    var result=re.test(mobile);
+    return result
+}
+
+
+</script>
+   
+{% endblock %}
+

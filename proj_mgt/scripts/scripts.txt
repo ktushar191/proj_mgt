@@ -1,0 +1,1322 @@
+CREATE TABLE `iims_db`.`users` (
+  `userid` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `mobile` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE INDEX `id_UNIQUE` (`userid` ASC) VISIBLE,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  UNIQUE INDEX `password_UNIQUE` (`password` ASC) VISIBLE,
+  UNIQUE INDEX `userid_UNIQUE` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `mobile_UNIQUE` (`mobile` ASC) VISIBLE);
+==============================================================
+ALTER TABLE `iims_db`.`users` 
+CHANGE COLUMN `userid` `userid` INT NOT NULL AUTO_INCREMENT ;
+=================================================================
+CREATE TABLE `iims_db`.`user_role` (
+  `role_id` INT NOT NULL,
+  `role_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`role_id`),
+  UNIQUE INDEX `role_id_UNIQUE` (`role_id` ASC) VISIBLE);
+  ============================================================
+  ALTER TABLE `iims_db`.`user_role` 
+CHANGE COLUMN `role_id` `role_id` INT NOT NULL AUTO_INCREMENT ;
+===================================================================
+insert into user_role (role_name)values('Administrator');
+insert into user_role (role_name)values('Faculty');
+insert into user_role (role_name)values('Student');
+insert into user_role (role_name)values('SuperUser');
+====================================================================
+CREATE TABLE `iims_db`.`user_profiles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `mobile` VARCHAR(15) NULL,
+  `user_type` VARCHAR(45) NOT NULL,
+  `is_email_verified` INT NULL,
+  `is_mobile_verified` INT NULL,
+  `user_profilescol` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`id`)
+    REFERENCES `iims_db`.`auth_user` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+  ==============================================================
+#create table iims_tbl_academic_year (column id int primary key ,ayear varchar(50))
+
+CREATE TABLE `iims_db`.`iims_tbl_academic_year` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `ayear` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+# insert academic years in iims_tbl_academic_year
+
+INSERT INTO `iims_db`.`iims_tbl_academic_year` (`ayear`) VALUES ('2021-2022');
+INSERT INTO `iims_db`.`iims_tbl_academic_year` (`ayear`) VALUES ('2022-2023');
+INSERT INTO `iims_db`.`iims_tbl_academic_year` (`ayear`) VALUES ('2023-2024');
+INSERT INTO `iims_db`.`iims_tbl_academic_year` (`ayear`) VALUES ('2024-2025');
+INSERT INTO `iims_db`.`iims_tbl_academic_year` (`ayear`) VALUES ('2025-2026');
+=============================================================
+#create table iims_tbl_course
+
+CREATE TABLE `iims_db`.`iims_tbl_course` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `course_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `course_name_UNIQUE` (`course_name` ASC) VISIBLE);
+  
+#insert records in iims_tbl_course
+
+INSERT INTO `iims_db`.`iims_tbl_course` (`course_name`) VALUES ('MBA');
+INSERT INTO `iims_db`.`iims_tbl_course` (`course_name`) VALUES ('MCA');
+========================================================================
+#create table for batch
+
+CREATE TABLE `iims_db`.`iims_course_batch` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `batch_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `batch_name_UNIQUE` (`batch_name` ASC) VISIBLE);
+
+#insert records into iims_course_batch
+
+INSERT INTO `iims_db`.`iims_course_batch` (`batch_name`) VALUES ('2021-2023');
+INSERT INTO `iims_db`.`iims_course_batch` (`batch_name`) VALUES ('2022-2024');
+INSERT INTO `iims_db`.`iims_course_batch` (`batch_name`) VALUES ('2023-2025');
+INSERT INTO `iims_db`.`iims_course_batch` (`batch_name`) VALUES ('2024-2026');
+INSERT INTO `iims_db`.`iims_course_batch` (`batch_name`) VALUES ('2025-2027');
+
+ALTER TABLE `iims_db`.`iims_course_batch` 
+RENAME TO  `iims_db`.`iims_tbl_course_batch` ;
+========================================================
+#create table for semester
+
+CREATE TABLE `iims_db`.`iims_tbl_semester` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `semester_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `semester_name_UNIQUE` (`semester_name` ASC) VISIBLE);
+
+#insert records into iims_tbl_semester
+
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 1');
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 2');
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 3');
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 4');
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 5');
+INSERT INTO `iims_db`.`iims_tbl_semester` (`semester_name`) VALUES ('Semester 6');
+
+#alter table semester
+
+ALTER TABLE `iims_db`.`iims_tbl_semester` 
+ADD COLUMN `short_name` VARCHAR(45) NOT NULL AFTER `semester_name`;
+
+
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_1' WHERE (`id` = '1');
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_2' WHERE (`id` = '2');
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_3' WHERE (`id` = '3');
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_4' WHERE (`id` = '4');
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_5' WHERE (`id` = '5');
+UPDATE `iims_db`.`iims_tbl_semester` SET `short_name` = 'sem_6' WHERE (`id` = '6');
+===================================================================================
+# create table for iims_tbl_subjects
+
+CREATE TABLE `iims_db`.`iims_tbl_subjects` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
+  `short_name` VARCHAR(45) NULL,
+  `course_id` INT NULL,
+  `sem_id` INT NULL,
+  `pattern` VARCHAR(45) NULL,
+  `sub_code` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `title_UNIQUE` (`title` ASC) VISIBLE);
+
+  =================================================================================
+# create table for lms_tbl_content
+
+  CREATE TABLE `iims_db`.`lms_tbl_contents` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `course_id` INT NULL,
+  `ay_id` INT NULL,
+  `sem_id` INT NULL,
+  `sub_id` INT NULL,
+  `title` VARCHAR(100) NULL,
+  `topic` VARCHAR(100) NULL,
+  `type_id` INT NULL,
+  `content` VARCHAR(10000) NULL,
+  `link` VARCHAR(1000) NULL,
+  PRIMARY KEY (`id`));
+
+=========================================================
+
+# create table lms_tbl_type
+
+CREATE TABLE `iims_db`.`lms_tbl_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `type_UNIQUE` (`type` ASC) VISIBLE);
+
+
+#Insert records into lms_tbl_type
+  INSERT INTO `iims_db`.`lms_tbl_type` (`type`) VALUES ('Notes');
+INSERT INTO `iims_db`.`lms_tbl_type` (`type`) VALUES ('Video');
+INSERT INTO `iims_db`.`lms_tbl_type` (`type`) VALUES ('Link');
+
+  ================================================
+
+  #create table feedback type
+
+  CREATE TABLE `iims_db`.`feedback_tbl_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `type_UNIQUE` (`type` ASC) VISIBLE);
+  =====================================================
+
+  #create table feedback subtype
+
+  CREATE TABLE `iims_db`.`feedback_tbl_subtype` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `sub_type` VARCHAR(45) NOT NULL,
+  `type_id` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `sub_type_UNIQUE` (`sub_type` ASC) VISIBLE);
+  ===============================================
+
+  #insert record in type table
+  INSERT INTO `iims_db`.`feedback_tbl_type` (`type`) VALUES ('Academic');
+INSERT INTO `iims_db`.`feedback_tbl_type` (`type`) VALUES ('Non Academic');
+================================================================
+#insert records in subtype table
+INSERT INTO `iims_db`.`feedback_tbl_subtype` (`sub_type`, `type_id`) VALUES ('Faculty', '1');
+INSERT INTO `iims_db`.`feedback_tbl_subtype` (`sub_type`, `type_id`) VALUES ('Infrastructure', '1');
+INSERT INTO `iims_db`.`feedback_tbl_subtype` (`sub_type`, `type_id`) VALUES ('Facility', '1');
+INSERT INTO `iims_db`.`feedback_tbl_subtype` (`sub_type`, `type_id`) VALUES ('Event', '2');
+================================================================
+# create table for feedback Event
+CREATE TABLE `iims_db`.`feedback_event` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `academic_year` INT NULL,
+  `event_date` DATETIME NULL,
+  `feedback_start_date` DATETIME NULL,
+  `feedback_end_date` DATETIME NULL,
+  `scale` INT NULL,
+  PRIMARY KEY (`id`));
+===============================================
+ALTER TABLE `iims_db`.`feedback_event` 
+RENAME TO  `iims_db`.`feedback_tbl_event` ;
+==================================================
+# feedback_questions
+
+CREATE TABLE `iims_db`.`feedback_questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question` VARCHAR(500) NOT NULL,
+  `event_id` INT NULL,
+  PRIMARY KEY (`id`));
+  =============================
+  24/05/2024
+  ALTER TABLE `iims_db`.`iims_tbl_course` 
+ADD COLUMN `course_fees` DOUBLE NULL AFTER `course_name`;
+
+INSERT INTO `iims_db`.`iims_tbl_course` (`course_name`, `course_fees`) VALUES ('PhD', '30000');
+UPDATE `iims_db`.`iims_tbl_course` SET `course_fees` = '96000' WHERE (`id` = '2');
+UPDATE `iims_db`.`iims_tbl_course` SET `course_fees` = '13000' WHERE (`id` = '1');
+
+CREATE TABLE `iims_db`.`iims_tbl_admission_through` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `adminssion_under_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+  UNIQUE INDEX `adminssion_under_name_UNIQUE` (`adminssion_under_name` ASC) VISIBLE);
+
+
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`) VALUES ('MAH-MCA-CET');
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`) VALUES ('MAH-MBA-CET');
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`) VALUES ('ATMA');
+
+ALTER TABLE `iims_db`.`iims_tbl_admission_through` 
+ADD COLUMN `for_course` VARCHAR(45) NULL AFTER `adminssion_under_name`;
+
+ALTER TABLE `iims_db`.`iims_tbl_admission_through` 
+CHANGE COLUMN `for_course` `for_course_id` INT NULL DEFAULT NULL ;
+
+
+UPDATE `iims_db`.`iims_tbl_admission_through` SET `for_course_id` = '2' WHERE (`id` = '1');
+UPDATE `iims_db`.`iims_tbl_admission_through` SET `for_course_id` = '1' WHERE (`id` = '2');
+UPDATE `iims_db`.`iims_tbl_admission_through` SET `for_course_id` = '1' WHERE (`id` = '3');
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`, `for_course_id`) VALUES ('SPPU-PET', '4');
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`, `for_course_id`) VALUES ('UGC-NET', '4');
+INSERT INTO `iims_db`.`iims_tbl_admission_through` (`adminssion_under_name`, `for_course_id`) VALUES ('UGC-SET', '4');
+
+
+CREATE TABLE `iims_db`.`iims_tbl_category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `category` VARCHAR(45) NULL,
+  `iims_tbl_categorycol` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('DT/VJ NT(A)');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('NT1 (NT-B)');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('NT2 (NT-C)');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('NT3 (NT-D)');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('OBC');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('OPEN');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('OPEN/EWS');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('SBC/OBC');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('SC');
+INSERT INTO `iims_db`.`iims_tbl_category` (`category`) VALUES ('ST');
+
+
+ALTER TABLE `iims_db`.`iims_tbl_admission_through` 
+CHANGE COLUMN `adminssion_under_name` `admission_under_name` VARCHAR(45) NULL DEFAULT NULL ;
+
+
+
+CREATE TABLE `iims_db`.`iims_tbl_user_academic_details` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL,
+  `course_id` INT NULL,
+  `ay_year_id` INT NULL,
+  `adminssion_through_id` INT NULL,
+  `category_id` INT NULL,
+  `previous_qualification` VARCHAR(45) NULL,
+  `previous_qualification_perc` DOUBLE NULL,
+  `iims_tbl_user_academic_detailscol` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+
+
+  ALTER TABLE `iims_db`.`iims_tbl_user_academic_details` 
+CHANGE COLUMN `adminssion_through_id` `admission_through_id` INT NULL DEFAULT NULL ;
+======================================================
+
+ALTER TABLE `iims_db`.`user_profiles` 
+ADD COLUMN `user_profileimg_bigthumburl` LONGBLOB NULL AFTER `user_profilescol`;
+
+=====================================================
+09/06/2024
+
+ALTER TABLE `iims_db`.`user_profiles` 
+ADD COLUMN `image_bigthumb_url` VARCHAR(500) NULL AFTER `image_main_url`,
+ADD COLUMN `image_smallthumb_url` VARCHAR(500) NULL AFTER `image_bigthumb_url`,
+CHANGE COLUMN `user_profilescol` `image_main_url` VARCHAR(500) NULL DEFAULT NULL ;
+
+========================================================
+
+CREATE TABLE `iims_db`.`iims_tbl_user_family_details` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `father_name` VARCHAR(100) NULL,
+  `mother_name` VARCHAR(100) NULL,
+  `no_of_siblings` INT NULL,
+  `fathers_occupation` VARCHAR(100) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  =====================================================
+  ALTER TABLE `iims_db`.`iims_tbl_user_family_details` 
+ADD COLUMN `user_id` INT NULL AFTER `fathers_occupation`;
+============================================================
+1/7/2024
+
+CREATE TABLE `iims_db`.`iims_tbl_feedback_questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question` VARCHAR(500) NULL,
+  `scale` VARCHAR(45) NULL,
+  `type` VARCHAR(45) NULL,
+  `a_year` VARCHAR(45) NULL,
+  `course` VARCHAR(45) NULL,
+  `created_date` VARCHAR(45) NULL,
+  `valid_till` VARCHAR(45) NULL,
+  `active` TINYINT NULL,
+  `sequence` INT NULL,
+  `iims_tbl_feedback_questionscol` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+========================================================
+
+insert into iims_tbl_feedback_questions(question,scale,type,a_year,created_date,active,sequence)values
+('The continuity of the contents in courses curriculum in is appropriate.','likert','s','3',now(),1,1),
+('Depth of curriculum content is appropriate.','likert','s','3',now(),1,2),
+('Syllabus is industry oriented.','likert','s','3',now(),1,3),
+('The objectives and outcomes are clearly stated for each of the course.','likert','s','3',now(),1,4),
+('The curriculum has a good balance between theory and practical.','likert','s','3',now(),1,5),
+('The electives offered are relevant to the latest technology.','likert','s','3',now(),1,6),
+('Curriculum structure and contents help to enhance employability skills.','likert','s','3',now(),1,7),
+('Curriculum bridges the gap between industry and academic.','likert','s','3',now(),1,8),
+('Curriculum contents are helpful for development of professional ethics, lifelong learning skills, team building, leadership qualities and environmental awareness.','likert','s','3',now(),1,9);
+=================================================================
+
+insert into iims_tbl_feedback_questions(question,scale,type,a_year,created_date,active,sequence)values
+('The learning objectives are clear and appropriate to the program.','likert','t','3',now(),1,1),
+('The syllabus is well organized and suitable to the program.','likert','t','3',now(),1,2),
+('The text Books/Reference Books are well suited to the course.','likert','t','3',now(),1,3),
+('The system followed by the university for the design and development of curriculum is effective.','likert','t','3',now(),1,4),
+('There is a provision to update curriculum time to time.','likert','t','3',now(),1,5),
+('The distribution of contact hours among the course components is appropriate.','likert','t','3',now(),1,6),
+('The curriculum has a good balance between theory and practical.','likert','t','3',now(),1,7),
+('The electives offered are in relation to the technological advancements','likert','t','3',now(),1,8),
+('Whether the curriculum and syllabus are well organized and easy to follow','likert','t','3',now(),1,9),
+('Curriculum includes the current and the future socio-economic needs','likert','t','3',now(),1,10),
+('Curriculum having good academic flexibility','likert','t','3',now(),1,11),
+('Depth of the syllabus is sufficient for the development of skills for higher study and work in future','likert','t','3',now(),1,12);
+========================================================================================================
+insert into iims_tbl_feedback_questions(question,scale,type,a_year,created_date,active,sequence)values
+('Current curriculum caters the need of industry.','likert','e','3',now(),1,1),
+('Curriculum structure and contents help to enhance employability skills.','likert','e','3',now(),1,2),
+('Curriculum has a good balance of theory and practical.','likert','e','3',now(),1,3),
+('Curriculum bridges the gap between industry and academic.','likert','e','3',now(),1,4),
+('Curriculum contents are helpful for development of professional ethics, lifelong learning skills, team building, leadership qualities and environmental awareness.','likert','e','3',now(),1,5),
+('Effectiveness of Curriculum in developing Innovativeness and creativity in students','likert','e','3',now(),1,6),
+('Current curriculum caters the need of industry.','likert','e','3',now(),1,7);
+=========================================================================================================
+insert into iims_tbl_feedback_questions(question,scale,type,a_year,created_date,active,sequence)values
+('Curriculum meets prerequisite and basic knowledge required for the Employability.','likert','a','3',now(),1,1),
+('Learning experience is useful for employment','likert','a','3',now(),1,2),
+('Electives offered are in relation to the technological advancements in industries','likert','a','3',now(),1,3),
+('The new courses (subjects) introduced as per the current industry requirements','likert','a','3',now(),1,4),
+('Design of the courses (subjects) encourages self-learning.','likert','a','3',now(),1,5),
+('Support and contribution of the institution for your overall development','likert','a','3',now(),1,6),
+('Effectiveness of Curriculum to meet your present professional standards','likert','a','3',now(),1,7),
+('Effectiveness of curriculum to apply your knowledge in real life situations','likert','a','3',now(),1,8);
+=================================================================================================================
+
+CREATE TABLE `iims_db`.`iims_tbl_feedback_result` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question_id` INT NULL,
+  `strongly_agree` DOUBLE NULL,
+  `agree` DOUBLE NULL,
+  `neutral` DOUBLE NULL,
+  `disagree` DOUBLE NULL,
+  `strongly_disagree` DOUBLE NULL,
+  `total` DOUBLE NULL,
+  `a_year` INT NULL,
+  PRIMARY KEY (`id`));
+
+==========================================================================================================
+
+
+insert into iims_tbl_feedback_result(question_id,strongly_agree,agree,neutral,disagree,strongly_disagree,total)values
+(1,29.2,38.15,12.3,11.23,9.12,100),
+(2,29.65,43.57,6.82,13.62,6.34,100),
+(3,21.2,51.57,13.35,6.47,7.41,100),
+(4,32.12,48.32,14.24,9.36,5.32,100),
+(5,35.31,38.2,12.52,7.62,6.35,100),
+(6,21.25,49.32,11.74,8.35,9.34,100),
+(7,38.68,35.24,8.95,10.78,6.35,100),
+(8,29.76,41.3,12.3,7.32,9.32,100),
+(9,33.62,36.43,9.35,12.3,8.3,100);
+========================================================================================================
+
+insert into iims_tbl_feedback_result(question_id,strongly_agree,agree,neutral,disagree,strongly_disagree,total)values
+(10,24.62,43.18,13.62,9.62,8.96,100),
+(11,37.6,36.24,9.62,8.92,7.62,100),
+(12,39.62,33.16,11.25,9.62,6.35,100),
+(13,29.62,40.98,12.3,9.45,7.65,100),
+(14,20.21,46.01,15.54,9.62,8.62,100),
+(15,21.25,54.15,9.63,8.62,6.35,100),
+(16,28.32,43.62,7.92,13.82,6.32,100),
+(17,32.59,41.62,11.12,8.32,6.35,100),
+(18,42.62,34.02,9.58,7.3,6.48,100),
+(19,31.52,42.26,8.95,9.65,7.62,100),
+(20,28.68,39.65,12.85,9.2,9.62,100),
+(21,32.62,42,10.2,8.38,6.8,100);
+==========================================================================================================
+insert into iims_tbl_feedback_result(question_id,strongly_agree,agree,neutral,disagree,strongly_disagree,total)values
+(22,25.65,43.86,12.52,9.65,8.32,100),
+(23,42.52,30.62,9.65,8.65,8.56,100),
+(24,28.62,32.62,14.39,12.85,11.52,100),
+(25,30.04,41.52,11.3,9.52,7.62,100),
+(26,21.31,47.92,13.3,9.62,7.85,100),
+(27,23.31,42.62,12.95,13.5,7.62,100),
+(28,29.08,45.63,8.62,9.52,7.15,100);
+======================================================================================================
+
+insert into iims_tbl_feedback_result(question_id,strongly_agree,agree,neutral,disagree,strongly_disagree,total)values
+(29,31.52,38.11,12.3,9.62,8.45,100),
+(30,26.57,45.68,9.68,8.62,9.45,100),
+(31,28.85,41.52,11.5,9.57,8.56,100),
+(32,32.52,40.42,11.3,9.64,6.12,100),
+(33,33.62,37.36,11.52,9.65,7.85,100),
+(34,38.92,27.51,12.25,12.2,9.12,100),
+(35,24.72,41.62,13.52,11.52,8.62,100),
+(36,29.86,38.62,9.85,12.85,8.82,100);
+==================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_feedback_result` 
+ADD COLUMN `type` VARCHAR(45) NULL AFTER `a_year`,
+ADD COLUMN `iims_tbl_feedback_resultcol` VARCHAR(45) NULL AFTER `type`;
+===============================================================================
+
+update iims_tbl_feedback_result set type='s' where id in (1,2,3,4,5,6,7,8,9);
+
+update iims_tbl_feedback_result set type='t' where id in (10,11,12,13,14,15,16,17,18,19,20,21);
+
+update iims_tbl_feedback_result set type='e' where id in (22,23,24,25,26,27,28);
+
+update iims_tbl_feedback_result set type='a' where id in (29,30,31,32,33,34,35,36);
+
+=====================================================================================================
+
+ALTER TABLE `iims_db`.`iims_tbl_feedback_result` 
+ADD COLUMN `session` INT NULL AFTER `iims_tbl_feedback_resultcol`;
+====================================================
+update iims_tbl_feedback_result set a_year=3,session=1 where id in  (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36);
+========================================================================================================
+5/7/2024
+
+ALTER TABLE `iims_db`.`iims_tbl_course` 
+ADD COLUMN `course_duration_in_years` INT NULL AFTER `course_fees`,
+ADD COLUMN `course_duration_in_months` INT NULL AFTER `course_duration_in_years`,
+ADD COLUMN `iims_tbl_coursecol` VARCHAR(45) NULL AFTER `course_duration_in_months`;
+=======================================================================================
+UPDATE `iims_db`.`iims_tbl_course` SET `course_duration_in_years` = '2', `course_duration_in_months` = '24' WHERE (`id` = '1');
+UPDATE `iims_db`.`iims_tbl_course` SET `course_duration_in_years` = '2', `course_duration_in_months` = '24' WHERE (`id` = '2');
+=============================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_faculty_subject_mapping` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `faculty_id` INT NULL,
+  `subject_id` INT NULL,
+  `a_year` INT NULL,
+  PRIMARY KEY (`id`));
+============================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_feedback_scale` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `scale_name` VARCHAR(45) NULL,
+  `param1` VARCHAR(45) NULL,
+  `param2` VARCHAR(45) NULL,
+  `param3` VARCHAR(45) NULL,
+  `param4` VARCHAR(45) NULL,
+  `param5` VARCHAR(45) NULL,
+  `param6` VARCHAR(45) NULL,
+  `param7` VARCHAR(45) NULL,
+  `param8` VARCHAR(45) NULL,
+  `param9` VARCHAR(45) NULL,
+  `param10` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  ==================================================================================
+  CREATE TABLE `iims_db`.`iims_tbl_questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question` VARCHAR(500) NULL,
+  `scale_id` INT NULL,
+  `question_for` INT NULL,
+  `sequence` INT NULL,
+  `is_active` TINYINT NULL,
+  `created_date` DATETIME NULL,
+  PRIMARY KEY (`id`));
+===================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_subjects` 
+CHANGE COLUMN `title` `subject_code` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `short_name` `subject_name` VARCHAR(500) NULL DEFAULT NULL ,
+CHANGE COLUMN `course_id` `subject_short_name` VARCHAR(45) NULL DEFAULT NULL ,
+CHANGE COLUMN `sem_id` `subject_pattern` VARCHAR(100) NULL DEFAULT NULL ,
+CHANGE COLUMN `pattern` `course_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `sub_code` `sem_id` INT NULL DEFAULT NULL ;
+====================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_subjects` 
+ADD COLUMN `cp` INT NULL AFTER `sem_id`,
+ADD COLUMN `ext` INT NULL AFTER `cp`,
+ADD COLUMN `int` INT NULL AFTER `ext`;
+===================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_subjects` 
+CHANGE COLUMN `ext` `external` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `int` `internal` INT NULL DEFAULT NULL ;
+===========================================================================
+insert into iims_tbl_subjects(subject_code,subject_name,subject_short_name,subject_pattern,course_id,sem_id,cp,external,internal)values
+('IT11','Java Programming','java','2020',2,1,3,50,25),
+('IT12','Data Structure and Algorithms','dsa','2020',2,1,3,50,25),
+('IT13','Object Oriented Software Engineering ','oose','2020',2,1,3,50,25),
+('IT14','Operating System Concepts','osc','2020',2,1,3,50,25),
+('IT15','Network Technologies','nt','2020',2,1,3,50,25),
+('OC11','Open Course 1','OC11','2020',2,1,1,0,25),
+('OC12','Open Course 2','OC11','2020',2,1,1,0,25),
+('IT11L','Practical','practical','2020',2,1,5,50,75),
+('ITC11','Mini Project','mini project','2020',2,1,5,50,75),
+('SS11','Soft Skills - I','ss-I','2020',2,1,1,0,25),
+('IT21','Python Programming','python','2020',2,2,3,50,25),
+('IT22','Software Project Management','spm','2020',2,2,3,50,25),
+('MT21','Optimization Techniques','ot','2020',2,2,3,50,25),
+('IT23','Advanced Internet Technologies','ait','2020',2,2,3,50,25),
+('IT24','Advanced DBMS','adbms','2020',2,2,3,50,25),
+('OC21','Open Course 3','OC21','2020',2,2,1,0,25),
+('OC22','Open Course 4','OC22','2020',2,2,1,0,25),
+('IT21L','Practical','practical','2020',2,2,5,50,75),
+('ITC21','Mini Project','mini project','2020',2,2,5,50,75),
+('SS21','Soft Skills - II','ss-II','2020',2,2,1,0,25),
+('IT31','Mobile Application Development','mad','2020',2,3,3,50,25),
+('IT32','Data Warehousing and Data Mining','dwdm','2020',2,3,3,50,25),
+('IT33','Software Testing and Quality Assurance','stqa','2020',2,3,3,50,25),
+('IT34','Knowledge Representation & Artificial Intelligence - ML, DL','kraimldl','2020',2,3,3,50,25),
+('IT35','Cloud Computing','cc','2020',2,3,3,50,25),
+('OC31','Open Course 5','OC31','2020',2,3,1,0,25),
+('OC32','Open Course 6','OC32','2020',2,3,1,0,25),
+('IT31L','Practical','practical','2020',2,3,5,50,75),
+('ITC31','Mini Project','mini project','2020',2,3,5,50,75),
+('SS31','Soft Skills- III','ss-III','2020',2,3,1,0,25),
+('IT41','DevOps','devops','2020',2,4,3,50,25),
+('BM41','PPM and OB','ppmob','2020',2,4,3,50,25),
+('ITC41','Project','project','2020',2,4,22,250,300);
+===================================================================================================================
+insert into iims_tbl_faculty_subject_mapping(faculty_id,subject_id,a_year)values
+(3,1,3),(3,21,3),(3,11,3),(3,21,4)
+======================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_feedback_audience` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `audience` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+===============================================================================
+INSERT INTO `iims_db`.`iims_tbl_feedback_audience` (`audience`) VALUES ('student');
+INSERT INTO `iims_db`.`iims_tbl_feedback_audience` (`audience`) VALUES ('teacher');
+INSERT INTO `iims_db`.`iims_tbl_feedback_audience` (`audience`) VALUES ('employer');
+INSERT INTO `iims_db`.`iims_tbl_feedback_audience` (`audience`) VALUES ('alumni');
+============================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_feedback_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `feedback_type` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  ========================================================================================
+  ALTER TABLE `iims_db`.`iims_tbl_feedback_type` 
+ADD COLUMN `feedback_for_shortname` VARCHAR(45) NULL AFTER `feedback_for`,
+CHANGE COLUMN `feedback_type` `feedback_for` VARCHAR(45) NULL DEFAULT NULL ;
+=========================================================================================
+INSERT INTO `iims_db`.`iims_tbl_feedback_type` (`feedback_for`, `feedback_for_shortname`) VALUES ('Academic', 'academic');
+INSERT INTO `iims_db`.`iims_tbl_feedback_type` (`feedback_for`, `feedback_for_shortname`) VALUES ('Infrastructure', 'infra');
+INSERT INTO `iims_db`.`iims_tbl_feedback_type` (`feedback_for`, `feedback_for_shortname`) VALUES ('Syllabus and Transaction', 'sandt');
+===========================================================================================
+08/08/2024
+
+CREATE TABLE `iims_db`.`iims_tbl_feedback` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `feedback_type_id` INT NULL,
+  `feedback_name` VARCHAR(100) NULL,
+  `a_year_id` INT NULL,
+  `audience_id` INT NULL,
+  `start_date` VARCHAR(45) NULL,
+  `start_time` VARCHAR(45) NULL,
+  `end_date` VARCHAR(45) NULL,
+  `end_time` VARCHAR(45) NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_userid` INT NULL,
+  PRIMARY KEY (`id`));
+  ==========================================================================================
+12/7/24
+CREATE TABLE `iims_db`.`iims_tbl_feedback_question_mapping` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `feedback_id` INT NULL,
+  `questions_set` VARCHAR(200) NULL,
+  `created_datetime` DATETIME NULL,
+  `user_id` INT NULL,
+  PRIMARY KEY (`id`));
+  ===========================================================================================
+  ALTER TABLE `iims_db`.`iims_tbl_feedback_question_mapping` 
+CHANGE COLUMN `current_datetime` `created_datetime` DATETIME NULL DEFAULT NULL ;
+===========================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_feedback_question_mapping` 
+CHANGE COLUMN `user_id` `created_by_user_id` INT NULL DEFAULT NULL ;
+==============================================================================================
+18/07/2024
+CREATE TABLE `iims_db`.`iims_tbl_feedback_transaction` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL,
+  `feedback_id` INT NULL,
+  `question_id` INT NULL,
+  `answer_id` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  =============================================================================================
+  26/07/2024
+
+  CREATE TABLE `iims_db`.`iims_tbl_mcqexam_createmcq` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `course_id` INT NULL,
+  `pattern` VARCHAR(45) NULL,
+  `sem_id` INT NULL,
+  `subject_id` INT NULL,
+  `start_date` VARCHAR(45) NULL,
+  `start_time` VARCHAR(45) NULL,
+  `end_date` VARCHAR(45) NULL,
+  `end_time` VARCHAR(45) NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_user_id` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  =====================================================================================================
+  ALTER TABLE `iims_db`.`iims_tbl_mcqexam_createmcq` 
+ADD COLUMN `ayear_id` INT NULL AFTER `created_by_user_id`,
+ADD COLUMN `duration_in_min` VARCHAR(45) NULL AFTER `ayear_id`;
+=========================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_mcqexam_createmcq` 
+ADD COLUMN `no_of_questions` INT NULL DEFAULT NULL AFTER `duration_in_min`,
+ADD COLUMN `marks_for_each_question` INT NULL DEFAULT NULL AFTER `no_of_questions`,
+ADD COLUMN `total_marks` INT NULL DEFAULT NULL AFTER `marks_for_each_question`,
+ADD COLUMN `negative_marking` TINYINT NULL DEFAULT NULL AFTER `total_marks`,
+ADD COLUMN `negative_marks` DOUBLE NULL DEFAULT NULL AFTER `negative_marking`;
+============================================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_mcq_questions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `course_id` INT NULL,
+  `pattern` VARCHAR(45) NULL,
+  `subject_id` INT NULL,
+  `chapter_id` INT NULL,
+  `question` VARCHAR(1000) NULL,
+  `op1` VARCHAR(500) NULL,
+  `op2` VARCHAR(500) NULL,
+  `op3` VARCHAR(500) NULL,
+  `op4` VARCHAR(500) NULL,
+  `answer` VARCHAR(45) NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_user_id` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ========================================================================================================
+  ALTER TABLE `iims_db`.`iims_tbl_mcq_questions` 
+ADD COLUMN `sem_id` INT NULL DEFAULT NULL AFTER `created_by_user_id`;
+===============================================================================================================
+****grade table script******
+CREATE TABLE `iims_tbl_result_analysis_grade` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `grade_name` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+*******student_marks*********
+
+CREATE TABLE `iims_tbl_result_student_marks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `course_id` int DEFAULT NULL,
+  `sem_id` int DEFAULT NULL,
+  `ay_id` int DEFAULT NULL,
+  `sub_id` int DEFAULT NULL,
+  `marks_ext` int DEFAULT NULL,
+  `grade_id` int DEFAULT NULL,
+  `sgpa` float DEFAULT NULL,
+  `status_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+========================================================================================
+
+***Date:06/08/2024****
+INSERT INTO `iims_db`.`iims_tbl_course` (`id`, `course_name`) VALUES ('4', 'BBA');
+INSERT INTO `iims_db`.`iims_tbl_course` (`id`, `course_name`) VALUES ('5', 'BCA');
+
+
+**Date:7/08/2024**
+
+CREATE TABLE `iims_db`.`iims_tbl_result_analysis_assignment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern_id` INT NOT NULL,
+  `assi1` INT NULL,
+  `assi1_outof` INT NULL,
+  `assi2` INT NULL,
+  `assi2_outof` INT NULL,
+  `assi3` INT NULL,
+  `assi3_outof` INT NULL,
+  `assi4` INT NULL,
+  `assi4_outof` INT NULL,
+  `assi5` INT NULL,
+  `assi5_outof` INT NULL,
+  `assi6` INT NULL,
+  `assi6_outof` INT NULL,
+  `assi7` INT NULL,
+  `assi7_outof` INT NULL,
+  `assi8` INT NULL,
+  `assi8_outof` INT NULL,
+  `assi9` INT NULL,
+  `assi9_outof` INT NULL,
+  `assi10` INT NULL,
+  `assi10_outof` INT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `iims_db`.`iims_tbl_result_analysis_endterm` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `endterm_marks` INT NULL,
+  `endterm_outof` INT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `iims_db`.`iims_tbl_result_analysis_mcq` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `mcqmarks` INT NULL,
+  `mcqmarks_outof` INT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `iims_db`.`iims_tbl_result_analysis_midterm` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `midterm_marks` INT NULL,
+  `midterm_marks_outof` INT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `iims_db`.`iims_tbl_result_analysis_subviva` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `subviva_marks` INT NULL,
+  `subviva_outof` INT NULL,
+  PRIMARY KEY (`id`));
+
+****15/08/2024***
+ALTER TABLE `iims_db`.`iims_tbl_result_student_marks` 
+ADD COLUMN `pattern` INT NOT NULL AFTER `ay_id`,
+ADD COLUMN `marksheet_name` VARCHAR(255) NOT NULL AFTER `status_id`,
+ADD COLUMN `marksheet_url` VARCHAR(255) NOT NULL AFTER `marksheet_name`,
+CHANGE COLUMN `user_id` `user_id` INT NOT NULL ,
+CHANGE COLUMN `course_id` `course_id` INT NOT NULL ,
+CHANGE COLUMN `sem_id` `sem_id` INT NOT NULL ,
+CHANGE COLUMN `ay_id` `ay_id` INT NOT NULL ,
+CHANGE COLUMN `sub_id` `sub_id` INT NOT NULL ,
+CHANGE COLUMN `marks_ext` `marks_ext` INT NOT NULL ,
+CHANGE COLUMN `grade_id` `grade_id` INT NOT NULL ,
+CHANGE COLUMN `sgpa` `sgpa` FLOAT NOT NULL ,
+CHANGE COLUMN `status_id` `status_id` INT NOT NULL ;
+
+=========================================================
+11/09/2024
+ALTER TABLE `iims_db`.`user_role` 
+ADD COLUMN `role_code` VARCHAR(45) NULL AFTER `role_name`;
+=====================================================
+INSERT INTO `iims_db`.`user_role` (`role_name`, `role_code`) VALUES ('Admin', 'a');
+INSERT INTO `iims_db`.`user_role` (`role_name`, `role_code`) VALUES ('Faculty', 'f');
+INSERT INTO `iims_db`.`user_role` (`role_name`, `role_code`) VALUES ('Student', 's');
+INSERT INTO `iims_db`.`user_role` (`role_name`, `role_code`) VALUES ('Office', 'o');
+===================================================================================
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('O');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('A');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('B');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('C');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('D');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('E');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('F');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('AP');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('FX');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('II');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('PP');
+INSERT INTO `iims_db`.`iims_tbl_result_analysis_grade` (`grade_name`) VALUES ('NP');
+=====================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_questions` 
+ADD COLUMN `audience_id` INT NULL AFTER `created_date`,
+ADD COLUMN `created_by_userid` INT NULL AFTER `audience_id`,
+ADD COLUMN `iims_tbl_questionscol` VARCHAR(45) NULL AFTER `created_by_userid`;
+====================================================================================
+16_09_2024
+ALTER TABLE `iims_db`.`iims_tbl_questions` 
+RENAME TO  `iims_db`.`iims_tbl_questions_old` ;
+
+ALTER TABLE `iims_db`.`iims_tbl_feedback_questions` 
+RENAME TO  `iims_db`.`iims_tbl_feedback_questions_old` ;
+
+ALTER TABLE `iims_db`.`iims_tbl_questions_old` 
+RENAME TO  `iims_db`.`iims_tbl_feedback_questions` ;
+
+ALTER TABLE `iims_db`.`iims_tbl_feedback_result` 
+RENAME TO  `iims_db`.`iims_tbl_feedback_result_old` ;
+
+CREATE TABLE `iims_db`.`iims_tbl_feedback_result` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `question_id` INT NULL DEFAULT NULL,
+  `scale_id` INT NULL DEFAULT NULL,
+  `param1` DOUBLE NULL DEFAULT NULL,
+  `param2` DOUBLE NULL DEFAULT NULL,
+  `param3` DOUBLE NULL DEFAULT NULL,
+  `param4` DOUBLE NULL DEFAULT NULL,
+  `param5` DOUBLE NULL DEFAULT NULL,
+  `param6` DOUBLE NULL DEFAULT NULL,
+  `param7` DOUBLE NULL DEFAULT NULL,
+  `param8` DOUBLE NULL DEFAULT NULL,
+  `param9` DOUBLE NULL DEFAULT NULL,
+  `param10` DOUBLE NULL DEFAULT NULL,
+  `total` DOUBLE NULL DEFAULT NULL,
+  `a_year` INT NULL DEFAULT NULL,
+  `audience_id` INT NULL DEFAULT NULL,
+  `session` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+
+
+UPDATE `iims_db`.`iims_tbl_feedback_type` SET `feedback_for` = 'Academic - Teacher' WHERE (`id` = '1');
+UPDATE `iims_db`.`iims_tbl_feedback_type` SET `feedback_for` = 'Academic - Infrastructure' WHERE (`id` = '2');
+
+
+INSERT INTO `iims_db`.`iims_tbl_feedback_type` (`feedback_for`, `feedback_for_shortname`) VALUES ('Feedback On Ambience', 'famb');
+
+==================================================================
+18/09/2024
+CREATE TABLE `iims_db`.`iims_tbl_division` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `div_name` VARCHAR(45) NULL,
+  `div_short_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+insert into iims_tbl_division(div_name,div_short_name)values('Div A','a'),('Div B','b'),('Div C','c'),('Div D','d'),('Div E','e');
+
+
+ALTER TABLE `iims_db`.`iims_tbl_user_academic_details` 
+ADD COLUMN `division_id` INT NULL DEFAULT NULL AFTER `roll_no`,
+ADD COLUMN `current_semester_id` INT NULL DEFAULT NULL AFTER `division_id`,
+CHANGE COLUMN `iims_tbl_user_academic_detailscol` `roll_no` VARCHAR(45) NULL DEFAULT NULL ;
+
+CREATE TABLE `iims_db`.`iims_tbl_user_address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL,
+  `address_line_1` VARCHAR(200) NULL,
+  `address_line_2` VARCHAR(200) NULL,
+  `address_line_3` VARCHAR(200) NULL,
+  `country` VARCHAR(200) NULL,
+  `state` VARCHAR(200) NULL,
+  `district` VARCHAR(200) NULL,
+  `pin` VARCHAR(50) NULL,
+  PRIMARY KEY (`id`));
+
+================================================================================================================================
+Date: 23_09_2024
+
+ALTER TABLE `iims_db`.`iims_tbl_subjects` 
+DROP INDEX `title_UNIQUE` ;
+=============================================================================================================================
+insert into iims_tbl_subjects(subject_code,subject_name,subject_short_name,subject_pattern,course_id,sem_id,cp,external,internal)values
+('IT11','Python Programming','Python','2024','2','1','3','50','25'),
+('IT12','Data Structure and Algorithms','DSA','2024','2','1','3','50','25'),
+('IT13','Advanced DBMS','ADBMS','2024','2','1','3','50','25'),
+('MT11','Business Statistics','BS','2024','2','1','3','50','25'),
+('IT14','Software Engineering and Project Management','SE&PM','2024','2','1','3','50','25'),
+('EC11-1','Fundamentals of Cloud Computing','CC','2024','2','1','3','50','25'),
+('EC11-2','Web Development','WD','2024','2','1','3','50','25'),
+('EC11-3','Fundamental of Data Science','DS','2024','2','1','3','50','25'),
+('EC11-4','Introduction to Cyber Security','CS','2024','2','1','3','50','25'),
+('IT11L','Practical based on Python and DS','Practical','2024','2','1','3','0','50'),
+('ITC11','Mini Project','Mini Project','2024','2','1','3','0','50'),
+('SS11','Soft Skills – I','SS1','2024','2','1','1','0','25'),
+('IK11','IKS','IKS','2024','2','1','1','0','25'),
+('IT21','Java Programming','Java','2024','2','2','3','50','25'),
+('MT21','Optimization Techniques','OT','2024','2','2','3','50','25'),
+('IT22','Software Testing and Quality Assurance','STQA','2024','2','2','3','50','25'),
+('RM21','Research Methodology','RM','2024','2','2','3','50','25'),
+('EC21-1','Cloud Computing Management and Security','CCMS','2024','2','2','3','50','25'),
+('EC21-2','JavaScript','JS','2024','2','2','3','50','25'),
+('EC21-3','Machine Learning Techniques','ML','2024','2','2','3','50','25'),
+('EC21-4','Essentials of Cyber Security','ECS','2024','2','2','3','50','25'),
+('EC22-1','Essentials of Cloud Computing and Security','ECCS','2024','2','2','3','50','25'),
+('EC22-2','Advance Web Development','AWD','2024','2','2','3','50','25'),
+('EC22-3','Power BI','PBI','2024','2','2','3','50','25'),
+('EC22-4','Essentials of Information Security','EIS','2024','2','2','3','50','25'),
+('IT21L','Practical based on Java','Practical','2024','2','2','3','0','50'),
+('ITC21','Mini Project','Mini Project','2024','2','2','3','0','50'),
+('SS21','Soft Skills – II','SS2','2024','2','2','1','0','25'),
+('IK21','IKS','IKS','2024','2','2','1','0','25'),
+('IT31','Organizational Behaviour','OB','2024','2','3','3','50','25'),
+('IT32','Design and Analysis of Algorithm','DAA','2024','2','3','3','50','25'),
+('EC31-1',"Cloud API's and Services",'CAS','2024','2','3','3','50','25'),
+('EC31-2','Mobile Application Development','MAD','2024','2','3','3','50','25'),
+('EC31-3','Tableau','TB','2024','2','3','3','50','25'),
+('EC31-4','End -Point Security','EPS','2024','2','3','3','50','25'),
+('EC32-1','Cloud Migration and Management','CMM','2024','2','3','3','50','25'),
+('EC32-2','MERN Stack Development','MSD','2024','2','3','3','50','25'),
+('EC32-3','Deep Learning','DL','2024','2','3','3','50','25'),
+('EC32-4','Ethical Hacking','EH','2024','2','3','3','50','25'),
+('EC33-1','Enterprise Resource Planning (ERP)','ERP','2024','2','3','3','50','25'),
+('EC33-2','E-Commerce','ECOM','2024','2','3','3','50','25'),
+('EC33-3','Social media Marketing','SMM','2024','2','3','3','50','25'),
+('EC33-4','Innovation and Entrepreneurship Development','IED','2024','2','3','3','50','25'),
+('IT31L','Practical based on Electives IV and V','Practical','2024','2','3','3','0','50'),
+('RP31','Research Project','RP','2024','2','3','6','0','100'),
+('SS31','Soft Skills- III','SS3','2024','2','3','1','0','25'),
+('IT41','Internship/Project Work (FP/OJT)','FP-OJT','2024','2','4','12','300','150'),
+('MC41','MOOC- I','MOOC-I','2024','2','4','3','0','50'),
+('MC42','MOOC- II','MOOC-II','2024','2','4','3','0','50');
+======================================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_subjects` 
+ADD COLUMN `course_no` VARCHAR(45) NULL AFTER `internal`;
+==================================================================================
+insert into iims_tbl_subjects(course_no,subject_code,subject_name,subject_short_name,subject_pattern,course_id,sem_id)values
+('101 ','GC – 01','Managerial Accounting I ','MA','2019','1','1'),
+('102 ','GC – 02','Organizational Behaviour I ','OB ','2019','1','1'),
+('103 ','GC – 03','Economic Analysis for Business Decisions I ','EABD ','2019','1','1'),
+('104 ',' GC – 04','Business Research Methods I ','BRM ','2019','1','1'),
+('105 ','GC – 05','Basics of Marketing I ','BOM ','2019','1','1'),
+('106 ','GC – 06','Digital Business ','DB ','2019','1','1'),
+('107 ','GE-UL-01','Management Fundamentals I ','MF ','2019','1','1'),
+('108 ','GE-UL-02 ','Indian Economy  ','IE ','2019','1','1'),
+('109 ','GE-UL-03 ','Entrepreneurship Development I ','ED ','2019','1','1'),
+('113 ','GE-IL-01  ','Verbal Communication Lab I ','VCL ','2019','1','1'),
+('115 ','GE-IL-03  ','Selling & Negotiation skill Lab ','S&N ','2019','1','1'),
+('118 ','GE-IL-06 ','Managing Innovation ','MI  ','2019','1','1'),
+('191 ','SD','Human Rights-I ','HR-I ','2019','1','1'),
+('192 ','SD','Introduction to Cyber Security-I ','ICS-I ','2019','1','1'),
+('','201- GC','Marketing Management ','MM','2019','1','2'),
+('','202- GC','Financial Management','FM','2019','1','2'),
+('','203- GC ','Human Resources Management','HRM','2019','1','2'),
+('','204- GC','Operations & Supply Chain','OSCM','2019','1','2'),
+('','207 GE-UL','Contemporary Frameworks in Management','207-CFM','2019','1','2'),
+('','209 GE-UL ','Start Up and New Venture Management','209-SNVM','2019','1','2'),
+('','212 GE-UL ','Business Process Re- engineering','212-BPR ','2019','1','2'),
+('','213 - GE-IL','Written Analysis and Communication Lab ','213-WACL','2019','1','2'),
+('','205-MKT','Marketing Research ','MR','2019','1','2'),
+('','206-MKT','Consumer Behaviour','CB','2019','1','2'),
+('','217- SE-IL-1','ntegrated Marketing','IMC','2019','1','2'),
+('','219- SE-IL-2 MKT','Personal Selling Lab','PSL ','2019','1','2'),
+('','205-Fin','Financial Markets and Banking Operations','FMBO','2019','1','2'),
+('','206-Fin','Personal Financial Planning','PFP','2019','1','2'),
+('','217- SE-IL-1 Fin','Securities Analysis & Portfolio Management','SAPM','2019','1','2'),
+('','223- SE-IL-2 Fin','Fundamentals of Life Insurance  – Products and Underwriting','FLIPU','2019','1','2'),
+('','205-HRM','Competency Based Human Resource Management','CBHRM','2019','1','2'),
+('','206-HRM ','Employee Relations & Labour Legislation','ER&LL','2019','1','2'),
+('','217- SE-IL-1 HRM','Labour Welfare','LW','2019','1','2'),
+('','219- SE-IL-2 HRM','Learning and Development','L & D','2019','1','2'),
+('','205-OSCM ','Services Operations Management - I','SOM-I','2019','1','2'),
+('','206-OSCM ','Supply Chain Management','SCM','2019','1','2'),
+('','217-SE-IL-1','Planning & Control of Operations','PCO','2019','1','2'),
+('','219-SE-IL-2','Inventory Management','IM','2019','1','2'),
+('','205-BA','Basic Business Analytics using R','BBAUR','2019','1','2'),
+('','206-BA','Data Mining','DM','2019','1','2'),
+('','220- SE-IL-1 BA','Tableau','Tab','2019','1','2'),
+('','221- SE-IL-2 BA','Data Warehousing Project Life Cycle Management','DWPLCM','2019','1','2'),
+('','291','Human Rights-II','HR-II','2019','1','2'),
+('','292','Introduction to Cyber Security- II','ICS-II ','2019','1','2'),
+('301 ','GC – 11 ','Strategic Management ','SM ','2019','1','3'),
+('302 ','GC – 12 ','Decision Science ','DS ','2019','1','3'),
+('303 ','GC – 13 ','Summer Internship Project ','SIP ','2019','1','3'),
+('306 ','GE-UL-13 ','International Business Economics ','IBE ','2019','1','3'),
+('308 ','GE-UL-15 ','Project Management ','PM ','2019','1','3'),
+('310 ','GE-UL-17 ','Corporate Governance ','CG ','2019','1','3'),
+('304 ','SC-03 (MKT/OSCM/H RM/FIN/BA) ','Services Marketing/Service Operations Management- II/Strategic Human Resources Management/Advanced Financial Management/Advanced Statistical Methods using R ','SC-03 ','2019','1','3'),
+('305 ','SC-04 (MKT/OSCM/H RM/FIN/BA) ','Sales and Distribution Management /Logistics Management/HR Operations /International Finance /Machine Learning &Cognitive intelligence using Python ','SC-04 ','2019','1','3'),
+('IL-01 ','SE IL-1 (MKT/OSCM/H RM/FIN/BA) ','B2B Marking/ Toyota Production System/Talent Management System/ Behavioral Finance/ Social Media Web& Text Analytics  ','SE IL-1 ','2019','1','3'),
+('IL-02 ','SE IL-2 (MKT/OSCM/H RM/FIN/BA) ','Digital Marketing-II/ Operations and Service Strategies/ Mentoring and Coaching / Technical Analysis of Financial Market/ Industrial Internet of Things ','SE IL-2 ','2019','1','3'),
+('IL-03 ','SE IL-3 (MKT/OSCM/H RM/FIN/BA) ','Marketing Analytics/ Six Sigma/ Indirect Tax/ Psychometric Testing and Assessment / E-Commerce Analytics-I ','SE IL-3 ','2019','1','3'),
+('','SD ','Introduction to Cyber security-III ','ICS-III ','2019','1','3'),
+('','SD ','Skill Development –I ','SD-I ','2019','1','3'),
+('','SD ','Introduction to constitution  ','IC-I ','2019','1','3'),
+('','LL ','Language Lab ','LL ','2019','1','3'),
+('401 ','GC – 14 ','Enterprise Performance Management ','EPM ','2019','1','4'),
+('402 ','GC – 15 ','Indian Ethos & Business Ethics ','IEBE ','2019','1','4'),
+('407 ','GE - UL – 21 ','Cyber Laws ','CL ','2019','1','4'),
+('408','GE-UL–22','CSR & Sustainability','CSRS','2019','1','4'),
+('403 MKT ','SC – MKT- 05 ','Marketing 4.0 ','MKT 4.0 ','2019','1','4'),
+('404 MKT ','SC – MKT- 06 ','Marketing Strategy  ','MS ','2019','1','4'),
+('409 MKT (SE–IL-1) ','SE – IL - MKT- 13 ','Customer Relationship Mgt ','CRM ','2019','1','4'),
+('410 MKT (SE–IL-2) ','SE – IL - MKT- 14 ','Rural & Agriculture Marketing  ','RAM ','2019','1','4'),
+('403 FIN ','SC – FIN – 05 ','Financial Laws  ','FL ','2019','1','4'),
+('404 FIN ','SC – FIN – 06 ','Current Trends & Cases in Finance ','CT & CF ','2019','1','4'),
+('412 FIN  (SE–IL-1) ','SE – IL - FIN – 24 ','Strategic Cost Management ','SCM ','2019','1','4'),
+('413 FIN (SE –IL-2) ','SE – IL - FIN – 25 ','Rural and Micro Finance  ','RMF ','2019','1','4'),
+('403 HR ','SC – HRM – 05 ','Organizational Diagnosis & Dev.  ','ODD ','2019','1','4'),
+('404 HR ','SC – HRM – 06 ','Current Trends & Cases in HRM ','CT & C HRM ','2019','1','4'),
+('409 HR (SE–IL-1) ','SE – IL - HRM - 15 ','Labour Legislation ','LL ','2019','1','4'),
+('414 HR (SE–IL-2) ','SE – IL - HRM - 20 ','Leadership and Succession Planning','LSP ','2019','1','4'),
+('403 OSCM ','SC – OSCM – 05 ','E Supply Chains & Logistics ','ESCL ','2019','1','4'),
+('404 OSCM ','SC – OSCM – 06 ','Industry 4.0 ','I 4.0 ','2019','1','4'),
+('409 OSCM(SE–IL-1) ','SE – IL - OSCM-14 ','Enterprise Resource Planning ','ERP ','2019','1','4'),
+('415 OSCM(SE–IL-2) ','SE –IL –OSCM– 20 ','Strategic Supply Chain Mgt   ','SSCM ','2019','1','4'),
+('403 BA ','SC – BA – 05 ','Economics of Network Industries ','EONI ','2019','1','4'),
+('404 BA ','SC – BA – 06 ','Artificial Intelligence in Business App.  ','AIBA ','2019','1','4'),
+('411 BA (SE–IL-1) ','SE – IL - BA – 15 ','Watson ','WATSON ','2019','1','4'),
+('412 BA (SE–IL-2) ','SE – IL - BA – 16 ','Scala and Spark  ','S&S ','2019','1','4'),
+('SD ','ICS-IV ','Introduction to cyber security - IV ','ICS-IV ','2019','1','4'),
+('SD ','SD-II ','Skill development -II ','SD-II ','2019','1','4');
+====================================================================================================
+insert into iims_tbl_subjects(course_no,subject_code,subject_name,subject_short_name,subject_pattern,course_id,sem_id)values
+('101 ','GC – 01','Managerial Accounting I ','MA','2019','1','1'),
+('101','GC – 01 ','Managerial Accounting ','MA','2024','1','1'),
+('102','GC – 02 ','Organizational Behaviour ','OB','2024','1','1'),
+('103','GC – 03 ','Economic Analysis for Business Decisions ','EABD','2024','1','1'),
+('104',' GC – 04 ','Basics of Marketing','BOM','2024','1','1'),
+('105','GC – 05','Business Analytics ','BA','2024','1','1'),
+('106','GC – 06 ','Decision Science ','DS','2024','1','1'),
+('107','GC-07','Management Fundamentals ','MF','2024','1','1'),
+('108','GC-08','Indian Knowledge System  ','IKS','2024','1','1'),
+('109','GE 01','Business Communication ','BCI','2024','1','1'),
+('114','GE 06','Contemporary Frameworks in Management ','CFM','2024','1','1'),
+('191','SD','Human Rights-I','HR-I','2024','1','1'),
+('192','SD','Introduction to Cyber Security-I','ICS-I','2024','1','1');
+======================================================================================================
+insert into iims_tbl_subjects(course_no,subject_code,subject_name,subject_short_name,subject_pattern,course_id,sem_id)values
+('301','GC – 11','Strategic Management','SM','2024','1','3'),
+('302','GC – 12','Decision Science','DS','2024','1','3'),
+('303','GC – 13','Summer Internship Project','SIP','2024','1','3'),
+('306','GE-UL-13','International Business Economics','IBE','2024','1','3'),
+('308','GE-UL-15','Project Management','PM','2024','1','3'),
+('310','GE-UL-17','Corporate Governance','CG','2024','1','3'),
+('304','SC-03 (MKT/OSCM/H RM/FIN/BA)','Services Marketing/Service Operations Management- II/Strategic Human Resources Management/Advanced Financial Management/Advanced Statistical Methods using R','SC-03','2024','1','3'),
+('305','SC-04 (MKT/OSCM/H RM/FIN/BA)','Sales and Distribution Management /Logistics Management/HR Operations /International Finance /Machine Learning &Cognitive intelligence using Python','SC-04','2024','1','3'),
+('IL-01','SE IL-1 (MKT/OSCM/H RM/FIN/BA)','B2B Marking/ Toyota Production System/Talent Management System/ Behavioral Finance/ Social Media Web& Text Analytics ','SE IL-1','2024','1','3'),
+('IL-02','SE IL-2 (MKT/OSCM/H RM/FIN/BA)','Digital Marketing-II/ Operations and Service Strategies/ Mentoring and Coaching / Technical Analysis of Financial Market/ Industrial Internet of Things','SE IL-2','2024','1','3'),
+('IL-03','SE IL-3 (MKT/OSCM/H RM/FIN/BA)','Marketing Analytics/ Six Sigma/ Indirect Tax/ Psychometric Testing and Assessment / E-Commerce Analytics-I','SE IL-3','2024','1','3'),
+('','SD','Introduction to Cyber security-III','ICS-III','2024','1','3'),
+('','SD','Skill Development –I','SD-I','2024','1','3'),
+('','SD','Introduction to constitution ','IC-I','2024','1','3'),
+('','LL','   Language Lab','LL','2024','1','3');
+============================================================================================================
+05/10/2024
+CREATE TABLE `iims_db`.`iims_tbl_pattern` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `pattern` VARCHAR(45) NULL,
+  `iims_tbl_patterncol` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ================================================================================================
+  insert into iims_tbl_pattern(pattern)values(2019),(2020),(2024)
+  =================================================================================================
+  08/10/2024
+  CREATE TABLE `iims_db`.`iims_tbl_study_content` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(500) NULL,
+  `course_id` INT NULL,
+  `pattern_id` INT NULL,
+  `sem_id` INT NULL,
+  `subject_id` INT NULL,
+  `chapter_id` VARCHAR(45) NULL,
+  `content_type_id` VARCHAR(45) NULL,
+  `content_link1` VARCHAR(500) NULL,
+  `content_link2` VARCHAR(500) NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_userid` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ===============================================================================================
+  09_10_2024
+
+  ALTER TABLE `iims_db`.`lms_tbl_contents` 
+ADD COLUMN `content_link2` VARCHAR(1000) NULL AFTER `content_link1`,
+CHANGE COLUMN `course_id` `title` VARCHAR(500) NULL DEFAULT NULL ,
+CHANGE COLUMN `ay_id` `course_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `sem_id` `pattern_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `sub_id` `sem_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `title` `subject_id` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `topic` `chapter` VARCHAR(50) NULL DEFAULT NULL ,
+CHANGE COLUMN `content` `content_type` VARCHAR(50) NULL DEFAULT NULL ,
+CHANGE COLUMN `link` `content_link1` VARCHAR(1000) NULL DEFAULT NULL , RENAME TO  `iims_db`.`iims_tbl_lms_contents` ;
+=====================================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_lms_contents` 
+DROP COLUMN `type_id`,
+CHANGE COLUMN `title` `content_title` VARCHAR(500) NULL DEFAULT NULL ;
+=============================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_lms_contents` 
+ADD COLUMN `created_datetime` DATETIME NULL AFTER `content_link2`,
+ADD COLUMN `created_by_userid` INT NULL AFTER `created_datetime`;
+===========================================================================================================
+ALTER TABLE `iims_db`.`iims_tbl_mcq_questions` 
+CHANGE COLUMN `question` `question` LONGTEXT NULL DEFAULT NULL ;
+=====================================================================================================
+16_10_2024
+CREATE TABLE `iims_db`.`iims_tbl_mcq_question_mapping` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `mcq_id` INT NULL,
+  `mcq_question_set` VARCHAR(200) NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_userid` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ==================================================================================
+  07_11_2024
+
+  CREATE TABLE `iims_db`.`iims_mcq_transaction_summary` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `mcq_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `sceduled_no_of_questions` INT NULL DEFAULT NULL,
+  `given_questions` INT NULL DEFAULT NULL,
+  `scheduled_total_marks` INT NULL DEFAULT NULL,
+  `given_total_marks` INT NULL DEFAULT NULL,
+  `marks_for_each_question` DOUBLE NULL DEFAULT NULL,
+  `negative_marks_for_each_question` DOUBLE NULL DEFAULT NULL,
+  `not_attempted_questions` INT NULL DEFAULT NULL,
+  `marked_as_review_questions` INT NULL DEFAULT NULL,
+  `attempted_questions` INT NULL DEFAULT NULL,
+  `no_of_correct_answers` INT NULL DEFAULT NULL,
+  `no_of_incorrect_answers` INT NULL DEFAULT NULL,
+  `total_marks_for_correct_answer` DOUBLE NULL DEFAULT NULL,
+  `total_negative_marks` DOUBLE NULL DEFAULT NULL,
+  `created_datetime` DATETIME NULL DEFAULT NULL,
+  `created_by_userid` INT NULL DEFAULT NULL,
+  `final_scored_marks` DOUBLE NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+
+  ALTER TABLE `iims_db`.`iims_mcq_transaction_summary` 
+RENAME TO  `iims_db`.`iims_tbl_mcq_transaction_summary` ;
+======================================================================================
+CREATE TABLE `iims_db`.`iims_tbl_mcq_transactions` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `mcq_summary_id` INT NULL,
+  `question_id` INT NULL,
+  `status` INT NULL,
+  `correct_answer` INT NULL,
+  `selected_answer` INT NULL,
+  `answer_status` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ====================================================================================
+  13_11_2024
+
+  CREATE TABLE `iims_db`.`iims_tbl_subject_allocation` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `ay_id` INT NULL,
+  `course_id` INT NULL,
+  `pattern_id` INT NULL,
+  `sem_id` INT NULL,
+  `subject_id` INT NULL,
+  `faculty_id` INT NULL,
+  `created_datetime` DATETIME NULL,
+  `created_by_userid` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  =================================================================================
+  18_11_2024
+  CREATE TABLE `iims_db`.`iims_tbl_result_analysis_practical_marks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `practical_int_marks` INT NULL,
+  `practical_int_marks_out_of` INT NULL,
+  `practical_ext_marks` INT NULL,
+  `practical_ext_marks_out_of` INT NULL,
+  PRIMARY KEY (`id`));
+  ================================================================
+  CREATE TABLE `iims_db`.`iims_tbl_result_analysis_open_course_marks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `open_course_marks` INT NULL DEFAULT NULL,
+  `open_course_marks_out_of` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+  =============================================================
+  CREATE TABLE `iims_db`.`iims_tbl_result_analysis_mini_project_marks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `mini_project_int_marks` INT NULL DEFAULT NULL,
+  `mini_project_int_marks_out_of` INT NULL DEFAULT NULL,
+  `mini_project_ext_marks` INT NULL DEFAULT NULL,
+  `mini_project_ext_marks_out_of` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+  =======================================
+  CREATE TABLE `iims_db`.`iims_tbl_result_analysis_major_project_marks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `major_project_int_marks` INT NULL DEFAULT NULL,
+  `major_project_int_marks_out_of` INT NULL DEFAULT NULL,
+  `major_project_ext_marks` INT NULL DEFAULT NULL,
+  `major_project_ext_marks_out_of` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+  ====================================
+  CREATE TABLE `iims_db`.`iims_tbl_result_analysis_soft_skills_marks` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `sem_id` INT NOT NULL,
+  `ay_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
+  `pattern` INT NOT NULL,
+  `soft_skills_marks` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`));
+  ==============================
+  ALTER TABLE `iims_db`.`iims_tbl_result_analysis_soft_skills_marks` 
+ADD COLUMN `soft_skills_marks_out_of` INT NULL AFTER `soft_skills_marks`;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_student_marks` 
+CHANGE COLUMN `sub_id` `subject_id` INT NOT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_analysis_open_course_marks` 
+CHANGE COLUMN `open_course_marks` `int_marks` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_analysis_practical_marks` 
+CHANGE COLUMN `practical_int_marks` `int_marks` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `practical_ext_marks` `ext_marks` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_analysis_mini_project_marks` 
+CHANGE COLUMN `mini_project_int_marks` `int_marks` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `mini_project_ext_marks` `ext_marks` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_analysis_major_project_marks` 
+CHANGE COLUMN `major_project_int_marks` `int_marks` INT NULL DEFAULT NULL ,
+CHANGE COLUMN `major_project_ext_marks` `ext_marks` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_analysis_soft_skills_marks` 
+CHANGE COLUMN `soft_skills_marks` `int_marks` INT NULL DEFAULT NULL ;
+
+ALTER TABLE `iims_db`.`iims_tbl_result_student_marks` 
+CHANGE COLUMN `marks_ext` `ext_marks` INT NOT NULL ;
+
+
+ALTER TABLE `iims_db`.`iims_tbl_result_student_marks` 
+CHANGE COLUMN `sgpa` `sgpa` VARCHAR(50) NULL ;
+=======================================================
+ALTER TABLE `iims_db`.`iims_tbl_subject_allocation` 
+ADD COLUMN `div_id` INT NULL DEFAULT NULL AFTER `created_by_userid`;
+=====================================================================
+CREATE TABLE `iims_db`.`iims_tbl_feedback_teacher_summary` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `ay_id` INT NULL DEFAULT NULL,
+  `course_id` INT NULL DEFAULT NULL,
+  `pattern_id` INT NULL DEFAULT NULL,
+  `sem_id` INT NULL DEFAULT NULL,
+  `div_id` INT NULL DEFAULT NULL,
+  `submited_datetime` DATETIME NULL DEFAULT NULL,
+  `submitted_by_userid` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+  ==================================================================
+  ALTER TABLE `iims_db`.`iims_tbl_feedback_transaction` 
+ADD COLUMN `teacher_feedback_summary_id` INT NULL DEFAULT NULL AFTER `subject_id`;
+==============================================================================
+11_12_24
+ALTER TABLE `iims_db`.`iims_tbl_feedback` 
+ADD COLUMN `is_active` TINYINT NULL DEFAULT NULL AFTER `created_by_userid`;
+===================================================================================

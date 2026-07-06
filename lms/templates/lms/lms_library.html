@@ -1,0 +1,259 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <style>
+        .part{
+          padding-top:90px;
+        }
+        .cards-list {
+            z-index: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: auto;
+            margin-top: 2%;
+            }
+
+        .card {
+            margin: 30px auto;
+            width: 155px;
+            height: 120px;
+            border-radius: 35px;
+            box-shadow: 5px 5px 30px 7px rgba(86, 7, 151, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            transition: 0.4s;
+            }
+
+        .card .card_image {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            }
+
+        .card .card_image img {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            object-fit: cover;
+            }
+
+        .card .card_title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+            height: 40px;
+            }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 5px 5px 30px 15px rgba(92, 215, 249, 0.25), 
+                -5px -5px 30px 15px rgba(0,0,0,0.22);
+            }
+
+        .title-white {
+            color: white;
+            }
+
+        .title-black {
+            color: black;
+            }
+
+            @media all and (max-width: 500px) {
+        .card-list {
+                /* On small screens, we are no longer using row direction but column */
+                flex-direction: column;
+            }
+            }
+    </style>
+
+{% endblock %}
+
+
+{% block content%}
+
+
+
+<div class="part">
+  <center>   <h2 style="color:rgb(40, 1, 77) ; font-size: 25px; font-weight: 800;">  IIMS library </h2> </center> 
+  <div class="cards-list">
+  
+      <div class="card 1">
+      <a href="https://delnet.in/">
+        <div class="card_image"> 
+        
+          <img src="/static/images/lms/delnetpic.png" /> 
+        </div> 
+        <div class="card_title title-white">
+        
+
+           <h3 style="color: rgb(69, 3, 107);"> DELNET </h3>
+          <h5 style="color: rgba(69, 3, 107);"> mhyesiims </h5> 
+          <h5 style="color: rgba(69, 3, 107);"> Password: yes6531  </h5> 
+        </div> </a>
+      </div>
+      
+        <div class="card 2">
+        <a href="https://www.jgatenext.com/" target="_blank">
+        <div class="card_image">
+          <img src="/static/images/lms/J-GATE.png" />
+          </div>
+        <div class="card_title title-white">
+          <h3 style="color: rgb(69, 3, 107)"> J-GATE</h3>
+          <h5 style="color: rgba(69, 3, 107);">Login:yashuser    </h> 
+          <h5 style="color: rgba(69, 3, 107);"> Password:Jgate3@2024</h5>
+        </div></a>
+      </div>
+      
+      <div class="card 3">
+      <a href="https://ess.inflibnet.ac.in/" target="_blank">
+        <div class="card_image">
+          <img src="/static/images/lms/SHODHSINDHU.jpg" />
+        </div>
+        <div class="card_title">
+          <h4 style="color: rgb(69, 3, 107);"> SHODHSINDHU </h4>
+          <h5 style="color: rgba(69, 3, 107);">Login:library@iims.ac.in</h5>
+          <h5 style="color: rgba(69, 3, 107);">Password:Yashaswi@123</h5>
+        </div></a>
+      </div>
+        
+        <div class="card 4">
+        <a href="https://www.ndl.gov.in/">
+        <div class="card_image">
+          <img src="/static/images/lms/ndli.jpg" />
+          </div>
+        <div class="card_title title-black">
+          <h3 style="color: rgb(69, 3, 107);">NDLI </h3>
+        </div> </a>
+        </div>
+
+        <div class="card 5">
+        <a href="https://doabooks.org/">
+          <div class="card_image">
+            <img src="/static/images/lms/doabpicture.jpg" />
+            </div>
+          <div class="card_title title-black">
+            <h3 style="color: rgb(69, 3, 107);">DOAB</h3>
+          </div></a>
+        </div>
+      
+         <div class="card 6">
+        <a href="https://shodhganga.inflibnet.ac.in/">
+          <div class="card_image">
+            <img src="/static/images/lms/Shodhganga.jpg" />
+            </div>
+          <div class="card_title title-black">
+            <h4 style="color: rgb(69, 3, 107);"> SHODHGANGA</h4>
+          </div></a>
+        </div>
+       
+    </div>
+  </div>
+
+<div class="part" style="margin-top: 2%;">
+  
+    <div class="cards-list" >
+        <div class="card 1">
+        <a href="https://doaj.org/">
+          <div class="card_image">
+            <img src="/static/images/lms/DOAJIPIC.jpg" />
+            </div>
+          <div class="card_title title-black">
+          
+            <h3 style="color: rgb(69, 3, 107);"> DOAJ</h3>
+          </div></a>
+        </div>
+        <div class="card 2">
+            <a href="https://epgp.inflibnet.ac.in/">
+              <div class="card_image">
+                <img src="/static/images/lms/PATHSHALA.jpg" />
+                </div>
+              <div class="card_title title-black">
+              
+                <h3 style="color: rgb(69, 3, 107);">E-PG PATHSHALA</h3>
+              </div></a>
+        </div>
+          <div class="card 3"> 
+            <a href="https://www.grammarly.com/">
+              <div class="card_image">
+                <img src="/static/images/lms/gram.jpg" />
+                </div>
+              <div class="card_title title-black">
+              
+                <h3 style="color: rgb(69, 3, 107);">GRAMMARLY</h3>
+              </div></a>
+          </div>
+          <div class="card 4"> 
+              <a href="https://openlibrary.org/">
+                <div class="card_image">
+                  <img src="/static/images/lms/open-library.jpg" />
+                  </div>
+                <div class="card_title title-black">
+                
+                  <h3 style="color: rgb(69, 3, 107);">OPEN LIBRARY</h3>
+                </div></a>
+          </div>
+           <div class="card 5">
+            <a href="https://www.esahity.com/">
+          <div class="card_image">
+            <img src="/static/images/lms/sahitye.jpg" />
+            </div>
+          <div class="card_title title-black">
+          <br>
+          <h3 style="color: rgb(69, 3, 107);">E-SAHITYA</h3>
+          </div></a>
+           </div>
+            <div class="card 6">
+            <a href="https://swayam.gov.in//">
+          <div class="card_image">
+            <img src="/static/images/lms/Swayam.png" />
+            </div>
+          <div class="card_title title-black">
+            <h3 style="color: rgb(69, 3, 107);">SWAYAM</h3>
+          </div></a>
+           </div>
+
+           
+        
+          </div>  
+</div>  
+
+<div class="part" style="">
+
+    <div class="cards-list">
+        <div class="card 3">
+        <a href="http://192.168.1.235/autolibwebopac/">
+          <div class="card_image">
+            <img src="/static/images/lms/opac2.png" />
+            </div>
+          <div class="card_title title-black">
+          
+            <h3 style="color: rgb(69, 3, 107);"> OPAC</h3>
+          </div></a>
+        </div>
+        </div>
+</div>
+   
+{% endblock %}
+
+{% block javascript%}
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+document.getElementById('page_heading').innerText=" ";
+
+});
+</script>
+{% endblock %}
+

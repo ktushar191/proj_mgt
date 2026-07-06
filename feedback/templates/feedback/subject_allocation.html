@@ -1,0 +1,360 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+.details-name {
+    padding: 0 0 0,0;
+    margin: 0 auto;
+    width: 99%;
+    border-radius: 20px;
+    -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 6px 1px #adadadc9;
+    background-color: blue;
+}
+</style>
+   <link rel="stylesheet" href="{% static 'result_analysis/css/add_mark.css' %}"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+
+{%endblock%}
+
+{% block content %}
+<section id="step1" >
+  <div class="formbold-main-wrapper">
+  <div class="formbold-form-wrapper p-lg-5 col-md-10">
+      <form class="steps col-xxl-12" onsubmit="return form_submit(event);" id="subject_allocation" name="subject_allocation" action="." method="post" enctype="multipart/form-data">
+          <input type="hidden" id="current_allocation_list" name="current_allocation_list" value="" />
+         
+
+          {% csrf_token %}
+          <div class="formbold-steps">
+              <div class=" HeadingDiv text-white">  Subject Allocation </div>
+          </div>
+        
+            <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+              <div class="col-md-6">
+                <label>Select Academic Year</label>
+                <select id="ayear" name="ayear" class="custom-select" style="width:85%;display:flex;font-size:14px">
+                    <option  value="">Select Academic year</option>
+                    {% for item in ayear_data %}
+                        <option value="{{item.id}}">{{item.ayear}}</option>
+                    {%endfor%}
+                </select>
+              </div>
+               <div class="col-md-6">
+                  <label>Select Course</label>
+                  <select id="course-select" name="course-select" class="custom-select" style="width:85%;display:flex;font-size:14px;">
+                      <option  value="">Select Course</option>
+                      {% for item in course_details %}
+                          <option value="{{item.id}}">{{item.course_name}}</option>
+                      {%endfor%}   
+                  </select>
+                </div>
+            </div>        
+
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+                <div class="col-md-6">
+                  <label>Select Pattern</label>
+                  <select id="pattern" name="pattern" class="custom-select" style="width:85%;display:flex;font-size:14px">
+                      <option  value="">Select Pattern</option>
+                           {% for item in pattern_details %}
+                          <option value="{{item.id}}">{{item.pattern}}</option>
+                      {%endfor%}  
+                  </select>
+                </div>
+
+              <div class="col-md-6">
+                <label>Select Semester</label>
+                <select id="sem" name="sem" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="fill_subjects();">
+                    <option  value="">Select Semester</option>
+                    {% for item in semester_details %}
+                        <option value="{{item.id}}">{{item.semester_name}}</option>
+                    {%endfor%}
+                    
+                </select>
+              </div>
+          </div>
+    
+        
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+              <div class="col-md-6">
+                <label>Select Subject</label>
+                <select id="subject" name="subject" class="custom-select" style="width:85%;display:flex;font-size:14px">
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label>Select Faculty</label>
+                <select id="faculty" name="faculty" class="custom-select" style="width:85%;display:flex;font-size:14px">
+                    <option  value="">Select Faculty</option>
+                    {% for item in faculty_details %}
+                        <option value="{{item.user_id}}">{{item.first_name}} {{item.last_name}}</option>
+                    {%endfor%}
+                </select>
+              </div>
+          </div>
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+            <div class="col-md-6">
+                <label>Select Division</label>
+                <select id="division" name="division" class="custom-select" style="width:85%;display:flex;font-size:14px">
+                    <option  value="">Select Division</option>
+                    {% for item in division_data %}
+                        <option value="{{item.id}}">{{item.div_name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+         </div>
+             
+          <div class="formbold-input-flex col-md-6" style="margin-top: 15px; margin-left:40%">
+                <div class="wm-plan-button-typo">
+                    <button id="btn_add" name="btn_add" style="width: 200px;height:50px;font-size:20px;padding: 0;" type="button" class="wm-tweet-us"  onclick="update_record();">Add</button>
+                </div>
+          </div>
+
+          <div class="table-wrapper">
+                <table class="content-table" id="allocation_table">
+                  <thead>
+                    <tr id="tableHeader">
+                      <th class="col-md-1">Sr. No.</th>
+                      <th class="col-md-1">A.Y</th>
+                      <th class="col-md-1">Course</th>
+                      <th class="col-md-1">Pattern</th>
+                      <th class="col-md-1">Semester</th>
+                      <th class="col-md-1">Division</th>
+                      <th class="col-md-4">Subject</th>
+                      <th class="col-md-3">Faculty</th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody id="allocation_row">
+                  
+                  </tbody>
+                  
+                </table>
+          </div>
+          
+          <div class="formbold-input-flex col-md-6" style="margin-top: 15px;margin-left:40%">
+              <div class="wm-plan-button-typo">
+                  <button id="btn_save" name="btn_save" style="width: 200px;height:50px;font-size:20px;padding: 0;" type="button" class="wm-tweet-us"  onclick="save_allocation();">Save</button>
+              </div>
+          </div>
+      </form>
+      </div>
+  </div>
+</section>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript">
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+var current_allocation=[];
+
+
+
+var form_valid=false;
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    form_valid=true;
+    return form_valid;
+}
+function save_allocation()
+{
+    $('#current_allocation_list').val(JSON.stringify(current_allocation));
+    $('#subject_allocation').submit();
+}
+
+
+function fill_subjects()
+{
+$.ajax({
+        
+        url: "/mcqexams/get_all_subjects_by_course_sem_pattern/",
+        method: 'POST',
+        data :{ 
+            'course_id': $('#course-select').val(),
+            'pattern': $('#pattern').val(),
+            'sem_id': $('#sem').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#subject').html('<option value="">Select Subject</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.subject_name + '</option>';
+            }).join('');
+            $('#subject').html(html);
+            }
+            else
+            {
+                
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+}
+function update_record()
+{
+
+  var current_selected_record={};
+  var ay_id=$('#ayear').val();
+  var ayear=$('#ayear option:selected').text();
+  var course_id=$('#course-select').val();
+  var course=$('#course-select option:selected').text();
+  var pattern_id=$('#pattern').val();
+  var pattern=$('#pattern option:selected').text();
+  var sem_id=$('#sem').val();
+  var sem=$('#sem option:selected').text();
+  var subject_id=$('#subject').val();
+  var subject=$('#subject option:selected').text();
+  var faculty_id=$('#faculty').val();
+  var faculty=$('#faculty option:selected').text();
+  var division_id=$('#division').val();
+  var division=$('#division option:selected').text();
+  current_selected_record["ay_id"]=ay_id;
+  current_selected_record["ayear"]=ayear;
+  current_selected_record["course_id"]=course_id;
+  current_selected_record["course"]=course;
+  current_selected_record["pattern_id"]=pattern_id;
+  current_selected_record["pattern"]=pattern;
+  current_selected_record["sem_id"]=sem_id;
+  current_selected_record["sem"]=sem;
+  current_selected_record["subject_id"]=subject_id;
+  current_selected_record["subject"]=subject;
+  current_selected_record["faculty_id"]=faculty_id;
+  current_selected_record["faculty"]=faculty;
+  current_selected_record["division_id"]=division_id;
+  current_selected_record["division"]=division;
+  current_allocation.push(current_selected_record);
+  insRow();
+}
+
+function insRow()
+{
+  clearTable();
+  for(var i=0;i<current_allocation.length;i++)
+  {
+    var x=document.getElementById('allocation_table').insertRow(1);
+    x.style.backgroundColor="White";
+    var c1=x.insertCell(0);
+    var c2=x.insertCell(1);
+    var c3=x.insertCell(2);
+    var c4=x.insertCell(3);
+    var c5=x.insertCell(4);
+    var c6=x.insertCell(5);
+    var c7=x.insertCell(6);
+    var c8=x.insertCell(7);
+    
+
+    c1.innerHTML=i+1;
+    c2.innerHTML=current_allocation[i]["ayear"];
+    c3.innerHTML=current_allocation[i]["course"];
+    c4.innerHTML=current_allocation[i]["pattern"];
+    c5.innerHTML=current_allocation[i]["sem"];
+    c6.innerHTML=current_allocation[i]["division"];
+    c7.innerHTML=current_allocation[i]["subject"];
+    c8.innerHTML=current_allocation[i]["faculty"];
+   
+  }
+}
+ function clearTable() {
+   var tableHeaderRowCount = 1;
+    var table = document.getElementById('allocation_table');
+    var rowCount = table.rows.length;
+    for (var i = tableHeaderRowCount; i < rowCount; i++) {
+        table.deleteRow(tableHeaderRowCount);
+    }
+  }
+
+</script>
+
+{%endblock%}

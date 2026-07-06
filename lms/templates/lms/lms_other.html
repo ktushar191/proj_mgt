@@ -1,0 +1,216 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <style>
+        .part{
+          padding-top:90px;
+        }
+        .cards-list {
+            z-index: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: auto;
+            }
+
+        .card {
+            margin: 30px auto;
+            width: 120px;
+            height: 120px;
+            border-radius: 35px;
+            box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            transition: 0.4s;
+            }
+
+        .card .card_image {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            }
+
+        .card .card_image img {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            object-fit: cover;
+            }
+
+        .card .card_title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+            height: 40px;
+            }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 5px 5px 30px 15px rgba(92, 215, 249, 0.25), 
+                -5px -5px 30px 15px rgba(0,0,0,0.22);
+            }
+
+        .title-white {
+            color: white;
+            }
+
+        .title-black {
+            color: black;
+            }
+
+            @media all and (max-width: 500px) {
+        .card-list {
+                /* On small screens, we are no longer using row direction but column */
+                flex-direction: column;
+            }
+            }
+    </style>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block content%}
+<div class="part">
+  <h2>Online Certification :</h2>
+  <div class="cards-list">
+
+      <div class="card 1">
+        <div class="card_image">
+          <a href="https://nptel.ac.in/">
+          <img src="/static/images/lms/NPTEL.jpeg" /></a>
+        </div>
+        <div class="card_title title-white">
+          <p>NPTEL Certifications</p>
+        </div>
+      </div>
+      
+        <div class="card 2">
+        <div class="card_image">
+          <a href="https://swayam.gov.in/">
+          <img src="/static/images/lms/Swayam.png" /></a>
+          </div>
+        <div class="card_title title-white">
+          <p>Swayam  Courses</p>
+        </div>
+      </div>
+      
+      <div class="card 3">
+        <div class="card_image">
+          <a href="https://infyspringboard.onwingspan.com">
+          <img src="/static/images/lms/Springboard.png" /></a>
+        </div>
+        <div class="card_title">
+          <p>Infosys Springboard</p>
+        </div>
+      </div>
+        
+        <div class="card 4">
+          <div class="card_image">
+            <a href="https://skillsforall.com/">
+            <img src="/static/images/lms/Cisco.jpeg"/></a>
+            </div>
+          <div class="card_title title-black">
+            <p>Cisco Skills For All</p>
+          </div>
+        </div>
+
+        <div class="card 5">
+            <div class="card_image">
+              <a href="https://cognitiveclass.ai/">
+              <img src="/static/images/lms/CognativeClasses.png" /></a>
+              </div>
+            <div class="card_title title-black">
+              <p>Cognitive Classes</p>
+            </div>
+        </div>      
+      </div>
+</div>
+
+
+
+
+
+
+<div class="part">
+<h2>Aptitude & Reasoning :</h2>
+<div class="cards-list">
+  
+    <div class="card 1">
+      <div class="card_image"> 
+        <img src="/static/images/lms/Apti.jpeg" /> 
+      </div>
+      <div class="card_title title-white">
+        <p>Quantitative Aptitude</p>
+      </div>
+    </div>
+    
+      <div class="card 2">
+      <div class="card_image">
+        <img src="/static/images/lms/Verbal Reasoning.png" />
+        </div>
+      <div class="card_title title-white">
+        <p>Verbal Reasoning</p>
+      </div>
+    </div>
+    
+    <div class="card 3">
+      <div class="card_image">
+        <img src="/static/images/lms/Logical.jpeg" />
+      </div>
+      <div class="card_title">
+        <p>Non-Verbal Reasoning</p>
+      </div>
+    </div>
+      
+      <div class="card 4">
+      <div class="card_image">
+        <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" />
+        </div>
+      <div class="card_title title-black">
+        <p>Card Title</p>
+      </div>
+      </div>
+
+      <div class="card 5">
+        <div class="card_image">
+          <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" />
+          </div>
+        <div class="card_title title-black">
+          <p>Card Title</p>
+        </div>
+        </div>
+    
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block javascript%}
+
+
+{% endblock %}
+

@@ -1,0 +1,681 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.rdo1{
+        padding-left: 10px!important;
+        font-size: 16px;
+        color: darkslategray;
+    }
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+.details-name {
+    padding: 0 0 0,0;
+    margin: 0 auto;
+    width: 99%;
+    border-radius: 20px;
+    -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 6px 1px #adadadc9;
+    background-color: blue;
+}
+.rdo{
+        margin-top:0;clear:both; margin-left:60px;margin-bottom:20px;
+       }
+    .que{
+        font-size:20px;color:black;margin-bottom:0;
+    }
+    .spanimage{
+        background-image: url('/static/images/feedback/c9.jpg');
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        margin-right: 0.5rem;
+        background-size: contain;
+        background-repeat: no-repeat;
+        margin-top: 10px;
+    }
+</style>
+  <link rel="stylesheet" href="{% static 'result_analysis/css/add_mark.css' %}"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  
+
+
+{%endblock%}
+
+{% block content %}
+<section id="step1" >
+  <div class="formbold-main-wrapper">
+  <div class="formbold-form-wrapper p-lg-5 col-md-10">
+      <form class="steps col-xxl-12" onsubmit="return form_submit(event);" id="submit_feedback_teacher" name="submit_feedback_teacher" action="." method="post" enctype="multipart/form-data">
+          <input type="hidden" id="teacher_feedback_list" name="teacher_feedback_list" value="" />
+          <input type="hidden" id="feedback_id" name="feedback_id" value="{{feedback_id}}" />
+          <input type="hidden" id="feedback_for" name="feedback_for" value="{{feedback_for}}" />
+          
+          {% csrf_token %}
+          <div class="formbold-steps">
+              <div class=" HeadingDiv text-white">  Submit Feedback for Teacher </div>
+          </div>
+        
+            <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+              <div class="col-md-6">
+                <label>Select Academic Year</label>
+                <select id="ayear" name="ayear" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="ay_changed();">
+                    <option  value="">Select Academic year</option>
+                    {% for item in ayear_data %}
+                        <option value="{{item.id}}">{{item.ayear}}</option>
+                    {%endfor%}
+                </select>
+              </div>
+               <div class="col-md-6">
+                  <label>Select Course</label>
+                  <select id="course-select" name="course-select" class="custom-select" style="width:85%;display:flex;font-size:14px;" onchange="course_changed();">
+                      <option  value="">Select Course</option>
+                      {% for item in course_details %}
+                          <option value="{{item.id}}">{{item.course_name}}</option>
+                      {%endfor%}   
+                  </select>
+                </div>
+            </div>        
+
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+                <div class="col-md-6">
+                  <label>Select Pattern</label>
+                  <select id="pattern" name="pattern" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="pattern_changed();">
+                      <option  value="">Select Pattern</option>
+                           {% for item in pattern_details %}
+                          <option value="{{item.id}}">{{item.pattern}}</option>
+                      {%endfor%}  
+                  </select>
+                </div>
+
+              <div class="col-md-6">
+                <label>Select Semester</label>
+                <select id="sem" name="sem" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="semester_changed();">
+                    <option  value="">Select Semester</option>
+                    {% for item in semester_details %}
+                        <option value="{{item.id}}">{{item.semester_name}}</option>
+                    {%endfor%}
+                    
+                </select>
+              </div>
+          </div>
+    
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+            <div class="col-md-6">
+                <label>Select Division</label>
+                <select id="division" name="division" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="division_changed();fill_subjects();">
+                    <option  value="">Select Division</option>
+                    {% for item in division_data %}
+                        <option value="{{item.id}}">{{item.div_name}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>Select Subject</label>
+                <select id="subject" name="subject" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="set_faculty();">
+                </select>
+              </div>
+         </div>
+
+          <div class="formbold-input-flex" style="margin-top: 15px;margin-left:5%;">
+              
+              <div class="col-md-6">
+                <label>Select Faculty</label>
+                <select id="faculty" name="faculty" class="custom-select" style="width:85%;display:flex;font-size:14px" onchange="faculty_changed();">
+                    <option  value="">Select Faculty</option>
+                    {% for item in faculty_details %}
+                        <option value="{{item.user_id}}">{{item.first_name}} {{item.last_name}}</option>
+                    {%endfor%}
+                </select>
+              </div>
+          </div>
+
+          <div id="div_questions" name="div_questions" class="col-md-12" style="margin-left:100px;">
+            
+        </div>  
+                    
+        <div>
+            <span id="error_msg" style="color:red;margin-left:10%;font-size:20px;"></span>
+        </div>
+         
+          <div class="formbold-input-flex col-md-6" style="margin-top: 15px;margin-left:40%">
+              <div class="wm-plan-button-typo">
+                  <button id="btn_save" name="btn_save" style="width: 200px;height:50px;font-size:20px;padding: 0;" type="button" class="wm-tweet-us"  onclick="save_allocation();">Save</button>
+              </div>
+          </div>
+      </form>
+      </div>
+  </div>
+</section>
+<div class="modal fade" id="feedbackcomplete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Congratulation</h5>
+            </div>
+            <div class="modal-body">
+                <p>Congratulations you have successfully submitted Feedback</p>
+            </div>
+            <div class="modal-footer">
+                <a href="/studen/dashboard">Go Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript" src="/static/js/tk/bootstrap.js"></script>
+<script type="text/javascript">
+
+
+
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+var teacher_feedback_list=[];
+var feedback_questions_set={{feedback_questions_set|safe}};
+
+var form_valid=false;
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid();
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid()
+{
+    form_valid=true;
+    return form_valid;
+}
+function save_allocation()
+{
+    if(teacher_feedback_list.length !=0)
+    {
+    var subject_string=check_feedback_status();
+    
+    if(subject_string == "")
+    {
+        $('#teacher_feedback_list').val(JSON.stringify(teacher_feedback_list));
+        $('#submit_feedback_teacher').submit();
+    }
+    else
+    {
+        var error_msg="Please complete feedback for subjects "+subject_string;
+        
+        document.getElementById('error_msg').innerHTML=error_msg;
+        $('#error_msg').show();
+        $('#error_msg').delay(3000).fadeOut();
+
+    }
+    }
+    else
+    {
+        var error_msg="No feedback given";
+        document.getElementById('error_msg').innerHTML=error_msg;
+        $('#error_msg').show();
+        $('#error_msg').delay(3000).fadeOut();
+    }
+
+    
+}
+
+
+function fill_subjects()
+{
+$.ajax({
+        
+        url: "/mcqexams/get_all_subjects_by_course_sem_pattern/",
+        method: 'POST',
+        data :{ 
+            'course_id': $('#course-select').val(),
+            'pattern': $('#pattern').val(),
+            'sem_id': $('#sem').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#subject').html('<option value="">Select Subject</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.subject_name + '</option>';
+            }).join('');
+            $('#subject').html(html);
+            set_faculty();
+            }
+            else
+            {   
+              var s=document.getElementById('subject')
+              s.innerHTML='';
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+    
+}
+function set_faculty()
+{
+  var subject_id=$('#subject').val();
+  get_faculty(subject_id);
+
+}
+function get_faculty(subject_id)
+{
+   
+$.ajax({
+        
+        url: "/feedback/get_faculty_by_course_pattern_sem_sub_div/",
+        method: 'POST',
+        data :{ 
+            'ay_id':$('#ayear').val(),
+            'course_id': $('#course-select').val(),
+            'pattern_id': $('#pattern').val(),
+            'sem_id': $('#sem').val(),
+            'subject_id':subject_id,
+            'div_id':$('#division').val(),
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+            $('#faculty').html('<option value="">Select Faculty</option>')
+            var html = $.map(response.data, function(res){
+                        return '<option value="' + res.id + '">' + res.first_name+' '+res.last_name+ '</option>';
+            }).join('');
+            $('#faculty').html(html);
+            }
+            else
+            {
+                var s=document.getElementById('faculty')
+                s.innerHTML='';
+            }
+            faculty_changed(response.data[0]["faculty_id"]);
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+    })
+}
+
+
+
+function reset_course()
+{
+    $('#course-select').val('');
+}
+function reset_pattern()
+{
+    $('#pattern').val('');
+}
+function reset_semester()
+{
+    $('#sem').val('');
+}
+function reset_subject()
+{
+    $('#subject').val('');
+}
+function reset_division()
+{
+    $('#division').val('');
+}
+function reset_faculty()
+{
+    $('#faculty').val('');
+}
+
+function reset_teacher_feedback_list()
+{
+    teacher_feedback_list=[];
+    
+}
+function ay_changed()
+{
+    reset_course();
+    reset_pattern();
+    reset_semester();
+    reset_subject();
+    reset_division();
+    reset_faculty();
+    reset_teacher_feedback_list();
+}
+function course_changed()
+{
+    reset_pattern();
+    reset_semester();
+    reset_subject();
+    reset_division();
+    reset_faculty();
+    reset_teacher_feedback_list();
+
+}
+function pattern_changed()
+{
+    reset_semester();
+    reset_subject();
+    reset_division();
+    reset_faculty();
+    reset_teacher_feedback_list();
+}
+function semester_changed()
+{   
+    reset_division();
+    reset_subject(); 
+    reset_faculty();
+    reset_teacher_feedback_list();
+        
+}
+function division_changed()
+{    
+    reset_subject(); 
+    reset_faculty();
+    reset_teacher_feedback_list();
+    get_all_faculty_by_course_pattern_sem_div();
+
+    
+}
+function faculty_changed(faculty_id)
+{
+    show_and_hide_div(faculty_id);
+}
+
+
+function get_all_faculty_by_course_pattern_sem_div()
+{
+   var question_set=feedback_questions_set;
+$.ajax({
+        
+        url: "/feedback/get_all_faculty_by_course_pattern_sem_div/",
+        method: 'POST',
+        data :{ 
+            'ay_id':$('#ayear').val(),
+            'course_id': $('#course-select').val(),
+            'pattern_id': $('#pattern').val(),
+            'sem_id': $('#sem').val(),    
+            'div_id': $('#division').val(),   
+            },
+        dataType: 'json',
+        
+        success : function(response,status) {
+            
+            if(response.success)
+            {
+              teacher_feedback_list=response.data;
+              for(var i=0;i<teacher_feedback_list.length;i++)
+              {
+                var faculty_wise_feedback=[];
+                for(var j=0;j<feedback_questions_set.length;j++)
+                {
+                   var answers={
+                     "user_id":teacher_feedback_list[i]["faculty_id"],
+                     "feedback_id":"{{feedback_id}}",
+                     "question_id":feedback_questions_set[j]["id"],
+                     "answer_id":"",
+                     "question_id":feedback_questions_set[j]["id"],
+                     "question":feedback_questions_set[j]["question"],
+                     "param1":feedback_questions_set[j]["param1"],
+                     "param2":feedback_questions_set[j]["param2"],
+                     "param3":feedback_questions_set[j]["param3"],
+                     "param4":feedback_questions_set[j]["param4"],
+                     "param5":feedback_questions_set[j]["param5"],
+                     "param6":feedback_questions_set[j]["param6"],
+                     "param7":feedback_questions_set[j]["param7"],
+                     "param8":feedback_questions_set[j]["param8"],
+                     "param9":feedback_questions_set[j]["param9"],
+                     "param10":feedback_questions_set[j]["param10"],
+                      };
+                      faculty_wise_feedback.push(answers);
+
+                }  
+                teacher_feedback_list[i]['answers']=faculty_wise_feedback;
+              }
+              for (var k=0;k<teacher_feedback_list.length;k++)
+                  {
+                    var teacher_wise_div=document.createElement('div');
+                    teacher_wise_div.id="fac_id_"+teacher_feedback_list[k]["faculty_id"]+"_"+teacher_feedback_list[k]["subject_id"];
+                    var teacher_wise_questions='';
+                    
+                    for (var p=0;p<teacher_feedback_list[k]["answers"].length;p++){
+
+                      var qhtml = '<div><span class="col-md-1 que" style="padding-left: 30px;">Q.'+(p+1)+'</span><span class="col-md-10 que">'+teacher_feedback_list[k]["answers"][p]["question"]+'</span><br>'+
+                                    '<fieldset  class="rdo" id='+teacher_feedback_list[k]["answers"][p]["question_id"]+'>'
+                      if(teacher_feedback_list[k]["answers"][p]["param1"]!='')
+                      {
+                        
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_1" value=1 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param1"]+'</span>'                                           
+                            
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param2"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_2" value=2 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param2"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param3"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_3" value=3 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param3"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param4"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_4" value=4 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param4"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param5"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_5" value=5 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param5"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param6"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_6" value=6 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param6"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param7"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_7" value=7 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param7"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param8"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_8" value=8 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param8"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param9"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_9" value=9 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param9"]+'</span>'
+                      }
+                      if(teacher_feedback_list[k]["answers"][p]["param10"]!='')
+                      {
+                            qhtml+='<input type="radio" class="que" id="'+teacher_feedback_list[k]["faculty_id"]+'_'+teacher_feedback_list[k]["subject_id"]+'_'+teacher_feedback_list[k]["answers"][p]["question_id"]+'_10" value=10 name='+teacher_feedback_list[k]["answers"][p]["question_id"]+' style="margin-left: 30px;" onclick=update_ans(this);><span class="rdo1">'+teacher_feedback_list[k]["answers"][p]["param10"]+'</span>'
+                      }
+                        qhtml+='</fieldset></div>';        
+                                
+                      teacher_wise_questions+=qhtml;
+                     
+                    }
+                    teacher_wise_div.innerHTML=teacher_wise_questions;
+                    $('#div_questions').append(teacher_wise_div);
+                  }
+                  
+            }
+            else
+            {
+               teacher_feedback_list[i]['answers']='';
+            }
+            
+        },
+        error: function (response) {
+            console.log('Something went wrong, please refresh the page.');
+        }
+        
+
+    })
+}
+
+function show_and_hide_div(faculty_id)
+{
+    var ay_id=$('#ayear').val();
+    var course_id=$('#course-select').val();
+    var pattern_id=$('#pattern').val();
+    var sem_id=$('#sem').val();
+    var div_id=$('#division').val();
+    var subject_id=$('#subject').val();
+    var faculty_id=faculty_id;
+    if(teacher_feedback_list.length>0)
+    {
+        
+            for(var f=0;f<teacher_feedback_list.length;f++)
+            {
+            if(teacher_feedback_list[f]["ay_id"]==ay_id && teacher_feedback_list[f]["course_id"]==course_id && 
+            teacher_feedback_list[f]["pattern_id"]==pattern_id && teacher_feedback_list[f]["sem_id"]==sem_id && teacher_feedback_list[f]["div_id"]==div_id &&
+            teacher_feedback_list[f]["subject_id"]==subject_id && teacher_feedback_list[f]["faculty_id"]==faculty_id)
+            {
+                $('#fac_id_'+teacher_feedback_list[f]["faculty_id"]+"_"+teacher_feedback_list[f]["subject_id"]).show();
+
+                for(var op=0;op<teacher_feedback_list[f]["answers"].length;op++)
+                {
+                if(teacher_feedback_list[f]["answers"][op]["answer_id"] !='')
+                {
+
+                    $("#"+teacher_feedback_list[f]["faculty_id"]+'_'+teacher_feedback_list[f]["subject_id"]+'_'+teacher_feedback_list[f]["answers"][op]["question_id"]+'_'+teacher_feedback_list[f]["answers"][op]["answer_id"]).prop("checked", true);
+                }
+                }
+
+
+            }
+            else
+            {
+                $('#fac_id_'+teacher_feedback_list[f]["faculty_id"]+'_'+teacher_feedback_list[f]["subject_id"]).hide();
+            }
+            
+            }
+        
+    }
+    else
+    {
+        document.getElementById('div_questions').innerHTML="";
+    }
+   
+}
+function update_ans(obj)
+{
+    console.log(obj);
+    let id=obj.id;
+    let str_array=id.split("_");
+    console.log(str_array);
+    var faculty_id=str_array[0];
+    var subject_id=str_array[1]
+    var question_id=str_array[2];
+    var value=obj.value;
+    var item = teacher_feedback_list.find(item => item.faculty_id === parseInt(faculty_id)&&item.subject_id === parseInt(subject_id));
+    var question_item=item["answers"].find(item1=> item1.question_id === parseInt(question_id));
+    question_item["answer_id"]=value;
+
+ 
+}
+
+function check_feedback_status()
+{
+    var sub_str=""
+    for(var ch=0;ch<teacher_feedback_list.length;ch++)
+    {
+        for(var ans=0;ans<teacher_feedback_list[ch]["answers"].length;ans++)
+        {
+            if(teacher_feedback_list[ch]["answers"][ans]["answer_id"]=='')
+            {
+                sub_str+=teacher_feedback_list[ch]["subject_name"]+" ,"
+                break;
+            }
+        }
+    }
+    if(sub_str!='')
+    {
+        sub_str = sub_str.replace(/,\s*$/, "");
+    }
+    return sub_str;
+    
+}
+$(document).ready(function () {
+//$('#feedbackcomplete').modal('show');
+});
+
+</script>
+
+
+{%endblock%}

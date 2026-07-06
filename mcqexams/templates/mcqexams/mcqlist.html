@@ -1,0 +1,183 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+{%endblock%}
+
+{% block content %}
+<div class="listMain">
+    <div class="row mrgn-zero" style="padding-left:10px;">
+        <div class="col-sm-4">
+            <h3>Student List</h3>
+        </div>
+       
+    </div>
+    <div class="selectfilter">
+        <table width="100%" >
+            <tr>
+                <td style="width:100px;border: 0px solid #dddd; padding-left:10px;">
+                    <input type="text" id="exampleForm2" class="form-control" placeholder="Search by Students name">
+                </td>
+               
+                <td style="width:50px;border: 0px solid #dddd; padding-left:10px;">
+                    <select class="browser-default custom-select">
+                      <option selected>Academic Year</option>
+                      <option value="1">2021-2022</option>
+                      <option value="2">2022-2023</option>
+                      <option value="3">2023-2024</option>
+                      <option value="3">2024-2025</option>
+                    </select>
+                </td>
+               
+            </tr>
+        </table>
+    </div>
+    <div class="row customPagi mrgn-zero" style="display: none;">
+        <div class="col-sm-3" style="padding-left: 0px">
+            <div class="memberCount">
+                <span class="limitOne">1</span> to <span class="limitTwo">1</span> of <span class="recordTotal">1</span>
+            </div>
+        </div>
+        <div class="col-sm-9" style="padding-right: 0px">
+
+           <ul class="pagination pagination-square mb-0" style="float:right; padding-right: 10px">
+                <li class="page-item prevArrow pageChange lastArrow disabled"><span><i class="fa fa-angle-left"></i></span></li>
+                <li data-page="" class="page-item firstPage pageChange active"><span>First</span></li>
+                <li data-page="1" class="pageChange page_1 page-item"><a class="page-link selected">1</a></li>
+                <li data-page="2" class="pageChange page_2 page-item"><a class="page-link ">2</a></li>
+                <li class="page-item lastPage pageChange noactive" data-page="34"><a class="page-link">Last</a></li>
+                <li class="page-item nextArrow pageChange" data-page="2"><a class="page-link"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+
+        </div>
+    </div>
+    {% if data.totalcount > 0 %}
+        <div class="card" style="padding-left: 10px;">
+            <div class="card-body" style="padding:0px">
+                <div class="table-responsive">
+                    <table class="table listTable" style="table-layout: fixed;">
+                        <thead class="blue-grey lighten-5 text-uppercase">
+                            <tr class="columnSort">
+                                <th class="text-center" style="width:30px;">
+                                    <a>Sr.</a>
+                                </th>
+                                
+                                <th style="width:150px;">
+                                    <a>Subject</a>
+                                    <i class="fa fa-caret-up" style="display: none;"></i>
+                                </th>
+                                <th style="width:150px;" >
+                                    <a>A.Y</a>
+                                    <i class="fa fa-caret-up" style="display:none;"></i>
+                                </th>
+                                
+                                <th class="text-center" style="width:60px;" data-toggle="tooltip" title="Course">
+                                    <a>Course</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                                <th class="text-center" style="width:60px;" data-toggle="tooltip" title="Academic Year">
+                                    <a>Pattern</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                                <th style="width:60px;">
+                                    <a>Sem</a>
+                                    <i class="fa fa-caret-up" style="display:none;"></i>
+                                </th>
+                                <th style="width:100px">
+                                    <a>Start Date</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                                <th style="width:100px">
+                                    <a>End Date</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                                <th style="width:100px">
+                                    <a>Question</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                                <th style="width:100px">
+                                    <a>Action</a>
+                                    <i class="fa fa-caret-down" style="display:none;"></i>
+                                </th>
+                        </thead>
+                        <tbody>
+                            {% for item in data.records %}
+                            <tr class="columnSort">
+                                <td class="text-center">{{ forloop.counter0|add:data.startitem }}</td>
+                               
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{{item.subject_name}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.ayear %}{{item.ayear}}{%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.course_name %}{{item.course_name}} {%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.pattern %}{{item.pattern}} {%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.semester_name %}{{item.semester_name}} {%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.start_date %}{{item.start_date}} {{item.start_time}} {%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;">{%if item.end_date %}{{item.end_date}} {{item.end_time}} {%endif%}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="name" style="padding-left:5px;"><a href="/mcqexams/add_questions_to_mcq/?mcq_id={{item.id}}">Add/Edit</a></span>
+                                </td>
+                                <td class="text-center">
+                                </td>
+                            </tr>
+                            {% endfor %}
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif%}
+</div>
+
+{% endblock%}
+

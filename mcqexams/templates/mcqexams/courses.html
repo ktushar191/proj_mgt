@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Software</title>
+    <style>
+        body {
+            background-image: url('background-image.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centering horizontally */
+            align-items: center; /* Centering vertically */
+            height: 90vh; /* Full height of viewport */
+        }
+
+        .container {
+            width: 80%; /* Adjust the width as needed */
+            height: 50%;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .course-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .course-container {
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: inline-block;
+            width: 45%; /* Make both containers take up equal width */
+            height: 250px;
+            text-align: center;
+            margin: 10px 2.5%; /* Add some margin for spacing */
+            border-radius: 10px;
+            cursor: pointer; /* Change cursor to pointer to indicate clickability */
+            position: relative; /* Position for text overlay */
+            overflow: hidden; /* Clip the content inside */
+        }
+
+        .course-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1; /* Place it above the background image */
+        }
+
+        .course-container span {
+            position: relative;
+            z-index: 2; /* Place the text above the overlay */
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 200px; /* Center the text vertically */
+        }
+
+        .mca {
+            background-image: url('/static/images/mcq/mcaimage.jpeg');
+        }
+
+        .mba {
+            background-image: url('/static/images/mcq/mbaimage.jpeg');
+        }
+        @media (max-width: 768px) {
+            .course-container {
+                width: 90%; /* Full width on smaller screens */
+                margin: 10px auto; /* Center with auto margin */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Course Selection</h1>
+        <div class="course-wrapper">
+            <div class="course-container mca" onclick="location.href='/mcqexams/mca'">
+                <!-- <span>MCA</span> -->
+            </div>
+            <div class="course-container mba" onclick="location.href='/mcqexams/mba'">
+                <!-- <span>MBA</span> -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

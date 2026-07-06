@@ -1,0 +1,211 @@
+{% extends 'userbase.html' %}
+{%block stylesheet%}
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+<style>
+    .li-none
+    {
+        list-style-type:none
+    }
+.detail_container {
+            width: 100%; /* Adjust the width as needed */
+            height: 40%;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px #17a2b8;
+            text-align: center;
+            background-color: rgba(255, 250, 255, 0.55);
+           
+        }
+.maindiv
+{
+   /* width: 50%; /* Adjust the width as needed */
+   /* height: 40%;*/
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.55);;
+}
+.column1 {
+  float: left;
+  width: 33%;
+  padding: 5px;
+  height: fit-content;
+}
+.column2 {
+  float: left;
+  width: 66%;
+  padding: 5px;
+  height: fit-content;
+}
+.innercolumn {
+  float: left;
+  width: 45%;
+  padding: 5px;
+}
+.column3 {
+    float: left;
+    width: 40%;
+    padding: 5px;
+  }
+  .column4 {
+    float: left;
+    width: 40%;
+    padding: 5px;
+  }
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+
+{%endblock%}
+ 
+{% block content %}
+
+<body>
+   <div class="col-md-12">
+        <div class="col-md-6" >
+            <div class="row detail_container" >
+                <div style="background-color: #3c8dbc; width:100%;height:30px;">
+                    <h2 ><strong style="text-align: center; color: rgb(255, 255, 255);font-family: auto;"> Personal Information</strong></h2>      
+                </div>
+                <div class="column1">
+                <img src="{{user_profile.0.image_bigthumb_url}}" id="profileimg" name="profileimg" class="img-thumbnail" alt="" style="width:60%;height: 60%;margin-top:20px;">
+                </div>
+                <div class="column2">
+                    <div class="row">
+                        <h4 style="padding-left: 15px;padding-top:20px; width:40%; text-align: left; color: blue;"> Name :</h4>
+                        <h4 style="padding-left: 10px;padding-top:20px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.first_name }} {{user_profile.0.last_name}}</strong></h4>
+                    </div>
+                    <div class="row">
+                        <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Course :</h4>
+                        <h4 style="padding-left: 10px;text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.course_name }}</strong></h4>
+                    </div>
+                    <div class="row">
+                        <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Admission Year :</h4>
+                        <h4 style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.ayear }}</strong><h4>
+                    </div>
+                    <div class="row">
+                        <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Email :</h4> 
+                        <h4 style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.email }}</strong><h4>
+                    </div>
+                    <div class="row">
+                        <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Mobile :</h4>
+                        <h4 style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;">+91-{{user_profile.0.mobile }}</strong><h4>
+                    </div>
+                    
+                </div>
+            </div>
+            {% if feedback_data != '' or feedback_data is not none or feedback_data != null %}
+         
+                    <div class="row detail_container">
+                        <div style="background-color: #3c8dbc; width:100%;height:30px;">
+                            
+                            <h2 ><strong style="color: rgb(255, 255, 255);font-family: auto;">Feedback</strong></h2>      
+                            
+                        </div >
+                        <div class="column2">
+                            {% for item in feedback_data %}
+                            <div class="row">
+                                <h4 style="padding-left: 15px;padding-top:20px; width:100%; text-align: left; color: blue;"> Please submit {% if item.feedback_for%} {{item.feedback_for}} {%else%}{{item.feedback_name}}{%endif%} Feedback 
+                                    <a href="/feedback/submit_feedback/?feedback_id={{item.id}}">click here</a></h4>
+                            </div>
+                            {% endfor%}
+                        </div>
+                        
+                    </div>
+               
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div class="row detail_container">
+            <div style="background-color: #3c8dbc; width:100%;height:30px;">
+                <h2 ><strong style="color: rgb(255, 255, 255);font-family: auto;"> Family Information</strong></h2>      
+            </div>
+            
+            <div class="column2">
+                
+                <div class="row">
+                    <h4 style="padding-left: 15px;padding-top:20px; width:40%; text-align: left; color: blue;"> Father Name :</h4>
+                    <h4 style="padding-left: 10px;padding-top:20px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.father_name }}</strong></h4>
+                </div>
+                <div class="row">
+                    <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Mother Name :</h4>
+                    <h4 style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.mother_name }}</strong><h4>
+                </div>
+                <div class="row">
+                    <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;"> Address :</h4> 
+                    <h4 style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.address_line_1 }},{{user_profile.0.address_line_2 }},{{user_profile.0.address_line_3 }}</strong><h4>
+                </div>
+                <div class="row">
+                    <!-- <h4 style="padding-left: 15px;width:40%; text-align: left; color: blue;">Address :</h4>  -->
+                    <h4 style="margin-left: 210px; text-align:left;"><strong style="color: darkblue;"> {{user_profile.0.country }},{{user_profile.0.state }},{{user_profile.0.district }},{{user_profile.0.pin }}</strong><h4>
+                </div>
+                
+                
+            </div>
+             </div>
+             <div class="row detail_container">
+                <div style="background-color: #3c8dbc; width:100%;height:30px;">
+                    <h2 ><strong style="color: rgb(255, 255, 255);font-family: auto;">Payment Options</strong></h2>      
+                </div>
+                <div class="col-md-6" style="border: 1px solid;"><h3 style="text-align: center;">NEFT Details</h3>
+                <div class="col-md-12">
+                    
+                    <div class="row">
+                        <h4 class="col-md-6" style="padding-left: 15px;padding-top:20px; width:100%; text-align: left; color: blue;">  Bank Name : </h4>
+                        <h4 class="col-md-6" style="padding-left: 10px;padding-top:20px; text-align:left;"><strong style="color: darkblue; "> Axis Bank Ltd. </strong></h4>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6" style="padding-left: 15px;width:100%; text-align: left; color: blue;"> Account Number :</h4>
+                        <h4 class="col-md-6" style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> 921020022414658</strong><h4>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6" style="padding-left: 15px;width:100%; text-align: left; color: blue;"> IFSC Code :</h4> 
+                        <h4 class="col-md-6" style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> UTIB0000073</strong><h4>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6" style="padding-left: 15px;width:100%; text-align: left; color: blue;"> Bank Holder Name :</h4>
+                        <h4 class="col-md-6" style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;">International Institute of Management Science</strong><h4>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-md-6" style="padding-left: 15px;width:100%; text-align: left; color: blue;"> Account Type :</h4>
+                        <h4 class="col-md-6" style="padding-left: 10px; text-align:left;"><strong style="color: darkblue;"> Current A/C </strong><h4>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-md-6" style="border: 1px solid;">
+                <h3 style="text-align: center;font-family: auto;">QR Details</h3>
+                <div class="row">
+                <image src="/static/images/fees/iims_qr_code.jpg" alt="" style="width: 344px;height: 400px;padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;"/>
+                </div>
+            </div>
+           
+            
+            </div>
+        </div>
+    </div>
+ 
+
+</body>
+
+{% endblock%}
+
+{% block javascript %}
+    <script src="/static/js/dashboard1/jquery.min.js"></script>
+    <script src="/static/js/dashboard1/popper.js"></script>
+    <script src="/static/js/dashboard1/bootstrap.min.js"></script>
+    <script src="/static/js/dashboard1/main.js"></script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'studentbase.html' %}
+{% load static %}
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="/static/login/images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">	
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
+
+
+
+    
+    <style>
+    .container-login101
+    {
+        background:#17a2b8;
+    }
+    .wrap-login101 {
+    width: 50%!important;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-top: -270px;
+    padding-top: 20px;
+}
+.login100-form1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 43px 88px 93px 190px;
+  margin-left: -47px;
+  margin-bottom: -60px; 
+}
+.wm-ctservice-icon1 {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    color: #ffffff;
+    text-align: center;
+    font-size: 43px;
+    line-height: 1.8;
+    margin-bottom: 0px;
+}
+.wm-contact-service-two1 {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+}
+    </style>
+{% endblock %}
+
+{% block content%} 
+
+<div class="container-login100 container-login101">
+    <div class="wrap-login100 wrap-login101">
+       
+        <div class="col-md-2"><a class="wm-arrowcircle-left  wmicon-arrows3 " href="#"></a></div>
+        <!-- <div class="login100-form-title" > -->
+        <div class="col-md-8" style="text-align: center;"><span class="login100-form-title-1" style="color: #17a2b8;">
+                Personal Details
+            </span></div>
+        <!-- </div> -->
+        <div class="col-md-2"><a class="wm-arrowcircle-right  wmicon-arrows3 " href="#"></a></div>
+        <form class="login100-form1 validate-form" class="form" name="login" action="." method="post" enctype="application/x-www-form-urlencoded">
+            {% csrf_token %}
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Name is required">
+                <input class="input100" id='txtname' name="txtname" type="text"  placeholder="Enter Name">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input m-b-26" data-validate = "Enter Address Line 1 is required">
+                <input class="input100" id='txtaddress1' name="txtaddress1" type="text"  placeholder="Enter Address Line 1">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="wrap-input100 m-b-26" data-validate = "Last Name is required" >
+                <input class="input100" id='txtaddress2' name="txtaddress2" type="text"  placeholder="Enter Address Line 2">
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-26" data-validate = "Address is required" style="display:none;">
+                <input class="input100" id='txtaddress' name="txtaddress" type="text"  placeholder="Enter Address">
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 validate-input m-b-26" data-validate = "Mobile Number is required">
+                <input class="input100" id='txtmobile' name="txtmobile" type="text"  placeholder="Enter Mobile Number">
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100  m-b-26">
+                <input class="input100" id='txtemail' name="txtemail" type="text"  placeholder="Enter Email Address">
+                <span class="focus-input100"></span>
+            </div>
+            
+            <div class="flex-sb-m w-full p-b-30" style="display: none;">
+                <div class="contact100-form-checkbox">
+                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                    <label class="label-checkbox100" for="ckb1">
+                        Remember me
+                    </label>
+                </div>
+
+                <div>
+                    <a href="#" class="txt1">
+                        Forgot Password?
+                    </a>
+                </div>
+            </div>
+
+            <div class="container-login100-form-btn" style="margin-left: 350px;">
+                <button class="login100-form-btn">
+                    Save & Next
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock%}
+
+{% block javascript%}
+   <!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+        <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/daterangepicker/moment.min.js"></script>
+        <script src="/static/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="/static/login/js/main.js"></script>
+      
+   
+   
+{% endblock %}
+

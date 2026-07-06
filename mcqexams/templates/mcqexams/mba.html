@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Semester and Subject</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  h1 {
+    text-align: center;
+  }
+  .container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  label {
+    font-weight: bold;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Select Semester/Subject</h1>
+  <label for="semester">Select Semester:</label>
+  <select name="semester" id="semester">
+    <option value="" selected disabled>Please select semester</option>
+    <option value="semester1">Semester 1</option>
+    <option value="semester2">Semester 2</option>
+    <option value="semester3">Semester 3</option>
+    <option value="semester4">Semester 4</option>
+  </select>
+  <br>
+  <label for="subject">Select Subject:</label>
+  <select name="subject" id="subject" disabled>
+    <option value="" selected disabled>Please select semester first</option>
+  </select>
+  <br>
+  <button id="submitBtn">Submit</button>
+</div>
+
+<script>
+  const semesterSelect = document.getElementById('semester');
+  const subjectSelect = document.getElementById('subject');
+  const submitBtn = document.getElementById('submitBtn');
+
+  const subjectsBySemester = {
+    semester1: ["Organizational Behavior &Principles & Practices of Management", "Management Accounting", "Managerial Economics SE", "Statistical & Quantitative methods","Legal Aspects of Business","Basics of Marketing1","Information Technology 2","Managerial Communication "],
+    semester2: ["Marketing Management", "Financial Management ", "Human Resource Management", "AManufacturing & Operations Management","Materials & Logistics ManagementS","Management Information System","Research Methodology","Economic Environment ofBusiness & EnvironmentalManagement"],
+    semester3: ["Business Policy & Strategic Management", "Management Control Systems", "Specialization I ", "Specialization II ","Specialization III","Specialization IV","Specialization V "],
+    semester4: ["Entrepreneurship Development & project Management"," International Business Management","Current Trends in Management"]
+  };
+
+  semesterSelect.addEventListener('change', function() {
+    const selectedSemester = this.value;
+    subjectSelect.innerHTML = ''; // Clear the existing options
+
+    if (selectedSemester) {
+      const subjects = subjectsBySemester[selectedSemester];
+      subjects.forEach(subject => {
+        const option = document.createElement('option');
+        option.text = subject;
+        option.value = subject;
+        subjectSelect.add(option);
+      });
+      subjectSelect.disabled = false; // Enable subject selection
+    } else {
+      subjectSelect.disabled = true; // Disable subject selection if no semester is selected
+    }
+  });
+
+  submitBtn.addEventListener('click', function() {
+    const selectedSemester = semesterSelect.value;
+    const selectedSubject = subjectSelect.value;
+    
+    if (selectedSemester && selectedSubject) {
+      alert('You have selected ${selectedSubject} for ${selectedSemester}');
+    } else {
+      alert('Please select both semester and subject before submitting.');
+    }
+  });
+</script>
+</body>
+</html>

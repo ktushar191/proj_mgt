@@ -1,0 +1,287 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+.details-name {
+    padding: 0 0 0,0;
+    margin: 0 auto;
+    width: 99%;
+    border-radius: 20px;
+    -webkit-box-shadow: 1px 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: 0px 0px 6px 1px #adadadc9;
+    background-color: #34b3e9;
+}
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form onsubmit="return form_submit(event);" id="addmcqquestions" name="addmcqquestions" action="." method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="hidden" id="action_event" name="action_event" value="" />
+<input type="hidden" id="data_file" name="data_file" value="" />
+
+    <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div style="width:100%;height:100%;border-radius: 2px; margin-top: 20px; background-color: #ffffff;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+        
+            <div class="row" style="float:left; width: 100%;">
+                <div class="class=col-md-11 pd-lg 5 details-name" style="margin-left: 67px; margin-top: 20px; border-radius: 2px;">
+                    <h3 style="color:#ffffff; margin: 11px;font-size: xx-large;text-align:center;">Add Feedback Questions</h3>
+                </div>
+            </div>
+            <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+
+                <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+                    
+                 </div>
+                <fieldset legend="AAA" style="margin-left: 100px;margin-bottom: 20px;padding-bottom: 20px; width:90%;height:100%; border-radius: 10px;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+                    <div class="col-md-10" style="margin-top:20px;margin-left:100px;">
+                        <label id="lbl_feedback_type" name="lbl_feedback_type">Select Feedback Type</label>
+                        <select id="feedback_type" name="feedback_type" class="custom-select" style="width:100%;display:flex;font-size:14px;" onchange="fill_subjects();course_changed();">
+                            <option  value="">Select Feedback Type</option>
+                            {% for item in feedback_type_dict %}
+                                <option value="{{item.id}}">{{item.feedback_for}}</option>
+                            {%endfor%}   
+                        </select>
+                        <span id="feedback_type_err" name="feedback_type_err" style="color: red;">* Select Feedback Type</span>
+                        
+                    </div>
+                    <div class="col-md-10" style="margin-top:20px;margin-left:100px;">
+                        <label id="lbl_feedback_question" name="lbl_feedback_question">Enter Questions</label><br>
+                        <textarea id="txt_feedback_question" name="txt_feedback_question" rows="5" cols="33" id="question" name="question" placeholder="Enter Question here" style="width:100%;display:flex;font-size:18px;height:100px;     background-color: #ffffff;
+    border: 1px solid #ced4da;"></textarea>
+                        <span id="feedback_question_err" name="feedback_question_err" style="color: red;">* Entered question is invalid</span>
+                    </div>
+                                        
+                    <div class="col-md-4" style="margin-top:20px;margin-left:100px">
+                        <label>Select Scale</label>
+                        <select id="scale" name="scale" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                            <option  value="">Select Scale</option>
+                                {% for item in scale_dict %}
+                                    <option value="{{item.id}}">{{item.scale_name}}</option>
+                                {%endfor%}   
+                                
+                        </select>
+                        <span id="feedback_scale_err" name="feedback_scale_err" style="color: red;">* Selected scale is invalid</span>
+                    </div>
+                    <div class="col-md-4" style="margin-top:20px;margin-left:110px;">
+                        <label>Select Audience</label>
+                        <select id="audience" name="audience" class="custom-select" style="width:100%;display:flex;font-size:14px">
+                            <option selected value="">Select Audience</option>
+                            {% for au in audience %}
+                            <option value="{{au.id}}">{{au.audience}}</option>
+                            {% endfor%}
+                        </select>
+                        <span id="feedback_audience_err" name="feedback_audience_err" style="color: red;">* Selected audience is invalid</span>
+                    </div>
+                
+                    <div class="col-md-4" style="margin-top:40px;"> 
+                        <button id="btn_add" name="btn_add" style="width: 200px;height:50px;font-size:20px;padding: 0; margin-left: 117%; background:#34b3e9; color: #ffffff;" type="button" class="wm-tweet-us"  onclick="add_feedbackquestions(this.id);">Add</button>
+                    </div>
+
+                </fieldset>
+            
+             
+                <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+                   <h3 class="col-md-12" style="margin-left: 50%;">OR Upload Excel</h3>
+                </div>
+                
+                 <div style="margin-left: 100px;;width:90%;height:70px;padding-top:20px;padding-left:20px; border-radius: 10px;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);">
+                    <input type="file" name="file_input" id="file_input" accept="xls/*" style="float: left;size:20px;"> 
+                    <a href="/static/feedback/sample_feedback_questions_file.xlsx" target="_blank">Download sample excel file</a> 
+                    <button id="btn_upload" name="btn_upload" style="width: 200px;height:50px;font-size:20px;padding: 0;float:right;margin-top: -10px; background:#34b3e9; color: #ffffff;" type="button" class="wm-tweet-us"  onclick="add_feedbackquestions(this.id);">Upload</button>
+                    
+                </div>
+                
+
+                <div>
+                    
+                </div>
+           
+            </div>
+           
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+
+    </div>
+</form>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript" src="/static/script/jquery.js"></script>
+<script type="text/javascript">
+
+var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+function csrfSafeMethod(method) {
+// these HTTP methods do not require CSRF protection
+return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function (xhr, settings) {
+        // if not safe, set csrftoken
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+
+
+var form_valid=false;
+function form_submit(e)
+{
+    $("#overlay").show();
+    
+    var form_valid= is_form_valid(e);
+    if(form_valid)
+    {
+        return true;
+    }
+    else
+    {
+        $("#overlay").hide();
+        e.preventDefault();
+        return false;
+    }
+}
+function is_form_valid(e)
+{   
+    form_valid=true;
+    feedback_type=$('#feedback_type').val();
+    feedback_question=$('#txt_feedback_question').val();
+    scale=$('#scale').val();
+    audience=$('#audience').val();
+    action= $('#action_event').val();
+    if (action == "add")
+    {
+            if(feedback_type == '' || feedback_type=='None' || feedback_type==null)
+        {
+            form_valid=false;
+            $('#feedback_type_err').show();
+
+        }
+        else{
+            $('#feedback_type_err').hide();
+        }
+        if(feedback_question == '' || feedback_question=='None' || feedback_question==null)
+        {
+            form_valid=false;
+            $('#feedback_question_err').show();
+        }
+        else{
+            $('#feedback_question_err').hide();
+        }
+        if(scale == '' || scale=='None' || scale==null)
+        {
+            form_valid=false;
+            $('#feedback_scale_err').show();
+        }
+        else{
+            $('#feedback_scale_err').hide();
+        }
+        if(audience == '' || audience=='None' || audience==null)
+        {
+            form_valid=false;
+            $('#feedback_audience_err').show();
+        }
+        else{
+            $('#feedback_audience_err').hide();
+        }
+    }
+    else if (action == "upload")
+    {
+
+    }
+   
+   
+    return form_valid;
+}
+function add_feedbackquestions(id)
+{
+    if(id=='btn_add')
+    {
+        $('#action_event').val('add');
+    }
+    else if(id=='btn_upload')
+    {
+        $('#action_event').val('upload');
+    }
+    $('#addmcqquestions').submit();
+}
+$(document).ready(function () {
+
+    document.getElementById('page_heading').innerText='Add Feedback Questions';
+    $('#feedback_type_err').hide();
+    $('#feedback_question_err').hide();
+    $('#feedback_scale_err').hide();
+    $('#feedback_audience_err').hide();
+
+    });
+</script>
+
+{%endblock%}

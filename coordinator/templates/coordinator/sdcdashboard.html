@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{%block stylesheet%}
+<style>
+.customsize{
+    width: 70%;    
+    margin-top: 70px;   
+    margin-inline: auto;
+    float:none;
+}
+.customsize1{
+    width: 200px;    
+
+}
+img{
+
+    display: block!important;
+    
+}
+</style>
+
+{%endblock%}
+ 
+{% block content %}
+    <div class="wm-main-wrapper" >
+        <header id="wm-header" class="wm-header-one">
+            <div class="wm-main-header" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                        
+                            <nav class="navbar navbar-default">
+                                <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="true">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                </div>
+                                <div class="collapse navbar-collapse" id="navbar-collapse-1" style="display: none;">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="#">Home</a>
+                                        <ul class="wm-dropdown-menu" style="display: none;">
+                                            <li><a href="index-2.html">Education Home V1</a></li>
+                                            <li><a href="index-two.html">Education Home V2</a></li>
+                                            <li><a href="index-three.html">Education Home V3</a></li>
+                                            <li><a href="index-four.html">Education Home V4</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">courses</a>
+                                        <ul class="wm-dropdown-menu" style="display: none;">
+                                            <li><a href="courses-grid.html">Courses Grid</a></li>
+                                            <li><a href="courses-list.html">Courses List</a></li>
+                                            <li><a href="courses-detail.html">Courses Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">event</a>
+                                        <ul class="wm-dropdown-menu" style="display: none;">
+                                            <li><a href="event-grid.html">Event Grid</a></li>
+                                            <li><a href="event-detail.html">Event Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li ><a href="#">Dashboard</a>
+                                        <ul class="wm-dropdown-menu" style="display: none;">
+                                            <li><a href="dashboard-courses.html">Courses</a></li>
+                                            <li><a href="student-dashboard-favourite.html">Favourite</a></li>
+                                            <li><a href="student-dashboard-my-courses.html">My Courses</a></li>
+                                            <li><a href="student-dashboard-profile.html">Profile Settings</a></li>
+                                            <li><a href="student-dashboard-settings.html">Settings</a></li>
+                                            <li><a href="student-dashboard-statement.html">Statement</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="wm-megamenu-li"><a href="#">Pages</a>
+                                        <ul class="wm-megamenu" style="display: none;">
+                                            <li class="row">
+                                                <div class="col-md-2">
+                                                    <h4>Link 1</h4>
+                                                    <ul class="wm-megalist" style="display: none;">
+                                                        <li><a href="404-page.html">404 Error Page</a></li>
+                                                        <li><a href="about-us.html">About Us</a></li>
+                                                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                                                        <li><a href="blog-list.html">Blog List</a></li>
+                                                        <li><a href="blog-detail.html">Blog Detail</a></li>
+                                                        <li><a href="faq-page.html">Faq Page</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h4>Link 2</h4>
+                                                    <ul class="wm-megalist" style="display: none;">
+                                                        <li><a href="ourprofessors.html">Our Professors</a></li>
+                                                        <li><a href="our-professsors-detail.html">Our Professsors Detail</a></li>
+                                                        <li><a href="typography-elements.html">Typography Elements</a></li>
+                                                        <li><a href="courses-list.html">Courses List</a></li>
+                                                        <li><a href="courses-grid.html">Courses Grid</a></li>
+                                                        <li><a href="gallery.html">Gallery</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h4>Link 3</h4>
+                                                    <ul class="wm-megalist" style="display: none;">
+                                                        <li><a href="courses-detail.html">Courses Detail</a></li>
+                                                        <li><a href="shop-list.html">Shop List</a></li>
+                                                        <li><a href="shop-grid.html">Shop Grid</a></li>
+                                                        <li><a href="shop-single-product.html">Shop Detail</a></li>
+                                                        <li><a href="contact-us.html">Contact Us</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a href="#" class="wm-thumbnail">
+                                                        <img src="/static/extra-images/megamenu-frame.jpg" alt="" />
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Shop</a>
+                                        <ul class="wm-dropdown-menu" style="display: none;">
+                                            <li><a href="shop-grid.html">Shop Grid</a></li>
+                                            <li><a href="shop-list.html">Shop List</a></li>
+                                            <li><a href="shop-single-product.html">Shop Detail</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="wm-megamenu-li"><a href="#">Contact</a>
+                                        <ul class="wm-megamenu" style="display: none;">
+                                            <li class="row">
+                                                <div class="col-md-2">
+                                                    <h4>Links 1</h4>
+                                                    <ul class="wm-megalist" style="display: none;">
+                                                        <li><a href="contact-us.html">Contact Us</a></li>
+                                                        <li><a href="404-page.html">404 Error Page</a></li>
+                                                        <li><a href="shop-list.html">Shop List</a></li>
+                                                        <li><a href="shop-grid.html">Shop Grid</a></li>
+                                                        <li><a href="shop-single-product.html">Shop Detail</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <h4>Artists text</h4>
+                                                    <div class="wm-mega-text">
+                                                        <p>Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love.</p>
+                                                        <p>If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <h4>sub category widget</h4>
+                                                    <a href="#" class="wm-thumbnail">
+                                                        <img src="/static/extra-images/mega-menuadd.jpg" alt="" />
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wm-editore-text">
+                <h2 ><strong class="wm-color-three">Software Development Cell</strong></h2>
+                <p>Yashaswi Education Society’s International Institute of Management Science (IIMS) established Software development Cell for in-house software development used in day to day teaching learning and academics process. .</p>
+            </div>
+           
+        </div>
+    </div> 
+
+    <div class="container">
+        <div class="row">
+            <!-- <h2 class="wm-color">Objectives</h2> -->
+            <div class="col-md-12 wm-editore-text"><h2 ><strong class="wm-color-three">Objectives</strong></h2></div>
+            <div class="col-md-3 wm-editore-text">
+                
+                <ul>
+                    <li><i class="wmicon-mark"></i>Skill Development</li>
+                    <li><i class="wmicon-mark"></i> Real-World Application</li>
+                    <li><i class="wmicon-mark"></i> Innovation and Creativity</li>
+                    <li><i class="wmicon-mark"></i> Community Outreach</li>
+                </ul>
+
+            </div>
+            <div class="col-md-3 wm-editore-text">
+                <ul>
+                    
+                    <li><i class="wmicon-mark"></i> Professional Networking</li>
+                    <li><i class="wmicon-mark"></i> Open Source Contributions</li>
+                    <li><i class="wmicon-mark"></i> Quality Assurance</li>
+                </ul>
+
+            </div>
+            <div class="col-md-3 wm-editore-text">
+                <ul>
+                    <li><i class="wmicon-mark"></i>Campus Solutions</li>
+                    <li><i class="wmicon-mark"></i> Industry Relevance</li>
+                    <li><i class="wmicon-mark"></i> Project Management Experience</li>
+                </ul>
+
+            </div>
+            <div class="col-md-3 wm-editore-text">
+                <ul>
+                    <li><i class="wmicon-mark"></i> Portfolio Building</li>
+                    <li><i class="wmicon-mark"></i> Continual Improvement</li>
+                    <li><i class="wmicon-mark"></i> Entrepreneurship Development</li>
+                </ul>
+
+            </div>
+            
+           
+        </div>
+    </div>
+ 
+    <div class="wm-main-content">
+
+        <!--// Main Section \\-->
+        <div class="wm-main-section">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="wm-filterable-link">
+                            <ul>
+                                <li><a href="#" data-filter="*" class="active">All Projects</a></li>
+                                <li><a href="#" data-filter=".complete">Completed Projects</a></li>
+                                <li><a href="#" data-filter=".ongoing">Ongoing Projects</a></li>
+                                <li><a href="#" data-filter=".upcoming">Upcoming Projects</a></li>
+                            </ul>
+                        </div>
+                        <div class="wm-event wm-latest-event wm-filter-event customsize">
+                            <ul class="row">
+                                <li class="col-md-3 complete">
+                                    <figure><a href="https://yashomanthan.co.in/"><img src="/static/images/yashomanthan.png" alt="" > <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="https://yashomanthan.co.in/" class="wm-color-three">Yashomanthan</a></h6>
+                                        <h6 style="text-align: center;"><a href="https://yashomanthan.co.in/" class="wm-banner-btn">Complete</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 complete ">
+                                    <figure><a href="#"><img src="/static/images/mentor_mentee/m10.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Mentor-Mentee</a></h6>
+                                        <h6 style="text-align: center;"><a href="" class="wm-banner-btn">Complete</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 complete ">
+                                    <figure><a href="#"><img src="/static/images/attendance/a11.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Attendance</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">Complete</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 ongoing ">
+                                    <figure><a href="#"><img src="/static/images/feedback/f1.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three" >FeedBack</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn" >Ongoing</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 ongoing">
+                                    <figure><a href="#"><img src="/static/images/mcq/m1.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">MCQ Exam</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">Ongoing</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 ongoing">
+                                    <figure><a href="#"><img src="/static/images/sdc/s9.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Project Management</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">Ongoing</a></h6>
+                                    </div>
+                                </li>
+                              
+                                <li class="col-md-3 ongoing">
+                                    <figure><a href="#"><img src="/static/images/fees/f7.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Fees</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">Ongoing</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 ongoing">
+                                    <figure><a href="#"><img src="/static/images/lms/l4.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">LMS</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">ongoing</a></h6>
+                                    </div>
+                                </li>
+                                <li class="col-md-3 upcoming">
+                                    <figure><a href="#"><img src="/static/images/lab/l1.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Computer Lab Management</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">Upcoming</a></h6>
+                                    </div>
+                                </li>
+                                
+                                <li class="col-md-3 upcoming">
+                                    <figure><a href="#"><img src="/static/images/results/r8.png" alt=""> <span class="wm-event-transparent-hover wm-bgcolor"></span></a></figure>
+                                    <div class="wm-latest-event-text">
+                                        <h6 style="text-align: center;"><a href="#" class="wm-color-three">Result Analysis</a></h6>
+                                        <h6 style="text-align: center;"><a href="#" class="wm-banner-btn">upcoming</a></h6>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="wm-pagination" style="display: none;">
+                       
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--// Main Section \\-->
+
+    </div>
+		
+{% endblock%}
+ 

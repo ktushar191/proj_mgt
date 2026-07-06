@@ -1,0 +1,299 @@
+.mainExhibitor {
+  position: relative; }
+  .mainExhibitor .histroyBtn {
+    float: right;
+    margin-top: -20px; }
+    .mainExhibitor .histroyBtn a {
+      color: #666;
+      text-decoration: underline; }
+      .mainExhibitor .histroyBtn a .material-icons {
+        vertical-align: middle;
+        margin-right: 2px; }
+      .mainExhibitor .histroyBtn a:hover {
+        text-decoration: none; }
+  .mainExhibitor .sendInviteHead {
+    color: #333;
+    text-align: center; }
+    .mainExhibitor .sendInviteHead h3 {
+      font-weight: 600; }
+    .mainExhibitor .sendInviteHead strong {
+      font-weight: 600; }
+  .mainExhibitor .trustedCheck {
+    padding-left: 0; }
+    .mainExhibitor .trustedCheck [type=checkbox]:checked + label:before {
+      border-color: transparent #008940 #008940 transparent; }
+    .mainExhibitor .trustedCheck label {
+      font-size: 16px !important; }
+    .mainExhibitor .trustedCheck [type=checkbox] + label:before {
+      width: 20px;
+      height: 20px; }
+  .mainExhibitor .card {
+    margin: 15px 0; }
+    .mainExhibitor .card .main_form .topNote {
+      color: #999; }
+    .mainExhibitor .card .main_form hr {
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem; }
+    .mainExhibitor .card .main_form .mid {
+      max-width: 515px;
+      margin: auto; }
+      .mainExhibitor .card .main_form .mid .form-group {
+        margin-bottom: 0.5rem; }
+      .mainExhibitor .card .main_form .mid input {
+        font-weight: 600;
+        font-size: 17px;
+        color: #008940; }
+      .mainExhibitor .card .main_form .mid select {
+        font-weight: 600;
+        font-size: 17px;
+        color: #008940 !important; }
+      .mainExhibitor .card .main_form .mid input::-webkit-input-placeholder {
+        font-size: 17px;
+        color: #999;
+        font-weight: normal; }
+      .mainExhibitor .card .main_form .mid .mat-select-value-text {
+        font-size: 20px;
+        font-weight: 600;
+        color: #008940; }
+      .mainExhibitor .card .main_form .mid label {
+        color: #999 !important;
+        font-size: 14px; }
+      .mainExhibitor .card .main_form .mid .showTxt {
+        font-weight: 600;
+        font-size: 22px;
+        color: #008940;
+        padding-top: 5px;
+        margin-bottom: 5px; }
+      .mainExhibitor .card .main_form .mid textarea {
+        font-weight: 600;
+        font-size: 20px;
+        color: #008940; }
+      .mainExhibitor .card .main_form .mid .imagesUploadCircle {
+        position: relative;
+        border-radius: 50%;
+        transition: all .2s ease-in-out;
+        width: 120px;
+        height: 120px;
+        vertical-align: middle;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+        margin: 10px 0 15px; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle img {
+          border-radius: 50%;
+          display: block;
+          height: 120px;
+          margin: 0 auto;
+          padding: 0;
+          text-align: center;
+          width: 120px;
+          object-fit: contain;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .add {
+          position: relative;
+          right: 0;
+          top: 44px;
+          background: transparent;
+          color: #ccc;
+          font-size: 30px;
+          width: 120px;
+          height: 120px; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .fileUpload {
+          position: relative;
+          overflow: hidden;
+          top: -120px !important;
+          border-radius: 50% !important;
+          opacity: 0;
+          z-index: 999;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); }
+          .mainExhibitor .card .main_form .mid .imagesUploadCircle .fileUpload #logo-id {
+            padding: 0;
+            font-size: 33px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            z-index: 9999;
+            width: 88px;
+            height: 89px; }
+          .mainExhibitor .card .main_form .mid .imagesUploadCircle .fileUpload input[type=file] {
+            display: block; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .img-preview {
+          max-width: 100%;
+          border-radius: 50%; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle input#fakeUploadLogo {
+          cursor: pointer;
+          height: 100%;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+          border-radius: 50%; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .groupuploadIcon {
+          left: 35px;
+          position: relative;
+          top: -38px;
+          cursor: pointer;
+          font-size: 28px;
+          color: #666; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .iconOuter {
+          background: #008940;
+          position: absolute;
+          right: -12px;
+          top: 45px;
+          z-index: 999;
+          overflow: hidden;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          color: #fff;
+          text-align: center;
+          vertical-align: middle;
+          box-shadow: 0 2px 5px #999;
+          cursor: pointer; }
+        .mainExhibitor .card .main_form .mid .imagesUploadCircle .material-icons {
+          color: #fff;
+          font-size: 16px;
+          text-align: center;
+          line-height: 30px; }
+    .mainExhibitor .card .main_form .planOuter {
+      background: #F5F5F5;
+      border-radius: 12px;
+      padding: 25px 15px;
+      margin: 15px auto;
+      max-width: 65%; }
+      .mainExhibitor .card .main_form .planOuter label {
+        font-size: 18px;
+        color: #666 !important; }
+      .mainExhibitor .card .main_form .planOuter .switch {
+        position: relative;
+        display: inline-block;
+        width: 200px;
+        height: 36px; }
+      .mainExhibitor .card .main_form .planOuter .switch input {
+        display: none; }
+      .mainExhibitor .card .main_form .planOuter .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #FAF6C3;
+        -webkit-transition: .4s;
+        transition: .4s;
+        border-radius: 30px;
+        box-shadow: 0 2px 5px #999; }
+      .mainExhibitor .card .main_form .planOuter .slider:before {
+        position: absolute;
+        content: "";
+        height: 34px;
+        width: 34px;
+        top: 1px;
+        left: 1px;
+        right: 1px;
+        bottom: 1px;
+        background-color: #B48400;
+        transition: 0.4s;
+        border-radius: 50%; }
+      .mainExhibitor .card .main_form .planOuter input:checked + .slider {
+        background-color: #bff7d9; }
+      .mainExhibitor .card .main_form .planOuter input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3; }
+      .mainExhibitor .card .main_form .planOuter input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(165px);
+        background-color: #008940; }
+      .mainExhibitor .card .main_form .planOuter .slider:after {
+        content: 'BASIC (Rs. 10,000)';
+        color: #f3bf21;
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        font-size: 17px;
+        font-weight: 600;
+        padding-left: 42px;
+        width: 100%; }
+      .mainExhibitor .card .main_form .planOuter input:checked + .slider:after {
+        content: 'GREEN (Rs. 50,000)';
+        padding-left: 15px;
+        color: #008940; }
+    .mainExhibitor .card .main_form .divider {
+      height: 3px;
+      background: #eee;
+      max-width: 636px;
+      margin: 10px auto; }
+    .mainExhibitor .card .main_form .cancel-btn {
+      border-radius: 5px;
+      background: #313131;
+      color: #fff;
+      border: unset;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 20px; }
+    .mainExhibitor .card .main_form .create-btn {
+      border-radius: 5px;
+      background: #007A39;
+      color: #fff;
+      border: unset;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 20px; }
+    .mainExhibitor .card .main_form .create-btn:disabled {
+      background: #ABAAAB;
+      cursor: auto; }
+
+#createCustomerConfirmModal p {
+  color: #666; }
+
+.successCustomerToggle {
+  background: #FFFFED;
+  border-radius: 4px;
+  box-shadow: 0 0 10px #ccc;
+  max-width: 520px;
+  padding: 20px;
+  margin: 0 auto;
+  position: absolute;
+  top: 70px;
+  z-index: 9999;
+  left: 50%;
+  transform: translate(-30%, 0); }
+  .successCustomerToggle .pad-r-zero {
+    padding-right: 0; }
+  .successCustomerToggle .pad-l-zero {
+    padding-left: 0; }
+  .successCustomerToggle h3 {
+    color: #008940;
+    font-size: 20px;
+    font-weight: 700; }
+  .successCustomerToggle p {
+    margin-bottom: 0;
+    color: #777; }
+  .successCustomerToggle .close {
+    font-size: 35px;
+    margin-top: -15px;
+    margin-right: -5px; }
+
+.subMenu .dropdown-menu {
+  width: 100%;
+  min-width: 99%;
+  background: #008940;
+  box-shadow: 0 0 10px #666;
+  transform: translate3d(0px, -110px, 0px) !important; }
+  .subMenu .dropdown-menu .dropdown-item {
+    height: 45px !important;
+    line-height: 45px !important;
+    padding: 0 52px !important; }
+    .subMenu .dropdown-menu .dropdown-item:hover {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+      box-shadow: inherit !important; }
+
+/*# sourceMappingURL=exhibitor.css.map */

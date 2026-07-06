@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCA Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .form-select-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-title">MCA</div>
+        <label class="form-select-label" for="yearSelect">Select Year:</label>
+        <select class="form-select" id="yearSelect">
+            <option value="1">First Year</option>
+            <option value="2">Second Year</option>
+        </select>
+        <label class="form-select-label" for="subjectSelect">Select Subject:</label>
+        <select class="form-select" id="subjectSelect">
+            <option value="py">Python</option>
+            <option value="spm">Software Management Process</option>
+            <option value="ait">AIT</option>
+        </select>
+    </div>
+    <script>
+        // You can add JavaScript functionality here if needed
+    </script>
+</body>
+</html>

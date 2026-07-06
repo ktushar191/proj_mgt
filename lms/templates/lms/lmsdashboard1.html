@@ -1,0 +1,157 @@
+{% extends 'userbase.html' %}
+{%block stylesheet%}
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/dashboard1/css/style.css">
+<style>
+    .li-none
+    {
+        list-style-type:none
+    }
+    
+    /* Base styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Container for the cards */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 10px;
+        max-width: 95%;
+        margin-left: 40px;
+    }
+
+    /* Styling for the cards */
+    .card {
+        flex: 1 1 calc(33.333% - 20px); /* Each card takes up 1/3 of the container width minus the gap */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s;
+    }
+
+    /* Card hover effect */
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Card image */
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    /* Card content */
+    .card-content {
+        padding: 15px;
+    }
+
+    /* Card title */
+    .card-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Card link */
+    .card-link {
+        text-decoration: none;
+        color: #007BFF;
+        display: block;
+        margin-top: 10px;
+    }
+
+    
+
+    /* Media queries for responsiveness */
+    @media (max-width: 900px) {
+        .card {
+            flex: 1 1 calc(50% - 20px); /* Each card takes up 1/2 of the container width */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .card {
+            flex: 1 1 100%; /* Each card takes up the full container width */
+        }
+    }
+</style>
+
+{%endblock%}
+ 
+{% block content %}
+
+<!-- <div class="dashboardcenter"><h1>LMS DASHBOARD COMMING SOON!!!</h1></div> -->
+
+<div class="card-container">
+    <!-- Card 1 -->
+    <div class="card">
+        <a href="http://127.0.0.1:8000/lms/lms_syllabus/" class="card-link">
+        <img src="/static/images/lms/study_mat.png" alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Study Material</h3>
+           Learn More
+        </div> </a>
+    </div>
+    <!-- Card 2 -->
+    <div class="card">
+        <a href="http://127.0.0.1:8000/lms/lmscertificate/" class="card-link">
+        <img class="class_img" src="\static\images\lms\Certificate.jpg"  alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Online Certificate</h3>
+            Learn More
+        </div></a>
+    </div>
+    <!-- Card 3 -->
+    <div class="card">
+        <a href="http://127.0.0.1:8000/lms/lms_PYQ/" class="card-link">
+        <img src="/static/images/lms/pyq.png"alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Previous Year Question Paper</h3>
+            Learn More
+        </div></a>
+    </div>
+    <!-- Card 4 -->
+    <div class="card">
+        <a href="http://127.0.0.1:8000/lms/lmsaptitude/" class="card-link">
+        <img src="/static/images/lms/aptitude.jpg" alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Aptitude And Resoning</h3>
+            Learn More
+        </div></a>
+    </div>
+    <!-- Card 5 -->
+    <div class="card">
+        <a href="/lms/lms_library" class="card-link">
+        <img src="/static/images/lms/lib.jpg" alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Library</h3>
+            Learn More
+        </div></a>
+    </div>
+    <!-- Card 6 -->
+    <div class="card">
+        <a href="/lms/lms_project" class="card-link">
+        <img src="/static/images/lms/project.jpg" alt="Card Image">
+        <div class="card-content">
+            <h3 class="card-title">Project</h3>
+            Learn More
+        </div></a>
+    </div>
+</div>
+{% endblock%}
+{% block javascript %}
+    <script src="/static/js/dashboard1/jquery.min.js"></script>
+    <script src="/static/js/dashboard1/popper.js"></script>
+    <script src="/static/js/dashboard1/bootstrap.min.js"></script>
+    <script src="/static/js/dashboard1/main.js"></script>
+{% endblock %}

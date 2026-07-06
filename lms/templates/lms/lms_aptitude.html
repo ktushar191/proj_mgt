@@ -1,0 +1,163 @@
+{% extends 'userbase.html' %}
+{% load static %}
+
+
+{% block stylesheet%}
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/progress.css">
+    <style>
+        .part{
+          padding-top:90px;
+        }
+        .cards-list {
+            z-index: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: auto;
+            }
+
+        .card {
+            margin: 30px auto;
+            width: 120px;
+            height: 120px;
+            border-radius: 35px;
+            box-shadow: 5px 5px 30px 7px rgba(86, 7, 151, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 6%;
+            }
+
+        .card .card_image {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            }
+
+        .card .card_image img {
+            width: inherit;
+            height: inherit;
+            border-radius: 40px;
+            object-fit: cover;
+            }
+
+        .card .card_title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+            height: 40px;
+            }
+
+        .card:hover {
+            transform: scale(0.9, 0.9);
+            box-shadow: 5px 5px 30px 15px rgba(92, 215, 249, 0.25), 
+                -5px -5px 30px 15px rgba(0,0,0,0.22);
+            }
+
+        .title-white {
+            color: white;
+            }
+
+        .title-black {
+            color: black;
+            }
+
+            @media all and (max-width: 500px) {
+        .card-list {
+                /* On small screens, we are no longer using row direction but column */
+                flex-direction: column;
+                margin-top: 30%;
+            }
+            }
+    </style>
+
+{% endblock %}
+
+
+
+
+
+
+{% block content%}
+
+<div class="part">
+<center>   <h2 style="color:rgb(40, 1, 77) ; font-size: 25px;">  Aptitude & Reasoning </h2> </center> 
+ <div class="cards-list">
+  
+    <div class="card 1">
+      <a href="https://www.indiabix.com/online-test/aptitude-test/">
+      <div class="card_image"> 
+        <img src="/static/images/lms/apt.PNG" /> 
+      </div>
+      <div class="card_title title-white">
+        <br>
+        <h3 style="color: rgb(69, 3, 107);">  Quantitative Aptitude</h3>
+      </div> </a>
+    </div>
+    
+      <div class="card 2">
+        <a href="https://www.testpartnership.com/free/verbal/1/">
+      <div class="card_image">
+        <img src="/static/images/lms/verbalReason.PNG" />
+        </div>
+      <div class="card_title title-white">
+        <BR>
+          <h3 style="color: rgb(69, 3, 107);"> Verbal Reasoning </h3>
+      </div> </a>
+    </div>
+    
+    <div class="card 3">
+      <a href="https://www.proprofs.com/quiz-school/story.php?title=non-verbal-reasoning-test">
+      <div class="card_image">
+        <img src="/static/images/lms/proprofs.jpg" />
+      </div>
+      <div class="card_title">
+        <h3 style="color: rgb(69, 3, 107);"> Non-Verbal Reasoning</p> </h3>
+      </div></a>
+    </div>
+      
+      <div class="card 4">
+        <a href="https://www.numericalreasoningtest.org/">
+      <div class="card_image">
+        <img src="/static/images/lms/images.PNG" />
+        </div>
+      <div class="card_title title-black">
+        <h3 style="color: rgb(69, 3, 107);"> Numerical Reasoning </p> </h3>
+      </div></a>
+      </div>
+
+      <div class="card 5">
+        <a href="https://www.123test.com/spatial-reasoning-test/"> 
+        <div class="card_image">
+          <img src="/static/images/lms/123testlogo.PNG" />
+          </div>
+        <div class="card_title title-black">
+          <h3 style="color: rgb(69, 3, 107);"> Spatial Reasoning</p> </h3>
+        </div> </a>
+        </div>
+    
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block javascript%}
+
+
+{% endblock %}
+

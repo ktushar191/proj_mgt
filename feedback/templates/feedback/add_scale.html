@@ -1,0 +1,191 @@
+{% extends 'userbase.html' %}
+
+{%block stylesheet%}
+<style>
+body{
+    font-size: 14px!important;
+}
+.blue-grey{
+    background: #8ac4eb!important;
+}
+.custom-select {
+    height: 40px;
+    border-radius: 0.50rem;
+    font-size: 18px!important;
+}
+input[type="text"]{
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+.img-class{
+
+    height: 50px!important;
+    width: 50px!important;
+    border-radius: 50px!important;
+    margin-left: -200px!important;
+}
+custom-select{
+   border:"0 px solid #ced4da";
+}
+selectfilter{
+    border: 0px solid #dddd!important;
+}
+#course{display:none !Important;}
+
+
+.dt {
+    display: flex!important;
+    line-height: inherit!important;
+    font-weight: 400!important;
+    background: white!important;
+    border-style: solid!important;
+    border-color: #8080804a!important;
+    border-width: 1px!important;
+    font-size: 16px!important;
+    color: #080808a8!important;
+    height: auto!important;
+    padding: 9px 6px!important;
+    text-align: center!important;
+    
+}
+.wm-tweet-us{
+    background: azure;
+    color: rgb(25, 25, 49);
+   }
+</style>
+<link rel="stylesheet" href="static/css/student/css/style.css">     
+<link rel="stylesheet" href="static/css/student/css/font-awesome.min.css.css">     
+<link rel="stylesheet" href="static/css/student/css/bootstrap.min.css">     
+<link rel="stylesheet" href="static/css/student/css/exhibitor.css">     
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">     
+<link rel="stylesheet" href="static/css/student/css/mdb.min.css">
+<link rel="stylesheet" href="static/css/student/css/material-icons.css">
+<link rel="stylesheet" href="static/css/student/css/text-editor.css">
+
+
+{%endblock%}
+
+{% block content %}
+<form  onsubmit="return form_submit(event)"; id="add_scale" name="add_scale" action="." method="post"
+enctype="multipart/form-data">
+{% csrf_token %}
+
+<div class="row">
+     <div class="col-md-2"></div>
+         <div class="col-md-8">
+            <div style="width:100%;height:1100px;border-radius: 10px;box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);margin-top: 40px;">
+       
+                 <div class="col" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+
+                    <div class="row" style="float:left; width: 100%;margin-bottom:20px;margin-top:20px;">
+                        <div class="col-md-12">
+                            <h3 style="margin-top:20px;font-size: xxx-large;text-align:center;">Add Scale</h3>
+                        </div>
+                    </div>
+
+                       <div class="form-group">
+                         <label for="txt_scale_name">Enter Scale Name</label> <input name="txt_scale_name"
+                               type="text" class="form-control" id="txt_scale_name"
+                               style="width:100%;display:flex;;font-size:18px" placeholder="Enter Scale Name">
+                       </div>
+               
+                        <div class="form-group">
+                           <label for="txt_param_1">Enter Parameter 1</label> <input name="txt_param_1"
+                               type="text" class="form-control" id="txt_param_1"
+                               style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 1">
+                        </div>
+                   
+                       <div class="form-group">
+                           <label for="txt_param_2">Enter Parameter 2</label> <input name="txt_param_2"
+                               type="text" class="form-control" id="txt_param_2"
+                               style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 2">
+                       </div>
+                          
+                       <div class="form-group">
+                           <label for="txt_param_3">Enter Parameter 3</label> <input name="txt_param_3"
+                               type="text" class="form-control" id="txt_param_3"
+                               style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 3">
+                       </div>
+               
+                       <div class="form-group">
+                           <label for="txt_param_4">Enter Parameter 4</label> <input name="txt_param_4"
+                               type="text" class="form-control" id="txt_param_4"
+                               style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 4">
+                       </div>
+            
+                       <div class="form-group">
+                        <label for="txt_param_5">Enter Parameter 5</label> <input name="txt_param_5"
+                            type="text" class="form-control" id="txt_param_5"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 5">
+                        </div>
+                       <div class="form-group">
+                        <label for="txt_param_6">Enter Parameter 6</label> <input name="txt_param_6"
+                            type="text" class="form-control" id="txt_param_6"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 6">
+                        </div>
+                       <div class="form-group">
+                        <label for="txt_param_7">Enter Parameter 7</label> <input name="txt_param_7"
+                            type="text" class="form-control" id="txt_param_7"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 7">
+                        </div>
+                       <div class="form-group">
+                        <label for="txt_param_8">Enter Parameter 8</label> <input name="txt_param_8"
+                            type="text" class="form-control" id="txt_param_8"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 8">
+                        </div>
+                       <div class="form-group">
+                        <label for="txt_param_9">Enter Parameter 9</label> <input name="txt_param_9"
+                            type="text" class="form-control" id="txt_param_9"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 9">
+                        </div>
+                       <div class="form-group">
+                        <label for="txt_param_10">Enter Parameter 10</label> <input name="txt_param_10"
+                            type="text" class="form-control" id="txt_param_10"
+                            style="width:100%;display:flex;;font-size:18px" placeholder="Enter param 10">
+                        </div>
+                
+                        <div class="form-group text-center">
+                            <button id="btn_create" name="btn_create" style="width: 200px;height:50px;font-size:20px;" type="button" class="wm-tweet-us"  onclick="save_scale(this.id);">Add</button>
+
+                            </div>
+
+                 </div>
+             </div>
+         </div>  
+     </div>
+</div>
+</form>
+{% endblock%}
+
+{%block javascript%}
+<script type="text/javascript">
+     var form_valid=false;
+    function form_submit(e)
+    {
+        $("#overlay").show();
+        
+        var form_valid= is_form_valid();
+        if(form_valid)
+        {
+            return true;
+        }
+        else
+        {
+            $("#overlay").hide();
+            e.preventDefault();
+            return false;
+        }
+    }
+    function is_form_valid()
+    {
+        form_valid=true;
+        return form_valid;
+    }
+    function save_scale(id)
+    {
+        $('#add_scale').submit();
+    }  
+</script>
+
+{%endblock%}

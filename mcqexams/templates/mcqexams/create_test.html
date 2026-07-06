@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Exam Scheduler</title>
+    <style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+}
+
+#container {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 40px 60px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    color: #555;
+}
+
+select, input[type="text"], input[type="number"] {
+    width: calc(100% - 110px);
+    font-size: 14px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+select:focus, input[type="text"]:focus, input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.calendar-container {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: fadeIn 0.5s;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.day {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.error-text {
+    color: red;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.time div {
+    margin-bottom: 10px;
+}
+
+.next:hover {
+    background-color: #f156a3;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.next {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.next:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+</style>
+</head>
+<body>
+    <div id="container">
+        <h1>MCQ Exam</h1>
+        <div name="form1" id="form1">
+            <div class="Courses">
+                <label for="subject">Courses:</label>
+                <select name="subject" id="subject">
+                    <option value="" selected="selected">Select course</option>
+                </select>
+                <div id="subjectError" class="error"></div>
+            </div>
+            <div class="Year">
+                <label for="topic">Semester:</label>
+                <select name="topic" id="topic">
+                    <option value="" selected="selected">Please select semester first</option>
+                </select>
+                <div id="topicError" class="error"></div>
+            </div>
+            <div class="Subjects">
+                <label for="chapter">Subjects:</label>
+                <select name="chapter" id="chapter">
+                    <option value="" selected="selected">Please select subject first</option>
+                </select>
+                <div id="chapterError" class="error"></div>
+            </div>
+        </div>
+        <h2>Select Scheduled Date</h2>
+        <input type="text" id="scheduledDateInput" readonly>
+        <button id="calendarButton">Select Date</button>
+        <div id="dateError" class="error"></div>
+        <div id="calendarContainer" class="calendar-container">
+            <div class="calendar-header">
+                <span id="prevMonth">&lt;</span>
+                <span id="currentMonth"></span>
+                <span id="nextMonth">&gt;</span>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        <div class="time">
+            <h2>Set Exam Time</h2>
+            <div>
+                <label for="hour">Hour:</label>
+                <input type="number" id="hour" min="0" max="23" value="0">
+                <div id="hourError" class="error"></div>
+            </div>
+            <div>
+                <label for="minute">Minute:</label>
+                <input type="number" id="minute" min="0" max="59" value="0">
+                <div id="minuteError" class="error"></div>
+            </div>
+            <button onclick="setExamTime()">Set Exam Time</button>
+            <p id="result"></p>
+            <a href="/mcqexams/nextpage" class="next" onclick="validateForm(event)">NEXT</a>
+        </div>
+        <script>
+            var subjectObject = {
+                "MCA": {
+                    "Semester 1": ["JAVA", "DSA", "OOSE", "NT", "OSC", "OC1", "OC2"],
+                    "Semester 2": ["PYTHON", "SPM", "OT", "AIT", "ADBMS", "OC1", "OC2"],
+                    "Semester 3": ["MOBILE APPLICATION DEVELOPMENT", "DATA WAREHOUSING & DATA MINING", "SOFTWARE TESTING & QUALITY ASSURANCE", "KNOWLEDGE REPRESENTATION & ARTIFICIAL INTELLIGENCE", "CLOUD COMPUTING"],
+                    "Semester 4": ["DEVOPS", "PPM AND OB"]
+                },
+                "MBA": {
+                    "Semester 1": ["Organizational Behavior & Principles & Practices of Management", "Management Accounting", "Managerial Economics SE", "Statistical & Quantitative methods", "Legal Aspects of Business", "Basics of Marketing1", "Information Technology 2", "Managerial Communication"],
+                    "Semester 2": ["Marketing Management", "Financial Management", "Human Resource Management", "Manufacturing & Operations Management", "Materials & Logistics ManagementS", "Management Information System", "Research Methodology", "Economic Environment of Business & Environmental Management"],
+                    "Semester 3": ["Business Policy & Strategic Management", "Management Control Systems", "Specialization I", "Specialization II", "Specialization III", "Specialization IV", "Specialization V"],
+                    "Semester 4": ["Entrepreneurship Development & project Management", "International Business Management", "Current Trends in Management"]
+                }
+            }
+
+            window.onload = function() {
+                var subjectSel = document.getElementById("subject");
+                var topicSel = document.getElementById("topic");
+                var chapterSel = document.getElementById("chapter");
+                for (var x in subjectObject) {
+                    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+                }
+                subjectSel.onchange = function() {
+                    chapterSel.length = 1;
+                    topicSel.length = 1;
+                    for (var y in subjectObject[this.value]) {
+                        topicSel.options[topicSel.options.length] = new Option(y, y);
+                    }
+                }
+                topicSel.onchange = function() {
+                    chapterSel.length = 1;
+                    var z = subjectObject[subjectSel.value][this.value];
+                    for (var i = 0; i < z.length; i++) {
+                        chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+                    }
+                }
+            }
+
+            const calendarButton = document.getElementById('calendarButton');
+            const calendarContainer = document.getElementById('calendarContainer');
+            const scheduledDateInput = document.getElementById('scheduledDateInput');
+
+            calendarButton.addEventListener('click', () => {
+                calendarContainer.style.display = 'block';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target !== calendarButton && event.target.closest('.calendar-container') !== calendarContainer) {
+                    calendarContainer.style.display = 'none';
+                }
+            });
+
+            function generateCalendar(month, year) {
+                const calendar = document.getElementById('calendar');
+                const currentDate = new Date();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const firstDayOfMonth = new Date(year, month, 1).getDay();
+
+                calendar.innerHTML = '';
+
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                document.getElementById('currentMonth').textContent = monthNames[month] + ' ' + year;
+
+                const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                dayHeaders.forEach(header => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.textContent = header;
+                    calendar.appendChild(dayHeader);
+                });
+
+                for (let i = 0; i < firstDayOfMonth; i++) {
+                    const emptyDay = document.createElement('div');
+                    calendar.appendChild(emptyDay);
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.textContent = day;
+                    dayElement.classList.add('day');
+                    dayElement.addEventListener('click', () => {
+                        const selectedDate = new Date(year, month, day);
+                        scheduledDateInput.value = selectedDate.toLocaleDateString('en-US');
+                        calendarContainer.style.display = 'none';
+                    });
+                    calendar.appendChild(dayElement);
+                }
+            }
+
+            const today = new Date();
+            let currentMonth = today.getMonth();
+            let currentYear = today.getFullYear();
+            generateCalendar(currentMonth, currentYear);
+
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                generateCalendar(currentMonth, currentYear);
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                generateCalendar(currentMonth, currentYear);
+            });
+
+            function setExamTime() {
+                var hour = document.getElementById("hour").value;
+                var minute = document.getElementById("minute").value;
+
+                var formattedHour = hour < 10 ? "0" + hour : hour;
+                var formattedMinute = minute < 10 ? "0" + minute : minute;
+
+                var result = "Exam time set to: " + formattedHour + ":" + formattedMinute;
+
+                document.getElementById("result").innerText = result;
+            }
+
+            function validateForm(event) {
+                let isValid = true;
+
+                const subject = document.getElementById('subject').value;
+                const topic = document.getElementById('topic').value;
+                const chapter = document.getElementById('chapter').value;
+                const date = document.getElementById('scheduledDateInput').value;
+                const hour = document.getElementById('hour').value;
+                const minute = document.getElementById('minute').value;
+
+                if (subject === "") {
+                    document.getElementById('subjectError').innerText = "Please select a course.";
+                    isValid = false;
+                } else {
+                    document.getElementById('subjectError').innerText = "";
+                }
+
+                if (topic === "") {
+                    document.getElementById('topicError').innerText = "Please select a semester.";
+                    isValid = false;
+                } else {
+                    document.getElementById('topicError').innerText = "";
+                }
+
+                if (chapter === "") {
+                    document.getElementById('chapterError').innerText = "Please select a subject.";
+                    isValid = false;
+                } else {
+                    document.getElementById('chapterError').innerText = "";
+                }
+
+                if (date === "") {
+                    document.getElementById('dateError').innerText = "Please select a date.";
+                    isValid = false;
+                } else {
+                    document.getElementById('dateError').innerText = "";
+                }
+
+                if (hour < 0 || hour > 23) {
+                    document.getElementById('hourError').innerText = "Please enter a valid hour (0-23).";
+                    isValid = false;
+                } else {
+                    document.getElementById('hourError').innerText = "";
+                }
+
+                if (minute < 0 || minute > 59) {
+                    document.getElementById('minuteError').innerText = "Please enter a valid minute (0-59).";
+                    isValid = false;
+                } else {
+                    document.getElementById('minuteError').innerText = "";
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>
