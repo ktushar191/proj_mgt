@@ -51,7 +51,11 @@ def userlogin(request):
                 
         except Exception as ex:
             messages.add_message(request, messages.ERROR, str(ex))
-            return HttpResponse(render(request, 'accounts/login1.html', context))
+            # return HttpResponse(render(request, 'accounts/login1.html', context))
+             return HttpResponse(
+            "<pre>" + traceback.format_exc() + "</pre>",
+            status=500
+        )
     return HttpResponse(render(request, 'accounts/login.html', context))
 
 
