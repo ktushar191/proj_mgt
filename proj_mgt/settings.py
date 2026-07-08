@@ -20,16 +20,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-24_ty8omi9g(n8*ns28hm_)^jxvl3k@igw!f^s947r!*qm4y(c'
+#SECRET_KEY = 'django-insecure-24_ty8omi9g(n8*ns28hm_)^jxvl3k@igw!f^s947r!*qm4y(c'
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-24_ty8omi9g(n8*ns28hm_)^jxvl3k@igw!f^s947r!*qm4y(c"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == "True"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-       ".onrender.com",
-        "localhost",
-        "127.0.0.1",
-    ]
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1",
+    "*"
+]
 DB_CREDENTIALS={
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'iims_db',
@@ -113,12 +118,24 @@ WSGI_APPLICATION = 'proj_mgt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': DB_CREDENTIALS['ENGINE'],
-        'NAME': DB_CREDENTIALS['NAME'],
-        'USER': DB_CREDENTIALS['USER'],
-        'PASSWORD': DB_CREDENTIALS['PASSWORD'],
-        'HOST':DB_CREDENTIALS['HOST'],
-        'PORT':DB_CREDENTIALS['PORT'],
+        # 'ENGINE': DB_CREDENTIALS['ENGINE'],
+        # 'NAME': DB_CREDENTIALS['NAME'],
+        # 'USER': DB_CREDENTIALS['USER'],
+        # 'PASSWORD': DB_CREDENTIALS['PASSWORD'],
+        # 'HOST':DB_CREDENTIALS['HOST'],
+        # 'PORT':DB_CREDENTIALS['PORT'],
+
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
+        "OPTIONS": {
+            "ssl": {
+                "ca": "/etc/ssl/certs/ca-certificates.crt",
+            }
+        },
        
     }
 }
