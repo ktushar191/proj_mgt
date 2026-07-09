@@ -14,22 +14,7 @@ from feedback import feedbackhelper
 import traceback
 
 def userlogin(request):
-    try:
-        context = {}
-
-        # user_status = commonhelper.get_login_user_common_context(request.user, context)
-
-        if request.method == "GET":
-            return render(request, "accounts/login.html", {})
-
-        txtusername = request.POST["txtusername"]
-        txtpassword = request.POST["txtpassword"]
-
-        return HttpResponse("POST reached successfully")
-
-    except Exception:
-        print(traceback.format_exc(), flush=True)
-        raise
+    return render(request, "accounts/login.html")
 
 # def userlogin(request):
 #     context={}
