@@ -1,12 +1,112 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  
 <head>
-    <title>Base Test</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>IIMS</title>
 
-{% block content %}
-{% endblock %}
+    <!-- Css Files -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/flaticon.css" rel="stylesheet">
+    <link href="/static/css/slick-slider.css" rel="stylesheet">
+    <link href="/static/css/prettyphoto.css" rel="stylesheet">
+    <link href="/static/build/mediaelementplayer.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+    <link href="/static/css/color.css" rel="stylesheet">
+    <link href="/static/css/color-two.css" rel="stylesheet">
+    <link href="/static/css/color-three.css" rel="stylesheet">
+    <link href="/static/css/color-four.css" rel="stylesheet">
+    <link href="/static/css/responsive.css" rel="stylesheet">
+    <link href="/static/css/tk.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    
+    {% block stylesheet %}{% endblock %}
+  </head>
+
+<body>
+    <div class="overlay" id="overlay" style="display: none;">
+        <figure><img id="loading-img" src="/static/images/loader/l13.gif"; alt=""/></figure>
+    </div>
+    <div class="wm-main-wrapper">
+        <div>
+			 <div class="container">
+			    <div class="row">
+				    <div class="col-md-1">
+                        <figure><img src="/static/images/Yashaswi logo.png" width="400px" alt=""> </figure>
+				    </div>
+                    <div class="col-md-10">
+                            <span style="text-align:center"><h4 class="wm-color-three">Yashaswi Education Society’s </h4></span>
+                            <span style="text-align:center"><h2 class="wm-color-three">INTERNATIONAL INSTITUTE OF MANAGEMENT SCIENCE, CHINCHWAD, PUNE </h1> </span>
+                    </div>
+                    <div class="col-md-1">
+                        <figure><img src="/static/images/IIMS Logo.png" width="120px" alt=""> </figure>
+                    </div>
+			    </div>
+			</div>    
+		</div>
+       
+		<header id="wm-header" class="wm-header-one">
+            
+			<div class="wm-topstrip">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                           
+                            <ul class="wm-stripinfo">
+                                <li><i class="wmicon-location"></i> S.No. 169/1/A, Chinchwad, Opposite to Elpro International, Pune, Maharashtra, 411033</li>
+                                <li><i class="wmicon-technology4"></i> 7350014512 / 7350014526</li>
+                                <li><i class="wmicon-clock2"></i>www.iims.ac.in</li>
+                            </ul>
+                            <ul class="wm-adminuser-section" style="display: none;">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#ModalLogin">login</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contact</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#" class="wm-search-btn" data-toggle="modal" data-target="#ModalSearch"><i class="wmicon-search"></i></a>
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</header>
+    </div>
+    
+  <!-- from herre -->
+
+    {% block content %}   {% endblock %}
+    
+    <!-- till here -->
+		
+    <!-- jQuery (necessary for JavaScript plugins) -->
+	<script type="text/javascript" src="/static/script/jquery.js"></script>
+	<script type="text/javascript" src="/static/script/modernizr.js"></script>
+    <script type="text/javascript" src="/static/script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.prettyphoto.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.countdown.min.js"></script>
+    <script type="text/javascript" src="/static/script/fitvideo.js"></script>
+    <script type="text/javascript" src="/static/script/skills.js"></script>
+    <script type="text/javascript" src="/static/script/slick.slider.min.js"></script>
+    <script type="text/javascript" src="/static/script/waypoints-min.js"></script>
+    <script type="text/javascript" src="/static/build/mediaelement-and-player.min.js"></script>
+    <script type="text/javascript" src="/static/script/isotope.min.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/static/https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="/static/script/functions.js"></script>
+    <script type="text/javascript" src="/static/js/tk/tk.js"></script>
+    <script type="text/javascript" src="/static/js/tk/validations.js"></script>
+    <script type="text/javascript" src="/static/js/tk/check_validations.js"></script>
+  
+    {% block javascript %}{% endblock %}
+    
 
 </body>
 </html>

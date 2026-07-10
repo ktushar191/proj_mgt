@@ -125,18 +125,13 @@ DATABASES = {
         # 'HOST':DB_CREDENTIALS['HOST'],
         # 'PORT':DB_CREDENTIALS['PORT'],
 
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-        "OPTIONS": {
-            "ssl": {
-                "ca": "/etc/ssl/certs/ca-certificates.crt",
-            }
-        },
-       
+       'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME', DB_CREDENTIALS['NAME']),
+        'USER': os.environ.get('DB_USER', DB_CREDENTIALS['USER']),
+        'PASSWORD': os.environ.get('DB_PASSWORD', DB_CREDENTIALS['PASSWORD']),
+        'HOST': os.environ.get('DB_HOST', DB_CREDENTIALS['HOST']),
+        'PORT': os.environ.get('DB_PORT', DB_CREDENTIALS['PORT']),
+              
     }
 }
 
